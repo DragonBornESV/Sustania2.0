@@ -13,6 +13,7 @@ public class HitBox {
     boolean collisionBottom;
     boolean collisionLeft;
     boolean collisionRight;
+    boolean triggered;
     
     public HitBox(int topLeftX, int topLeftY, int width, int height){
         this.topLeftX = topLeftX;
@@ -55,4 +56,13 @@ public class HitBox {
         }
         
     }
+    public boolean checkIfTriggered(){
+        if (collisionLeft || collisionRight || collisionTop || collisionBottom){
+            triggered = true;
+        } else {
+            triggered = false;
+        }
+        return triggered;
+    }
+    
 }

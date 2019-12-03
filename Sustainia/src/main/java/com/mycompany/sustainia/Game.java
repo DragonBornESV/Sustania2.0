@@ -2,17 +2,18 @@ package com.mycompany.sustainia;
 
 public class Game {
     
-    Room streets = new Room("Streets", 432, 532);
-    Room townHall = new Room("Town Hall", 128, 209);
-    Room nonsustainableHouse = new Room("NSH", 240, 104);
-    Room policeStation = new Room("Police Station", 16, 128);
-    Room bank = new Room("Bank", 16, 104);
-    Room clothingFactory = new Room("Colothing Factory", 16, 104);
-    Room school = new Room("School", 128, 32);
-    Room park = new Room("Park", 240, 104);
-    Room recyclingStation = new Room("Recycling Station", 16, 128);
+    Room streets = new Room("Streets", 432, 532, new HitBox[]{new HitBox(0,0,10,10)});
+    Room townHall = new Room("Town Hall", 128, 209, 
+            new HitBox[]{new HitBox(0,0,256*4,44*4), new HitBox(-10,44*4,10,165*4), new HitBox(0,187*4,96*4,22*4), new HitBox(160*4,187*4,96*4,22*4), new HitBox(256*4, 44*4, 10, 165*4)});
+    Room nonsustainableHouse = new Room("NSH", 240, 104, new HitBox[]{new HitBox(0,0,10,10)});
+    Room policeStation = new Room("Police Station", 16, 128, new HitBox[]{new HitBox(0,0,10,10)});
+    Room bank = new Room("Bank", 16, 104, new HitBox[]{new HitBox(0,0,10,10)});
+    Room clothingFactory = new Room("Colothing Factory", 16, 104, new HitBox[]{new HitBox(0,0,10,10)});
+    Room school = new Room("School", 128, 32, new HitBox[]{new HitBox(0,0,10,10)});
+    Room park = new Room("Park", 240, 104, new HitBox[]{new HitBox(0,0,10,10)});
+    Room recyclingStation = new Room("Recycling Station", 16, 128, new HitBox[]{new HitBox(0,0,10,10)});
         
-    Room currentRoom = streets;
+    Room currentRoom = townHall;
     
     HitBox testBox = new HitBox(546*4, 527*4, 32*4, 22*4);
     HitBox[] hitboxArray = {testBox};
@@ -54,11 +55,11 @@ public class Game {
     
     
     public int collisionDetectionX(int dx){
-        for (int i = 0; i < hitboxArray.length; i++) {
-            if (hitboxArray[i].collisionLeft){
+        for (int i = 0; i < currentRoom.hitboxesInRoom.length; i++) {
+            if (currentRoom.hitboxesInRoom[i].collisionLeft){
             dx = 1;
             }
-            if (hitboxArray[i].collisionRight){
+            if (currentRoom.hitboxesInRoom[i].collisionRight){
                 dx = -1;
             }
         }
@@ -66,11 +67,11 @@ public class Game {
     }
     
     public int collisionDetectionY(int dy){
-        for (int i = 0; i < hitboxArray.length; i++) {
-            if (hitboxArray[i].collisionTop){
+        for (int i = 0; i < currentRoom.hitboxesInRoom.length; i++) {
+            if (currentRoom.hitboxesInRoom[i].collisionTop){
             dy = 1;
             }
-            if (hitboxArray[i].collisionBottom){
+            if (currentRoom.hitboxesInRoom[i].collisionBottom){
                 dy = -1;
             }
         }
@@ -78,11 +79,9 @@ public class Game {
     }
     
     public void collisionWithObjects(int x, int y){
-        if (currentRoom.equals(streets)){
-            testBox.collisionWithObject(x, y);
-            
-        } else {
-            return;
+        for (int i = 0; i < currentRoom.hitboxesInRoom.length; i++){
+            currentRoom.hitboxesInRoom[i].collisionWithObject(x, y);
+            // her tjekkes der for collision med NPS'er ved at gikke på <hitbox>.triggerd
         }
     }
     
