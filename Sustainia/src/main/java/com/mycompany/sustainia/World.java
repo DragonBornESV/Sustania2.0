@@ -13,8 +13,8 @@ public class World {
     
     public static int gameScreenWidth = 600;
     public static int gameScreenHeight = 600;
-    public static int gameX = -483*4;
-    public static int gameY = -537*4;
+    public static int gameX = 483*4;
+    public static int gameY = 537*4;
     
     public static int characterX = (gameScreenWidth/2)-characterWidth/2;
     public static int characterY = (gameScreenHeight/2)-characterHeight/2;

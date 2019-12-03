@@ -13,7 +13,7 @@ public class Game {
     Room park = new Room("Park", 240, 104, new HitBox[]{new HitBox(0,0,10,10)});
     Room recyclingStation = new Room("Recycling Station", 16, 128, new HitBox[]{new HitBox(0,0,10,10)});
         
-    Room currentRoom = townHall;
+    Room currentRoom = streets;
     
     HitBox testBox = new HitBox(546*4, 527*4, 32*4, 22*4);
     HitBox[] hitboxArray = {testBox};
