@@ -35,6 +35,28 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
+import java.lang.Object;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Control;
+
+import javafx.scene.control.Labeled;
+import javafx.scene.control.ButtonBase;
+import javafx.scene.control.Button;
+import javafx.scene.text.Text;
+
+import javafx.scene.Parent;
+
+
+import javafx.scene.layout.ConstraintsBase;
+import javafx.scene.layout.ColumnConstraints;
+
 // import java.awt.event.KeyEvent;
 
 /**
@@ -60,6 +82,7 @@ public class App extends Application {
     
     @Override
     public void start(Stage stage) throws FileNotFoundException {
+
         // Creates a new image, from the selected parth on computer
         FileInputStream inputCharacter = new FileInputStream("img\\ch.png");
         Image characterImage = new Image(inputCharacter,1280,1280,true,false);
@@ -79,8 +102,8 @@ public class App extends Application {
         this.streetTop = new ImageView(streetsTopImage);
         
         //Setting the position of the image 
-        this.rooms.setX(World.gameX);
-        this.rooms.setY(World.gameY);
+        this.rooms.setX(0);
+        this.rooms.setY(0);
         
         this.character.setX(World.characterX);
         this.character.setY(World.characterY);
@@ -105,6 +128,13 @@ public class App extends Application {
         
         //Creating a Group object  
         Group root = new Group(this.rooms, this.character, this.streetTop);
+
+        /*
+        gridpane.add(root, 0, 0);
+        gridpane.add(text, 0, 1);
+        gridpane.getChildren().add(root);
+        gridpane.getChildren().add(text);
+        */
         
         //Creating a scene object 
         Scene scene = new Scene(root, World.gameScreenWidth, World.gameScreenHeight);
@@ -144,7 +174,6 @@ public class App extends Application {
         stage.show();
         
         characterAnimation();
-        drawRoom(game.currentRoom);
     }
     
     private void characterAnimation() {
@@ -162,7 +191,7 @@ public class App extends Application {
                     if (moving) animationTimer ++;
 
                     moveCharacter(moving, goNorth, goSouth, goEast, goWest, dx, dy, animationTimer, facing);
-
+                    drawRoom(game.currentRoom);
                 }
             };
 
@@ -177,8 +206,8 @@ public class App extends Application {
         World.gameX += dx;
         World.gameY += dy;
         
-        this.rooms.setX(World.gameX);
-        this.rooms.setY(World.gameY);
+        //this.rooms.setX(World.gameX);
+        //this.rooms.setY(World.gameY);
         this.streetTop.setX(World.gameX);
         this.streetTop.setY(World.gameY);
         
@@ -217,11 +246,11 @@ public class App extends Application {
     }
     private void drawRoom(Room currentRoom){
         if (currentRoom.equals(game.streets)){
-            World.gameX = -game.currentRoom.spawnPX*4 +World.characterX -64;
-            World.gameY = -game.currentRoom.spawnPY*4 + World.characterY;
-            this.rooms.setFitWidth(1120*4);
-            this.rooms.setFitHeight(770*4);
-            rooms.setViewport(new Rectangle2D(0, 0, 1120*4, 770*4));
+            //World.gameX = -game.currentRoom.spawnPX*4 +World.characterX -64;
+            //World.gameY = -game.currentRoom.spawnPY*4 + World.characterY;
+            this.rooms.setFitWidth(600);
+            this.rooms.setFitHeight(600);
+            rooms.setViewport(new Rectangle2D(World.gameX, World.gameY, 600, 600));
         } else {
             World.gameX = -game.currentRoom.spawnPX*4 + World.gameScreenWidth/2;
             World.gameY = -game.currentRoom.spawnPY*4 + World.gameScreenHeight/2 +64;
