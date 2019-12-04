@@ -182,10 +182,10 @@ public class App extends Application {
                 public void handle(long now) {
                     int dx = 0, dy = 0;
 
-                    if      (goNorth) {dy += World.characterMovementSpeedV; facing = 0; moving = true;}
-                    else if (goSouth) {dy -= World.characterMovementSpeedV; facing = 1; moving = true;}
-                    else if (goEast)  {dx -= World.characterMovementSpeedH; facing = 2; moving = true;}
-                    else if (goWest)  {dx += World.characterMovementSpeedH; facing = 3; moving = true;}
+                    if      (goNorth) {dy -= World.characterMovementSpeedV; facing = 0; moving = true;}
+                    else if (goSouth) {dy += World.characterMovementSpeedV; facing = 1; moving = true;}
+                    else if (goEast)  {dx += World.characterMovementSpeedH; facing = 2; moving = true;}
+                    else if (goWest)  {dx -= World.characterMovementSpeedH; facing = 3; moving = true;}
                     else    { moving = false;}
 
                     if (moving) animationTimer ++;
@@ -246,11 +246,7 @@ public class App extends Application {
     }
     private void drawRoom(Room currentRoom){
         if (currentRoom.equals(game.streets)){
-            //World.gameX = -game.currentRoom.spawnPX*4 +World.characterX -64;
-            //World.gameY = -game.currentRoom.spawnPY*4 + World.characterY;
-            this.rooms.setFitWidth(600);
-            this.rooms.setFitHeight(600);
-            rooms.setViewport(new Rectangle2D(World.gameX, World.gameY, 600, 600));
+            rooms.setViewport(new Rectangle2D(World.gameX, World.gameY, World.gameScreenWidth, World.gameScreenHeight));
         } else {
             World.gameX = -game.currentRoom.spawnPX*4 + World.gameScreenWidth/2;
             World.gameY = -game.currentRoom.spawnPY*4 + World.gameScreenHeight/2 +64;
