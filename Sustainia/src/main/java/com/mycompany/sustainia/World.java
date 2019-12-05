@@ -24,8 +24,8 @@ public class World {
     public static int gameY = 0*scale;
     
     // here the placment of the main character is defined.
-    public static int characterX = (gameScreenWidth/2)-characterWidth/2;
-    public static int characterY = (gameScreenHeight/2)-characterHeight/2;
+    public static int characterX = gameScreenWidth/2;
+    public static int characterY = gameScreenHeight/2;
     
     /*
      * here the width and hight of the roomes are defined.

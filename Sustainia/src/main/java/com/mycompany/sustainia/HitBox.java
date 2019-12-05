@@ -7,7 +7,11 @@ public class HitBox {
     int width;
     int height;
    
-    int[] characterHitbox = {World.characterX +24, World.characterY, World.characterX + World.characterWidth -24, World.characterY + World.characterHeight};
+    // maby træk 22 fra i stedet for 7 ved y nr. 1
+    int[] characterHitbox = {World.characterX -9*World.scale,
+                             World.characterY +6*World.scale,
+                             World.characterX + World.characterWidth/2 -7*World.scale,
+                             World.characterY + World.characterHeight/2 -1*World.scale};
     
     boolean collisionTop;
     boolean collisionBottom;
@@ -24,28 +28,40 @@ public class HitBox {
     
     
     public void collisionWithObject(int x, int y){
-        if ((characterHitbox[0] > topLeftX + x && characterHitbox[0] < topLeftX + width + x) || (characterHitbox[2] > topLeftX + x && characterHitbox[2] < topLeftX + width + x)){
-            if (characterHitbox[3] > topLeftY + y && characterHitbox[3] < topLeftY + y + 24){
+        int TLX = topLeftX -x;
+        int TLY = topLeftY -y;
+        int w   = TLX + width*World.scale;
+        int h   = TLY + height*World.scale;
+        
+        if ((characterHitbox[2] > TLX && characterHitbox[2] < w) ||
+            (characterHitbox[0] > TLX && characterHitbox[0] < w)){
+            
+            if (characterHitbox[3] > TLY && characterHitbox[3] < TLY +6*World.scale){
                 collisionTop = true;
             } else {
                 collisionTop = false;
             }
-            if (characterHitbox[3] -24 < topLeftY + height + y && characterHitbox[3] > topLeftY + height + y - 24) {
+            if (characterHitbox[1] < h && characterHitbox[1] > h -6*World.scale) {
                 collisionBottom = true;
             } else {
                 collisionBottom = false;
             }
+            
         } else {
             collisionTop = false;
             collisionBottom = false;
-            }
-        if ((characterHitbox[3] > topLeftY + y && characterHitbox[3] < topLeftY + height + y) || (characterHitbox[1] < topLeftY + y && characterHitbox[1] > topLeftY + height + y)){
-            if (characterHitbox[2] > topLeftX + x && characterHitbox[2] < topLeftX + x + 24){
+        }
+        
+        
+        if ((characterHitbox[3] > TLY && characterHitbox[3] < h) ||
+            (characterHitbox[1] > TLY && characterHitbox[1] < h)){
+            
+            if (characterHitbox[2] > TLX && characterHitbox[2] < TLX +6*World.scale){
                 collisionLeft = true;
             } else {
                 collisionLeft = false;
             }
-            if (characterHitbox[0] < topLeftX + width + x && characterHitbox[0] > topLeftX + width + x - 24){
+            if (characterHitbox[0] < w && characterHitbox[0] > w -6*World.scale){
                 collisionRight = true;
             } else {
                 collisionRight = false;
@@ -54,8 +70,9 @@ public class HitBox {
             collisionLeft = false;
             collisionRight = false;
         }
-        
     }
+    
+    
     public boolean checkIfTriggered(){
         if (collisionLeft || collisionRight || collisionTop || collisionBottom){
             triggered = true;

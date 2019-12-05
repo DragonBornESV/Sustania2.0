@@ -137,8 +137,8 @@ public class App extends Application {
         this.rooms.setX(imageX);
         this.rooms.setY(imageY);
         
-        this.character.setX(World.characterX);
-        this.character.setY(World.characterY);
+        this.character.setX(World.characterX -World.characterWidth/2);
+        this.character.setY(World.characterY -World.characterHeight/2);
         
         this.streetTop.setX(World.gameX);
         this.streetTop.setY(World.gameY);
@@ -240,14 +240,14 @@ public class App extends Application {
         
         World.gameX += dx;
         World.gameY += dy;
-        
-        //this.rooms.setX(World.gameX);
-        //this.rooms.setY(World.gameY);
+
         this.streetTop.setX(World.gameX);
         this.streetTop.setY(World.gameY);
         
         // The games cordinants are needet to position the collision.... If this function is not called, the game will run without collision.
-        // game.collisionWithObjects(World.gameX, World.gameY);
+        game.collisionWithObjects(World.gameX, World.gameY);
+        System.out.println(World.gameX + World.gameScreenWidth/2);
+        System.out.println(World.gameY + World.gameScreenHeight/2);
         
         // character_animation
         if (moving) {

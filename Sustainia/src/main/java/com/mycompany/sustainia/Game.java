@@ -3,8 +3,7 @@ package com.mycompany.sustainia;
 public class Game {
     
     Room streets = new Room("Streets", 432, 532, new HitBox[]{new HitBox(0,0,10,10)});
-    Room townHall = new Room("Town Hall", 128, 209, 
-            new HitBox[]{new HitBox(0,0,256*4,44*4), new HitBox(-10,44*4,10,165*4), new HitBox(0,187*4,96*4,22*4), new HitBox(160*4,187*4,96*4,22*4), new HitBox(256*4, 44*4, 10, 165*4)});
+    Room townHall = new Room("Town Hall", 128, 209,new HitBox[]{new HitBox(0,0,256,44)});
     Room nonsustainableHouse = new Room("NSH", 240, 104, new HitBox[]{new HitBox(0,0,10,10)});
     Room policeStation = new Room("Police Station", 16, 128, new HitBox[]{new HitBox(0,0,10,10)});
     Room bank = new Room("Bank", 16, 104, new HitBox[]{new HitBox(0,0,10,10)});
@@ -13,7 +12,7 @@ public class Game {
     Room park = new Room("Park", 240, 104, new HitBox[]{new HitBox(0,0,10,10)});
     Room recyclingStation = new Room("Recycling Station", 16, 128, new HitBox[]{new HitBox(0,0,10,10)});
         
-    Room currentRoom = bank;
+    Room currentRoom = townHall;
     
     HitBox testBox = new HitBox(546*4, 527*4, 32*4, 22*4);
     HitBox[] hitboxArray = {testBox};
@@ -57,10 +56,10 @@ public class Game {
     public int collisionDetectionX(int dx){
         for (int i = 0; i < currentRoom.hitboxesInRoom.length; i++) {
             if (currentRoom.hitboxesInRoom[i].collisionLeft){
-            dx = 1;
+            dx = -1;
             }
             if (currentRoom.hitboxesInRoom[i].collisionRight){
-                dx = -1;
+                dx = 1;
             }
         }
         return dx;
@@ -69,10 +68,10 @@ public class Game {
     public int collisionDetectionY(int dy){
         for (int i = 0; i < currentRoom.hitboxesInRoom.length; i++) {
             if (currentRoom.hitboxesInRoom[i].collisionTop){
-            dy = 1;
+            dy = -1;
             }
             if (currentRoom.hitboxesInRoom[i].collisionBottom){
-                dy = -1;
+                dy = 1;
             }
         }
         return dy;
