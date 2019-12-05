@@ -50,6 +50,7 @@ import javafx.scene.control.Labeled;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
+import javafx.scene.text.Font;
 
 import javafx.scene.Parent;
 
@@ -160,16 +161,18 @@ public class App extends Application {
         
         //Creating a Group object  
         Group root = new Group(this.background, this.rooms, this.character);
-
-        /*
+        
+        Text text = new Text("  baby Yoda \n  will save \n  us all");
+        text.setFont(new Font(50));
+        
+        GridPane gridpane = new GridPane();
+        gridpane.getColumnConstraints().add(new ColumnConstraints(601));
+        gridpane.getColumnConstraints().add(new ColumnConstraints(300));
         gridpane.add(root, 0, 0);
-        gridpane.add(text, 0, 1);
-        gridpane.getChildren().add(root);
-        gridpane.getChildren().add(text);
-        */
+        gridpane.add(text, 1, 0);
         
         //Creating a scene object 
-        Scene scene = new Scene(root, World.gameScreenWidth, World.gameScreenHeight);
+        Scene scene = new Scene(gridpane, World.gameScreenWidth+301, World.gameScreenHeight);
         
 // KEYS pressed
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -318,19 +321,18 @@ public class App extends Application {
             } else {
                 rectWidth = World.gameScreenWidth;       
             }
-            this.rooms.setFitWidth(rectWidth);
             
             if (World.roomHeight -World.gameY < World.gameScreenHeight){
                 rectHeight = World.roomHeight - World.gameY;
             } else {
                 rectHeight = World.gameScreenHeight;
             }
-            this.rooms.setFitHeight(rectHeight);
         }
         
         if (World.gameX < 0) {
             rectX = roomX;
             imageX = -World.gameX;
+            rectWidth = World.gameScreenWidth + World.gameX;
         } else {
             rectX = roomX + World.gameX;
             imageX = 0;
@@ -338,6 +340,7 @@ public class App extends Application {
         if (World.gameY < 0) {
             rectY = roomY;
             imageY = -World.gameY;
+            rectHeight = World.gameScreenHeight + World.gameY;
         } else {
             rectY = roomY + World.gameY;
             imageY = 0;
@@ -345,11 +348,12 @@ public class App extends Application {
 
         rooms.setViewport(new Rectangle2D(rectX, rectY, rectWidth, rectHeight));
         
+        this.rooms.setFitWidth(rectWidth);
+        this.rooms.setFitHeight(rectHeight);
         this.rooms.setX(imageX);
         this.rooms.setY(imageY);
         
     }
-    
     
 
     public static void runApp(String[] args) {
