@@ -64,17 +64,37 @@ import javafx.scene.layout.ColumnConstraints;
  */
 public class App extends Application {
     Game game = new Game();
-  //  Collision col = new Collision(wo);
-    
-    int cW = 320;
-    int cH = 320;
+
     boolean goNorth = false;
     boolean goSouth = false;
     boolean goEast  = false;
     boolean goWest  = false;
     boolean moving  = false;
+    
     int facing = 0;
     int animationTimer = 0;
+    
+    /*
+     * the following variables defines the rectangle, witch the rooms are maped to.
+     * Depending on the room, the starting position of the rectangels X and Y cordinats need to be difrent, since all of the rooms are lacated on the same image.
+     */
+    int rectX;
+    int rectY;
+    int rectWidth;
+    int rectHeight;
+    
+    // roomX and roomY are the variables, that are yosed by each room to determen where on the "room" image their upper left corner is located.
+    int roomX;
+    int roomY;
+    
+    /*
+     * The variabels imageX and imageY, defines where from the images left corner is drawn.
+     * If the character nears the left ore upper barrier of the current room, the point of where the image is drawn needs to change to acomidate.
+     */
+    int imageX = 0;
+    int imageY = 0;
+    
+    private ImageView background;
     private ImageView rooms;
     private ImageView streetTop;
     private ImageView character;
@@ -82,28 +102,39 @@ public class App extends Application {
     
     @Override
     public void start(Stage stage) throws FileNotFoundException {
+        
+        // black background image
+        FileInputStream inputBackground = new FileInputStream("img\\background.png");
+        Image backgroundImage = new Image(inputBackground, 600, 600, true, false);
 
         // Creates a new image, from the selected parth on computer
         FileInputStream inputCharacter = new FileInputStream("img\\ch.png");
-        Image characterImage = new Image(inputCharacter,1280,1280,true,false);
+        Image characterImage = new Image(inputCharacter,128*World.scale,128*World.scale,true,false);
         
     // Streets
         FileInputStream inputRooms = new FileInputStream("img\\rooms.png");
-        Image roomsImage = new Image(inputRooms,1120*4,1188*4,true,false);
+        Image roomsImage = new Image(inputRooms,1120*World.scale,1188*World.scale,true,false);
+        
         FileInputStream inputStreetsTop = new FileInputStream("img\\street_top.png");
         Image streetsTopImage = new Image(inputStreetsTop,1120*4,770*4,true,false);
         
         
         //Setting the image view
+        this.background = new ImageView(backgroundImage);
         this.rooms = new ImageView(roomsImage);
-        rooms.setViewport(new Rectangle2D(0, 0, 1120*4, 770*4));
         this.character = new ImageView(characterImage);
-        character.setViewport(new Rectangle2D(0, 0, cW, cH));
+        character.setViewport(new Rectangle2D(0, 0, World.characterWidth, World.characterHeight));
         this.streetTop = new ImageView(streetsTopImage);
         
         //Setting the position of the image 
-        this.rooms.setX(0);
-        this.rooms.setY(0);
+        this.background.setX(0);
+        this.background.setY(0);
+        
+        this.background.setFitWidth(World.gameScreenWidth);
+        this.background.setFitHeight(World.gameScreenHeight);
+        
+        this.rooms.setX(imageX);
+        this.rooms.setY(imageY);
         
         this.character.setX(World.characterX);
         this.character.setY(World.characterY);
@@ -112,22 +143,23 @@ public class App extends Application {
         this.streetTop.setY(World.gameY);
         
         //setting the fit height and width of the image view 
-        this.rooms.setFitWidth(1120*4);
-        this.rooms.setFitHeight(1188*4);
+        this.rooms.setFitWidth(World.gameScreenWidth);
+        this.rooms.setFitHeight(World.gameScreenHeight);
         
-        this.character.setFitWidth(cW*0.1*4);
-        this.character.setFitHeight(cH*0.1*4);
+        this.character.setFitWidth(World.characterWidth);
+        this.character.setFitHeight(World.characterHeight);
         
-        this.streetTop.setFitWidth(1120*4);
-        this.streetTop.setFitHeight(770*4);
+        this.streetTop.setFitWidth(1120);
+        this.streetTop.setFitHeight(770);
         
         //Setting the preserve ratio of the image view 
+        this.background.setPreserveRatio(true);
         this.rooms.setPreserveRatio(true);
         this.character.setPreserveRatio(true);
         this.streetTop.setPreserveRatio(true);
         
         //Creating a Group object  
-        Group root = new Group(this.rooms, this.character, this.streetTop);
+        Group root = new Group(this.background, this.rooms, this.character);
 
         /*
         gridpane.add(root, 0, 0);
@@ -211,60 +243,111 @@ public class App extends Application {
         this.streetTop.setX(World.gameX);
         this.streetTop.setY(World.gameY);
         
-        // The games cordinants are needet to position the collision
-        game.collisionWithObjects(World.gameX, World.gameY);
+        // The games cordinants are needet to position the collision.... If this function is not called, the game will run without collision.
+        // game.collisionWithObjects(World.gameX, World.gameY);
         
         // character_animation
         if (moving) {
             if (goNorth){
-                character.setViewport(new Rectangle2D(cW*(int)((at/10)%4), cH*3, cW, cH));
+                character.setViewport(new Rectangle2D(World.characterWidth*(int)((at/10)%4), World.characterHeight*3, World.characterWidth, World.characterHeight));
             }
             else if (goSouth){
-                character.setViewport(new Rectangle2D(cW*(int)((at/10)%4), cH*0, cW, cH));
+                character.setViewport(new Rectangle2D(World.characterWidth*(int)((at/10)%4), World.characterHeight*0, World.characterWidth, World.characterHeight));
             }
             else if (goEast){
-                character.setViewport(new Rectangle2D(cW*(int)((at/10)%4), cH*2, cW, cH));
+                character.setViewport(new Rectangle2D(World.characterWidth*(int)((at/10)%4), World.characterHeight*2, World.characterWidth, World.characterHeight));
             }
             else if (goWest){
-                character.setViewport(new Rectangle2D(cW*(int)((at/10)%4), cH*1, cW, cH));
+                character.setViewport(new Rectangle2D(World.characterWidth*(int)((at/10)%4), World.characterHeight*1, World.characterWidth, World.characterHeight));
             }
         } else {
             if (facing == 0){
-                character.setViewport(new Rectangle2D(0, cH*3, cW, cH));
+                character.setViewport(new Rectangle2D(0, World.characterHeight*3, World.characterWidth, World.characterHeight));
             }
             else if (facing == 1){
-                character.setViewport(new Rectangle2D(0, cH*0, cW, cH));
+                character.setViewport(new Rectangle2D(0, World.characterHeight*0, World.characterWidth, World.characterHeight));
             }
             else if (facing == 2){
-                character.setViewport(new Rectangle2D(0, cH*2, cW, cH));
+                character.setViewport(new Rectangle2D(0, World.characterHeight*2, World.characterWidth, World.characterHeight));
             }
             else if (facing == 3){
-                character.setViewport(new Rectangle2D(0, cH*1, cW, cH));
+                character.setViewport(new Rectangle2D(0, World.characterHeight*1, World.characterWidth, World.characterHeight));
             }
         }
         
     }
     private void drawRoom(Room currentRoom){
         if (currentRoom.equals(game.streets)){
-            rooms.setViewport(new Rectangle2D(World.gameX, World.gameY, World.gameScreenWidth, World.gameScreenHeight));
-        } else {
-            World.gameX = -game.currentRoom.spawnPX*4 + World.gameScreenWidth/2;
-            World.gameY = -game.currentRoom.spawnPY*4 + World.gameScreenHeight/2 +64;
-            this.rooms.setFitWidth(256*4);
-            this.rooms.setFitHeight(209*4);
-            
-            if (currentRoom.equals(game.townHall)){
-                rooms.setViewport(new Rectangle2D(0, 770*4, 256*4, 209*4));
-            } else if (currentRoom.equals(game.nonsustainableHouse)){
-                rooms.setViewport(new Rectangle2D(256*4, 770*4, 256*4, 209*4));
-            } else if (currentRoom.equals(game.park)){
-                rooms.setViewport(new Rectangle2D(512*4, 770*4, 256*4, 209*4));
-            } else if (currentRoom.equals(game.bank)){
-                rooms.setViewport(new Rectangle2D(768*4, 770*4, 256*4, 209*4));
-            } else if (currentRoom.equals(game.clothingFactory)){
-                rooms.setViewport(new Rectangle2D(0, 979*4, 256*4, 209*4));
+           roomX = 0;
+           roomY = 0;
+           
+            if (World.streetRoomWidth -World.gameX < World.gameScreenWidth){
+                rectWidth = World.streetRoomWidth - World.gameX;
+            } else {
+                rectWidth = World.gameScreenWidth;
             }
+            if (World.streetRoomHeight -World.gameY < World.gameScreenHeight){
+                rectHeight = World.streetRoomHeight - World.gameY;
+            } else {
+                rectHeight = World.gameScreenHeight;
+            }
+            
+        } else {
+            //World.gameX = game.currentRoom.spawnPX*4 + World.gameScreenWidth/2;
+            //World.gameY = game.currentRoom.spawnPY*4 + World.gameScreenHeight/2 +64;
+
+            if (currentRoom.equals(game.townHall)){
+                roomX = 0;
+                roomY = 770*World.scale;
+            } else if (currentRoom.equals(game.nonsustainableHouse)){
+                roomX = 256*World.scale;
+                roomY = 770*World.scale;
+            } else if (currentRoom.equals(game.park)){
+                roomX = 512*World.scale;
+                roomY = 770*World.scale;
+            } else if (currentRoom.equals(game.bank)){
+                roomX = 768*World.scale;
+                roomY = 770*World.scale;
+            } else if (currentRoom.equals(game.clothingFactory)){
+                roomX = 0;
+                roomY = 979*World.scale;
+            }
+            
+            if (World.roomWidth - World.gameX < World.gameScreenWidth){
+                rectWidth = World.roomWidth - World.gameX;
+            } else {
+                rectWidth = World.gameScreenWidth;       
+            }
+            this.rooms.setFitWidth(rectWidth);
+            
+            if (World.roomHeight -World.gameY < World.gameScreenHeight){
+                rectHeight = World.roomHeight - World.gameY;
+            } else {
+                rectHeight = World.gameScreenHeight;
+            }
+            this.rooms.setFitHeight(rectHeight);
         }
+        
+        if (World.gameX < 0) {
+            rectX = roomX;
+            imageX = -World.gameX;
+        } else {
+            rectX = roomX + World.gameX;
+            imageX = 0;
+        }
+        if (World.gameY < 0) {
+            rectY = roomY;
+            imageY = -World.gameY;
+        } else {
+            rectY = roomY + World.gameY;
+            imageY = 0;
+        }
+
+        rooms.setViewport(new Rectangle2D(rectX, rectY, rectWidth, rectHeight));
+        
+        this.rooms.setX(imageX);
+        this.rooms.setY(imageY);
+        
     }
     
     

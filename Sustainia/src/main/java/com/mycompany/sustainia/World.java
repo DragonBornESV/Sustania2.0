@@ -1,22 +1,38 @@
 package com.mycompany.sustainia;
 
 public class World {
+    
+    // the scale variable, defines the factor, that the pixels in the images are scaled up with.
+    public static int scale = 4;
+    
+    // here the width and hight of the charecter (in pixels) are difined.
+    public static int characterWidth = 32*scale;
+    public static int characterHeight = 32*scale;
+    
     /*
      * Because of the sudo 3d overhead prespective the horizontal and vertical movementspeed is not the same.
      * Because you view the game ad a 45 degree angle, the horizontal movmentspeed will alwayes equal sqrt((Vspeed^2)*2)) 
      */
+    public static int characterMovementSpeedV = 1*scale;
+    public static int characterMovementSpeedH = (int)1.5*scale;
     
-    public static int characterWidth = 32*4;
-    public static int characterHeight = 32*4;
-    public static int characterMovementSpeedV = 4;
-    public static int characterMovementSpeedH = 6;
-    
+    // here the starting width and hight of the game part of the screen is defined.
     public static int gameScreenWidth = 600;
     public static int gameScreenHeight = 600;
-    public static int gameX = 483*4;
-    public static int gameY = 537*4;
     
+    public static int gameX = 0*scale;
+    public static int gameY = 0*scale;
+    
+    // here the placment of the main character is defined.
     public static int characterX = (gameScreenWidth/2)-characterWidth/2;
     public static int characterY = (gameScreenHeight/2)-characterHeight/2;
     
+    /*
+     * here the width and hight of the roomes are defined.
+     * The room "streets" is the only room that doesn't share the same width and hight as all of the other rooms, and theirfore it is defined sepretly.
+     */
+    public static int roomWidth = 256*scale;
+    public static int roomHeight = 209*scale;
+    public static int streetRoomWidth = 1120*scale;
+    public static int streetRoomHeight = 770*scale;
 }
