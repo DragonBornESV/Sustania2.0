@@ -1,31 +1,21 @@
 package com.mycompany.sustainia;
 
+import java.util.ArrayList;
+
 public class Game {
     
-    Room streets = new Room("Streets", 432, 532, new HitBox[]{new HitBox(0,0,10,10)});
-    Room townHall = new Room("Town Hall", 128, 209, 
-            new HitBox[]{new HitBox(0,0,256*4,44*4), new HitBox(-10,44*4,10,165*4), new HitBox(0,187*4,96*4,22*4), new HitBox(160*4,187*4,96*4,22*4), new HitBox(256*4, 44*4, 10, 165*4)});
-    Room nonsustainableHouse = new Room("NSH", 240, 104, new HitBox[]{new HitBox(0,0,10,10)});
-    Room policeStation = new Room("Police Station", 16, 128, new HitBox[]{new HitBox(0,0,10,10)});
-    Room bank = new Room("Bank", 16, 104, new HitBox[]{new HitBox(0,0,10,10)});
-    Room clothingFactory = new Room("Colothing Factory", 16, 104, new HitBox[]{new HitBox(0,0,10,10)});
-    Room school = new Room("School", 128, 32, new HitBox[]{new HitBox(0,0,10,10)});
-    Room park = new Room("Park", 240, 104, new HitBox[]{new HitBox(0,0,10,10)});
-    Room recyclingStation = new Room("Recycling Station", 16, 128, new HitBox[]{new HitBox(0,0,10,10)});
-        
-    Room currentRoom = townHall;
-    
-    HitBox testBox = new HitBox(546*4, 527*4, 32*4, 22*4);
-    HitBox[] hitboxArray = {testBox};
-    
- // private Inventory inv;
+    private Inventory inv;
         
     public static String name;
+    Room currentRoom;
+    
+    Room streets, townHall, nonsustainableHouse, policeStation, bank, 
+            clothingFactory, school, park, recyclingStation;
     
     public Game() 
     {
         Parameter.createParameters();
-  //    inv = new Inventory();
+        inv = new Inventory();
     }
 
 
@@ -35,6 +25,32 @@ public class Game {
          *  Rooms are assigned an intro which describes where the player are at.
          *  Rooms are also assigned an exit command.
          */
+        
+        streets = new Room("Streets", 432, 532, new HitBox[]{new HitBox(0,0,10,10)});
+        townHall = new Room("Town Hall", 128, 209, 
+                new HitBox[]{new HitBox(0,0,256*4,44*4), new HitBox(-10,44*4,10,165*4), new HitBox(0,187*4,96*4,22*4), new HitBox(160*4,187*4,96*4,22*4), new HitBox(256*4, 44*4, 10, 165*4)});
+        ArrayList<Item> itemsInTownHall = new ArrayList<>();
+        Item item1 = new Item("Aluminum can", World.aluminumCanMaterialArray, 0);
+        item1.setPosition(128, 200);
+        Item item2 = new Item("Aluminum can", World.aluminumCanMaterialArray, 9);
+        item2.setPosition(0, 0);
+        itemsInTownHall.add(item1);
+        itemsInTownHall.add(item2);
+        
+        townHall.getItemsInRoom().addAll(itemsInTownHall);
+        streets.getItemsInRoom().addAll(itemsInTownHall);
+        nonsustainableHouse = new Room("NSH", 240, 104, new HitBox[]{new HitBox(0,0,10,10)});
+        policeStation = new Room("Police Station", 16, 128, new HitBox[]{new HitBox(0,0,10,10)});
+        bank = new Room("Bank", 16, 104, new HitBox[]{new HitBox(0,0,10,10)});
+        clothingFactory = new Room("Clothing Factory", 16, 104, new HitBox[]{new HitBox(0,0,10,10)});
+        school = new Room("School", 128, 32, new HitBox[]{new HitBox(0,0,10,10)});
+        park = new Room("Park", 240, 104, new HitBox[]{new HitBox(0,0,10,10)});
+        recyclingStation = new Room("Recycling Station", 16, 128, new HitBox[]{new HitBox(0,0,10,10)});
+
+        currentRoom = townHall;
+
+        HitBox testBox = new HitBox(546*4, 527*4, 32*4, 22*4);
+        HitBox[] hitboxArray = {testBox};
         
     /*    
         int[] mayorItems = new int[]{0,0,0,0,2,0,0,0,0,0};
@@ -81,10 +97,29 @@ public class Game {
     public void collisionWithObjects(int x, int y){
         for (int i = 0; i < currentRoom.hitboxesInRoom.length; i++){
             currentRoom.hitboxesInRoom[i].collisionWithObject(x, y);
-            // her tjekkes der for collision med NPS'er ved at gikke på <hitbox>.triggerd
+            // her tjekkes der for collision med NPC'er ved at kigge på <hitbox>.triggerd
         }
     }
     
+    public void pickUpItem(Item item) {
+        if (item != null) {
+            inv.getItemsInInventory().add(item);
+            currentRoom.getItemsInRoom().remove(item);
+        } else {
+            System.out.println("No item selected");
+        }
+        
+    }
+    
+    public void dropItem(Item item) {
+        if (item != null) {
+            currentRoom.getItemsInRoom().add(item);
+            inv.getItemsInInventory().remove(item);
+        } else {
+            System.out.println("No item selected");
+        }
+        
+    }
     
     public void play(){
         createRooms();
