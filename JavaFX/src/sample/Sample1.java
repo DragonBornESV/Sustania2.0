@@ -18,16 +18,28 @@ public class Sample1 {
 
     }
 
+    /**
+     * This Data type is used to reduce the amount of decimals to ".00".
+     */
+    DecimalFormat numberFormat = new DecimalFormat("#.00");
 
-     DecimalFormat numberFormat = new DecimalFormat("#.00");
-
+    /**
+     *  Every attribute for the invidiual paramters for their progressbar.
+     */
     @FXML
     private ProgressBar bar, cleanAirBar, equalityBar, greenEnergyBar, cleanWaterBar, sustainableHousingBar, cleanlinessBar, securityBar;
 
+    /**
+     * Every attribute for the inividual paramters for their display of the % percentage.
+     */
     @FXML
     private Text percentage, cleanAirPercentage, equalityPercentage, greenEnergyPercentage, cleanWaterPercentage, sustainableHousingPercentage, cleanlinessPercentage, securityPercentage;
 
-
+    /**
+     * This method is used to find the ProgressBar of a certain parameter.
+     * @param name
+     * @return - returns a ProgressBar which is used to update the parameter progress.
+     */
     public ProgressBar getProgressBar(String name){
         switch(name){
             case "City Equality":
@@ -49,6 +61,11 @@ public class Sample1 {
         }
     }
 
+    /**
+     * This method is used to find the Text Percentage of the certain parameter.
+     * @param name
+     * @return - returns a Text attribute for a certain parameter so it can update its %(percentage) value.
+     */
     public Text getText(String name){
         switch(name){
             case "City Equality":
@@ -70,7 +87,10 @@ public class Sample1 {
         }
     }
 
-
+    /**
+     * updates the all the parameters, whenever a key is pressed the method gets called.
+     * @param event
+     */
    @FXML
      void update(KeyEvent event) {
         for(Map.Entry<String, Parameter> entry : Parameter.parameterList.entrySet()) {
@@ -82,6 +102,9 @@ public class Sample1 {
 
     }
 
+    /**
+     * Updates the main parameter.
+     */
     @FXML
     void updateMainScore() {
         bar.setStyle("-fx-accent: greenyellow");
