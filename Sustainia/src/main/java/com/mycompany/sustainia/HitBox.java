@@ -7,7 +7,6 @@ public class HitBox {
     int width;
     int height;
    
-    // maby træk 22 fra i stedet for 7 ved y nr. 1
     int[] characterHitbox = {World.characterX -9*World.scale,
                              World.characterY +6*World.scale,
                              World.characterX + World.characterWidth/2 -7*World.scale,
@@ -28,8 +27,8 @@ public class HitBox {
     
     
     public void collisionWithObject(int x, int y){
-        int TLX = topLeftX -x;
-        int TLY = topLeftY -y;
+        int TLX = topLeftX*World.scale -x;
+        int TLY = topLeftY*World.scale -y;
         int w   = TLX + width*World.scale;
         int h   = TLY + height*World.scale;
         

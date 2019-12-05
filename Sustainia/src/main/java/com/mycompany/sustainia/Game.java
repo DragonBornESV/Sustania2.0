@@ -1,16 +1,52 @@
 package com.mycompany.sustainia;
 
 public class Game {
+    Room placeHolder;
     
-    Room streets = new Room("Streets", 432, 532, new HitBox[]{new HitBox(0,0,10,10)});
-    Room townHall = new Room("Town Hall", 128, 209,new HitBox[]{new HitBox(0,0,256,44)});
-    Room nonsustainableHouse = new Room("NSH", 240, 104, new HitBox[]{new HitBox(0,0,10,10)});
-    Room policeStation = new Room("Police Station", 16, 128, new HitBox[]{new HitBox(0,0,10,10)});
-    Room bank = new Room("Bank", 16, 104, new HitBox[]{new HitBox(0,0,10,10)});
-    Room clothingFactory = new Room("Colothing Factory", 16, 104, new HitBox[]{new HitBox(0,0,10,10)});
-    Room school = new Room("School", 128, 32, new HitBox[]{new HitBox(0,0,10,10)});
-    Room park = new Room("Park", 240, 104, new HitBox[]{new HitBox(0,0,10,10)});
-    Room recyclingStation = new Room("Recycling Station", 16, 128, new HitBox[]{new HitBox(0,0,10,10)});
+    Room streets = new Room("Streets", 432, 532,
+            new HitBox[]{new HitBox(0,0,10,10)},
+            new Door(new HitBox(96,209,64,10), placeHolder)
+    );
+    
+    Room townHall = new Room("Town Hall", 128, 194,
+            new HitBox[]{new HitBox(0,0,256,44), new HitBox(0,187,96,22), new HitBox(160,187,96,22), new HitBox(-10,44,10,143), new HitBox(256,44,10,143)},
+            new Door(new HitBox(96,209,64,10), streets)
+    );
+    
+    Room nonsustainableHouse = new Room("NSH", 240, 104,
+            new HitBox[]{new HitBox(0,0,10,10)},
+            new Door(new HitBox(96,209,64,10), streets)
+    );
+    
+    Room policeStation = new Room("Police Station", 16, 128,
+            new HitBox[]{new HitBox(0,0,10,10)},
+            new Door(new HitBox(96,209,64,10), streets)
+    );
+    
+    Room bank = new Room("Bank", 16, 104,
+            new HitBox[]{new HitBox(0,0,10,10)},
+            new Door(new HitBox(96,209,64,10), streets)
+    );
+    
+    Room clothingFactory = new Room("Colothing Factory", 16, 104,
+            new HitBox[]{new HitBox(0,0,10,10)},
+            new Door(new HitBox(96,209,64,10), streets)
+    );
+    
+    Room school = new Room("School", 128, 32,
+            new HitBox[]{new HitBox(0,0,10,10)},
+            new Door(new HitBox(96,209,64,10), streets)
+    );
+    
+    Room park = new Room("Park", 240, 104,
+            new HitBox[]{new HitBox(0,0,10,10)},
+            new Door(new HitBox(96,209,64,10), streets)
+    );
+    
+    Room recyclingStation = new Room("Recycling Station", 16, 128,
+            new HitBox[]{new HitBox(0,0,10,10)},
+            new Door(new HitBox(96,209,64,10), streets)
+    );
         
     Room currentRoom = townHall;
     
@@ -82,6 +118,14 @@ public class Game {
             currentRoom.hitboxesInRoom[i].collisionWithObject(x, y);
             // her tjekkes der for collision med NPS'er ved at gikke på <hitbox>.triggerd
         }
+    }
+    public Room newRoom(Room room){
+        if (currentRoom.door.doorFrame.checkIfTriggered()){
+            room = currentRoom.door.leadsTo;
+        } else {
+            room = currentRoom;
+        }
+        return room;
     }
     
     

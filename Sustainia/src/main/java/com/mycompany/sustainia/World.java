@@ -20,12 +20,16 @@ public class World {
     public static int gameScreenWidth = 600;
     public static int gameScreenHeight = 600;
     
-    public static int gameX = 0*scale;
-    public static int gameY = 0*scale;
-    
     // here the placment of the main character is defined.
     public static int characterX = gameScreenWidth/2;
     public static int characterY = gameScreenHeight/2;
+    
+    // depending on the room, the spawn point of the character changes.
+    public static int spawnPointX = 0;
+    public static int spawnPointY = 0;
+    
+    public static int gameX = 0;
+    public static int gameY = 0;
     
     /*
      * here the width and hight of the roomes are defined.

@@ -72,6 +72,8 @@ public class App extends Application {
     boolean goWest  = false;
     boolean moving  = false;
     
+    boolean newRoom = true;
+    
     int facing = 0;
     int animationTimer = 0;
     
@@ -280,10 +282,15 @@ public class App extends Application {
         
     }
     private void drawRoom(Room currentRoom){
+        if (newRoom){
+            World.gameX = -World.characterX +currentRoom.spawnPX*World.scale;
+            World.gameY = -World.characterY +currentRoom.spawnPY*World.scale;
+            newRoom = false;
+        }
+        
         if (currentRoom.equals(game.streets)){
            roomX = 0;
            roomY = 0;
-           
             if (World.streetRoomWidth -World.gameX < World.gameScreenWidth){
                 rectWidth = World.streetRoomWidth - World.gameX;
             } else {
@@ -296,9 +303,6 @@ public class App extends Application {
             }
             
         } else {
-            //World.gameX = game.currentRoom.spawnPX*4 + World.gameScreenWidth/2;
-            //World.gameY = game.currentRoom.spawnPY*4 + World.gameScreenHeight/2 +64;
-
             if (currentRoom.equals(game.townHall)){
                 roomX = 0;
                 roomY = 770*World.scale;
@@ -313,6 +317,15 @@ public class App extends Application {
                 roomY = 770*World.scale;
             } else if (currentRoom.equals(game.clothingFactory)){
                 roomX = 0;
+                roomY = 979*World.scale;
+            } else if (currentRoom.equals(game.policeStation)){
+                roomX = 256*World.scale;
+                roomY = 979*World.scale;
+            } else if (currentRoom.equals(game.recyclingStation)){
+                roomX = 512*World.scale;
+                roomY = 979*World.scale;
+            } else if (currentRoom.equals(game.school)){
+                roomX = 768*World.scale;
                 roomY = 979*World.scale;
             }
             
@@ -334,7 +347,7 @@ public class App extends Application {
             imageX = -World.gameX;
             rectWidth = World.gameScreenWidth + World.gameX;
         } else {
-            rectX = roomX + World.gameX;
+            rectX = roomX +World.gameX;
             imageX = 0;
         }
         if (World.gameY < 0) {
@@ -345,7 +358,7 @@ public class App extends Application {
             rectY = roomY + World.gameY;
             imageY = 0;
         }
-
+        
         rooms.setViewport(new Rectangle2D(rectX, rectY, rectWidth, rectHeight));
         
         this.rooms.setFitWidth(rectWidth);
