@@ -13,7 +13,7 @@ public class HitBox {
     boolean collisionBottom;
     boolean collisionLeft;
     boolean collisionRight;
-    boolean triggered;
+    private boolean triggered;
     
     public HitBox(int topLeftX, int topLeftY, int width, int height){
         this.topLeftX = topLeftX;
@@ -63,6 +63,10 @@ public class HitBox {
             triggered = false;
         }
         return triggered;
+    }
+    
+    public String toString() {
+        return "position: " + topLeftX + ", " + topLeftY + ", size: " + width + ", " + height;
     }
     
 }

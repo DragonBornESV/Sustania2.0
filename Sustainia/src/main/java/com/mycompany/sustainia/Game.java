@@ -8,9 +8,11 @@ public class Game {
         
     public static String name;
     Room currentRoom;
-    
     Room streets, townHall, nonsustainableHouse, policeStation, bank, 
             clothingFactory, school, park, recyclingStation;
+    
+    //This is true, when the static graphics needs to be updated
+    private boolean needsUpdate = false;
     
     public Game() 
     {
@@ -33,7 +35,7 @@ public class Game {
         Item item1 = new Item("Aluminum can", World.aluminumCanMaterialArray, 0);
         item1.setPosition(128, 200);
         Item item2 = new Item("Aluminum can", World.aluminumCanMaterialArray, 9);
-        item2.setPosition(0, 0);
+        item2.setPosition(400, 300);
         itemsInTownHall.add(item1);
         itemsInTownHall.add(item2);
         
@@ -73,7 +75,7 @@ public class Game {
     public int collisionDetectionX(int dx){
         for (int i = 0; i < currentRoom.hitboxesInRoom.length; i++) {
             if (currentRoom.hitboxesInRoom[i].collisionLeft){
-            dx = 1;
+                dx = 1;
             }
             if (currentRoom.hitboxesInRoom[i].collisionRight){
                 dx = -1;
@@ -85,7 +87,7 @@ public class Game {
     public int collisionDetectionY(int dy){
         for (int i = 0; i < currentRoom.hitboxesInRoom.length; i++) {
             if (currentRoom.hitboxesInRoom[i].collisionTop){
-            dy = 1;
+                dy = 1;
             }
             if (currentRoom.hitboxesInRoom[i].collisionBottom){
                 dy = -1;
@@ -99,12 +101,26 @@ public class Game {
             currentRoom.hitboxesInRoom[i].collisionWithObject(x, y);
             // her tjekkes der for collision med NPC'er ved at kigge på <hitbox>.triggerd
         }
+        for (int i = 0; i < currentRoom.getItemsInRoom().size(); i++) {
+            currentRoom.getItemsInRoom().get(i).getHitBox().collisionWithObject(x, y);
+            
+            //Checks if the player hit the item
+            if (currentRoom.getItemsInRoom().get(i).getHitBox().checkIfTriggered()) {
+                
+                System.out.println("Ramte item!");
+                pickUpItem(currentRoom.getItemsInRoom().get(i));
+            }
+        }
     }
     
     public void pickUpItem(Item item) {
         if (item != null) {
+            
             inv.getItemsInInventory().add(item);
             currentRoom.getItemsInRoom().remove(item);
+            System.out.println(inv.getItemsInInventory());
+            
+            needsUpdate = true;
         } else {
             System.out.println("No item selected");
         }
@@ -115,10 +131,20 @@ public class Game {
         if (item != null) {
             currentRoom.getItemsInRoom().add(item);
             inv.getItemsInInventory().remove(item);
+            
+            needsUpdate = true;
         } else {
             System.out.println("No item selected");
         }
         
+    }
+    
+    public boolean needsUpdate() {
+        return needsUpdate;
+    }
+    
+    public void setNeedsUpdate(boolean value) {
+        needsUpdate = value;
     }
     
     public void play(){

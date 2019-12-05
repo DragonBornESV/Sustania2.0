@@ -34,6 +34,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 // import java.awt.event.KeyEvent;
@@ -61,6 +62,9 @@ public class App extends Application {
     private Group itemsGroup = new Group();   //All the visible items are stored here
     private Group imageGroup;
     
+    FileInputStream inputItems;
+    Image itemsImage;
+    
     
     @Override
     public void start(Stage stage) throws FileNotFoundException {
@@ -70,6 +74,10 @@ public class App extends Application {
         // Creates a new image, from the selected parth on computer
         FileInputStream inputCharacter = new FileInputStream("img\\ch.png");
         Image characterImage = new Image(inputCharacter,1280,1280,true,false);
+        
+        // Gets the image of the items
+        inputItems = new FileInputStream("img\\items.png");
+        itemsImage = new Image(inputItems,160*4,16*4,true,false);
         
         // Streets
         FileInputStream inputRooms = new FileInputStream("img\\rooms.png");
@@ -187,8 +195,13 @@ public class App extends Application {
         imageGroup.setTranslateX(World.gameX);
         imageGroup.setTranslateY(World.gameY);
         
-        // The games cordinants are needet to position the collision
+        // The games cordinants are needed to position the collision
         game.collisionWithObjects(World.gameX, World.gameY);
+        
+        if (game.needsUpdate()) {
+            loadItems();
+            game.setNeedsUpdate(false);
+        }
         
         // character_animation
         if (moving) {
@@ -224,13 +237,9 @@ public class App extends Application {
     /**
      * Generates the items from the current room and places them visually in the game.
      */
-    private void loadItems() throws FileNotFoundException {
+    private void loadItems() {
         //Clears all the previous items.
         itemsGroup.getChildren().clear();
-        
-        FileInputStream inputItems = new FileInputStream("img\\items.png");
-        
-        Image itemsImage = new Image(inputItems,160*4,16*4,true,false);
         
         //The items are put into an array of images
         items = new ArrayList<ImageView>();
@@ -241,7 +250,7 @@ public class App extends Application {
         for (int i = 0; i < roomItems.size(); i++) {
             //Sets the image to the item
             ImageView tempItem = new ImageView(itemsImage);
-            //Uses the correct image by using the itemsImage number.
+            //Shows the correct sprite by using the itemsImage number.
             tempItem.setViewport(new Rectangle2D(roomItems.get(i).itemImage*16*4, 0, 16*4, 16*4));
             
             //Sets the image of the items to the correct location in the scene.
@@ -253,7 +262,17 @@ public class App extends Application {
             //These will be added to the group later.
             items.add(tempItem);
             
+            //This can be used to show the hitboxes.
+            /*
+            itemsGroup.getChildren().add(
+                    new Rectangle(roomItems.get(i).getHitBox().topLeftX,
+                    roomItems.get(i).getHitBox().topLeftY, 
+                    roomItems.get(i).getHitBox().width, 
+                    roomItems.get(i).getHitBox().height));
+            */
+            
             System.out.println(roomItems.get(i).name + ": " + tempItem.getX() + ", " + tempItem.getY());
+            System.out.println(roomItems.get(i).getHitBox());
         }
         
         //Adds all the new items to the group

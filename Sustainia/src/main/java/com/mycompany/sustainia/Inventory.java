@@ -16,7 +16,7 @@ public class Inventory {
     // This method is called when creating a new inventory in the class Game. 
     public Inventory(){
         // Clones the materials from World
-        // (it's clones because the count attributes is modified during gameplay ind each object.
+        // (it is clones because the count attribute is modified during gameplay in each object.)
         materialArray = World.materialArray.clone();
         
         itemsInInventory = new ArrayList<>(); 

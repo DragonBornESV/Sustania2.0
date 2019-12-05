@@ -1,4 +1,7 @@
 package com.mycompany.sustainia;
+
+import javafx.scene.image.ImageView;
+
 /*
  * This class createss our objekt/datatype item.
  * Item consists of a name in form of a string,
@@ -13,9 +16,11 @@ public class Item {
     
     private int itemX = 0;
     private int itemY = 0;
-    HitBox hb = new HitBox(10,10,0,0);
+    private HitBox hb = new HitBox(itemX,itemY,16*4,16*4);
     
     int itemImage = 0;
+    
+    private ImageView image;
     
     Material[] materials = new Material[10];
     double weight;
@@ -70,7 +75,7 @@ public class Item {
      */
     public void setItemX(int itemX) {
         this.itemX = itemX;
-        this.hb = new HitBox(hb.topLeftX + itemX, hb.topLeftX + itemX, hb.width, hb.height);
+        hb = new HitBox(this.itemX, this.itemY, hb.width, hb.height);
     }
 
     /**
@@ -85,13 +90,23 @@ public class Item {
      */
     public void setItemY(int itemY) {
         this.itemY = itemY;
-        this.hb = new HitBox(hb.topLeftX + itemX, hb.topLeftX + itemX, hb.width, hb.height);
+        hb = new HitBox(this.itemX, this.itemY, hb.width, hb.height);
+    }
+
+    /**
+     * @return the hb
+     */
+    public HitBox getHitBox() {
+        return hb;
     }
     
     public void setPosition(int itemX, int itemY) {
         this.itemX = itemX;
         this.itemY = itemY;
-        this.hb = new HitBox(hb.topLeftX + itemX, hb.topLeftX + itemX, hb.width, hb.height);
+        hb = new HitBox(this.itemX, this.itemY, hb.width, hb.height);
     }
     
+    public void printPosition() {
+        System.out.println(itemX + ", " + itemY);
+    }
 }
