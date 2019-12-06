@@ -1,11 +1,13 @@
 package com.mycompany.sustainia;
 
 public class Game {
+    boolean roomSwitch = true;
+    
     Room placeHolder;
     
-    Room streets = new Room("Streets", 432, 532,
+    Room streets = new Room("Streets", 560, 450,
             new HitBox[]{new HitBox(0,0,10,10)},
-            new Door(new HitBox(96,209,64,10), placeHolder)
+            new Door(new HitBox(700,700,64,10), placeHolder)
     );
     
     Room townHall = new Room("Town Hall", 128, 194,
@@ -119,13 +121,42 @@ public class Game {
             // her tjekkes der for collision med NPS'er ved at gikke på <hitbox>.triggerd
         }
     }
-    public Room newRoom(Room room){
+    public Room newRoom(int x, int y, Room room){
+        currentRoom.door.doorFrame.collisionWithObject(x, y);
+        System.out.println(currentRoom.door.doorFrame.checkIfTriggered());
         if (currentRoom.door.doorFrame.checkIfTriggered()){
             room = currentRoom.door.leadsTo;
+            roomSwitch = true;
         } else {
             room = currentRoom;
         }
         return room;
+    }
+    
+    
+    public int getSpawnPointX(int x, Room room){
+        if (roomSwitch){
+            x = -World.characterX +room.spawnPX*World.scale;
+            roomSwitch = false;
+        } else {
+            x = x;
+        }
+        return x;
+    }
+    
+    public int getSpawnPointY(int y, Room room){
+        if (roomSwitch){
+            y = -World.characterX +room.spawnPY*World.scale;
+            roomSwitch = false;
+        } else {
+            y = y;
+        }
+        return y;
+    }
+    
+    
+    public boolean getRoomSwitch(){
+        return roomSwitch;
     }
     
     

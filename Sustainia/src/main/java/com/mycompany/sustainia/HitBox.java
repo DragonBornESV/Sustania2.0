@@ -17,6 +17,7 @@ public class HitBox {
     boolean collisionLeft;
     boolean collisionRight;
     boolean triggered;
+    boolean trig;
     
     public HitBox(int topLeftX, int topLeftY, int width, int height){
         this.topLeftX = topLeftX;

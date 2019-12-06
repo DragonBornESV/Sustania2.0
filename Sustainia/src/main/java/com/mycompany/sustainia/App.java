@@ -226,9 +226,12 @@ public class App extends Application {
                     else    { moving = false;}
 
                     if (moving) animationTimer ++;
-
+                    
+                    // All the metods, that need to be updatet during runtime are called here.
                     moveCharacter(moving, goNorth, goSouth, goEast, goWest, dx, dy, animationTimer, facing);
                     drawRoom(game.currentRoom);
+                    System.out.println(game.currentRoom.name);
+                    game.currentRoom = game.newRoom(World.gameX, World.gameY, game.currentRoom);
                 }
             };
 
@@ -248,9 +251,7 @@ public class App extends Application {
         
         // The games cordinants are needet to position the collision.... If this function is not called, the game will run without collision.
         game.collisionWithObjects(World.gameX, World.gameY);
-        System.out.println(World.gameX + World.gameScreenWidth/2);
-        System.out.println(World.gameY + World.gameScreenHeight/2);
-        
+
         // character_animation
         if (moving) {
             if (goNorth){
@@ -282,11 +283,8 @@ public class App extends Application {
         
     }
     private void drawRoom(Room currentRoom){
-        if (newRoom){
-            World.gameX = -World.characterX +currentRoom.spawnPX*World.scale;
-            World.gameY = -World.characterY +currentRoom.spawnPY*World.scale;
-            newRoom = false;
-        }
+        World.gameX = game.getSpawnPointX(World.gameX, currentRoom);
+        World.gameY = game.getSpawnPointX(World.gameY, currentRoom);
         
         if (currentRoom.equals(game.streets)){
            roomX = 0;
