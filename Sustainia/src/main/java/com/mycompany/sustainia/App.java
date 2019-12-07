@@ -3,9 +3,10 @@ package com.mycompany.sustainia;
 // Standert javaFX imports
 import javafx.application.Application;
 import javafx.animation.AnimationTimer;
-import javafx.geometry.Rectangle2D;
+import javafx.geometry.*;
 import javafx.scene.Scene;
 
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
@@ -37,14 +38,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.lang.Object;
-import javafx.geometry.Pos;
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Control;
 
-import javafx.scene.control.Labeled;
-import javafx.scene.control.ButtonBase;
-import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 
@@ -158,8 +157,8 @@ public class App extends Application {
         
         Text text = new Text("  baby Yoda \n  will save \n  us all");
         text.setFont(new Font(50));
-
-        Button button = new Button();
+        Text text1 = new Text("  Din mor \n  will save \n  us all");
+        text1.setFont(new Font(50));
         
         GridPane gridpane = new GridPane();
         gridpane.getColumnConstraints().add(new ColumnConstraints(601));
@@ -176,19 +175,88 @@ public class App extends Application {
         gridpane.setGridLinesVisible(false);
         rightColumn.setGridLinesVisible(false);
 
+
+        //ParameterBar
+        Text navn = new Text("Parameter");
+        navn.setFont(new Font(15));
+        Text procent = new Text("%");
+        StackPane test = new StackPane();
+        GridPane testGridpane = new GridPane();
+        ProgressBar bar = new ProgressBar();
+        ProgressBar bar1 = new ProgressBar();
+        bar.setMinSize(250, 30);
+        test.getChildren().add(bar);
+        test.getChildren().add(testGridpane);
+        testGridpane.getColumnConstraints().add(new ColumnConstraints(150));
+        testGridpane.getColumnConstraints().add(new ColumnConstraints(110));
+        testGridpane.getRowConstraints().add(new RowConstraints(bar.getMinHeight()));
+        testGridpane.setGridLinesVisible(true);
+        testGridpane.add(navn, 0,0);
+        testGridpane.add(procent,1,0);
+        testGridpane.setHalignment(navn, HPos.CENTER);
+        testGridpane.setHalignment(procent, HPos.RIGHT);
+
+        Parameter.createParameters();
+
+        //
+        ParameterPanel p1 = new ParameterPanel("City Equality");
+        ParameterPanel p2 = new ParameterPanel("City Green Energy");
+        ParameterPanel p3 = new ParameterPanel("City Clean Water");
+        ParameterPanel p4 = new ParameterPanel("Sustainable Housing");
+        ParameterPanel p5 = new ParameterPanel("City Clean Air");
+        ParameterPanel p6 = new ParameterPanel("City Cleanliness");
+        ParameterPanel p7 = new ParameterPanel("City Security");
+
+
+        //creating a gridpane to hold and display all parameters
+        Text titelParamater = new Text("Parameter");
+        titelParamater.setFont(new Font(20));
+        GridPane parameterGridpane = new GridPane();
+        parameterGridpane.getColumnConstraints().add(new ColumnConstraints(300));
+        parameterGridpane.setVgap(2);
+        parameterGridpane.add(titelParamater, 0 ,0);
+        parameterGridpane.setHalignment(titelParamater, HPos.CENTER);
+
+        for (int i = 0; i < ParameterPanel.list.size(); i++) {
+
+            parameterGridpane.add(ParameterPanel.list.get(i).getStackPane(),0,i+1);
+        }
+
+
+
+
+        rightColumn.add(parameterGridpane, 0,0);
+
+
         //Creating a gridpane for buttons to be placed in
         GridPane containButtons = new GridPane();
         containButtons.getRowConstraints().add(new RowConstraints(100));
-        containButtons.getColumnConstraints().add(new ColumnConstraints(300));
+
         rightColumn.add(containButtons,0,1);
-        containButtons.setGridLinesVisible(true);
 
 
 
+        //Buttons to swap between panels
+        Button scoreButton = new Button("Score");
+        Button inventoryButton = new Button("Inventory");
+        containButtons.add(inventoryButton, 0,0);
+        containButtons.add(scoreButton,1,0);
+        containButtons.setHgap(10);
+        scoreButton.setOnAction(event -> {
+            rightColumn.getChildren().remove(parameterGridpane);
+            rightColumn.add(text1,0,0);
+        });
+        inventoryButton.setOnAction(event -> {
+            rightColumn.getChildren().remove(text1);
+            rightColumn.add(parameterGridpane,0,0);
+        });
 
+        Button refresh = new Button();
+         refresh.setOnAction(event -> {
+             Parameter.mapAddScore("City Equality", 10);
+         });
 
-
-
+        containButtons.add(refresh, 2,0);
 
         //Creating a scene object 
         Scene scene = new Scene(gridpane, World.gameScreenWidth+301, World.gameScreenHeight);
@@ -226,8 +294,18 @@ public class App extends Application {
         stage.setScene(scene);
         //Displaying the contents of the stage
         stage.show();
-        
+
         characterAnimation();
+    }
+
+    public void update(){
+        for (ParameterPanel p: ParameterPanel.list) {
+
+
+            p.getProgressBar().setProgress(Parameter.parameterList.get(p.getParameterName()).getScore()/100);
+            p.getProgressText().setText((Parameter.parameterList.get(p.getParameterName()).getScore())+"%");
+        }
+
     }
     
     private void characterAnimation() {
@@ -249,6 +327,11 @@ public class App extends Application {
                     drawRoom(game.currentRoom);
                     System.out.println(game.currentRoom.name);
                     game.currentRoom = game.newRoom(World.gameX, World.gameY, game.currentRoom);
+                    update();
+                    
+
+
+
                 }
             };
 

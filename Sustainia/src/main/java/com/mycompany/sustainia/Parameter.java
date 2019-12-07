@@ -1,5 +1,10 @@
 package com.mycompany.sustainia;
 
+import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +15,8 @@ public class Parameter {
     public static Map<String, Parameter> parameterList = new HashMap<>();
     private float average;
     public static Parameter mainScore = new Parameter();
+
+
 
     /**
      *
@@ -28,6 +35,7 @@ public class Parameter {
         this.score = 20;
         this.average = (score / 100) * 100;
         parameterList.put(this.name, this);
+
     }
 
     /**
@@ -101,6 +109,16 @@ public class Parameter {
                 p.setScore(0);
             }
             parameterList.put(name, p);
+
+            /*for (ParameterPanel q: ParameterPanel.list) {
+                if (q.getParameterName() == name) {
+                    q.getProgressBar().setProgress(p.getScore());
+                    q.getProgressText().setText(Float.toString(p.getScore()));
+                }
+
+            }
+
+             */
 
             if (p.getScore() == 100) {
                 System.out.println("Congratulations you won the game!");
