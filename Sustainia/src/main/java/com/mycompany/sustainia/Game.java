@@ -2,13 +2,12 @@ package com.mycompany.sustainia;
 
 public class Game {
     boolean roomSwitch = true;
-    
-    Room placeHolder;
-    Room currentRoom;
+
     int previousRoom;
     
     Room townHall, streets, nonsustainableHouse, policeStation, bank, clothingFactory, school, park, recyclingStation;
     
+    Room currentRoom;
  // private Inventory inv;
         
     public static String name;
@@ -18,61 +17,113 @@ public class Game {
         Parameter.createParameters();
   //    inv = new Inventory();
     }
-
-
-    public void createRooms(){
-        streets = new Room("Streets", new int[]{560, 2}, new int[]{450, 5},
+    
+    
+    public void createStreets(){
+        streets = new Room("Streets", new int[][]{
+            // Front of Town Hall
+            {560,460},
+            // Front of Non-Sustainable house
+            {208,374}
+        },
         new HitBox[]{
             // Level Barrier
-            new HitBox(0,298,1120,0)},
+            new HitBox(0,298,1120,20),
+            // TownHall
+            new HitBox(448,318,224,110), new HitBox(448,428,96,34), new HitBox(576,428,96,34)},
  
-            // Town Hall
-            new Door(new HitBox(700,700,64,10), placeHolder)
+            new HitBox[]{
+                // Town Hall door
+                new HitBox(550,410,20,30),
+                // Non-Sustainable house door
+                new HitBox(170,374,22,22),
+                // Park door
+                new HitBox(170,506,22,22),
+                // Bank door
+                new HitBox(928,374,22,22),
+                // Clothing Factory door
+                new HitBox(928,506,22,22),
+                // Police Station door
+                new HitBox(320,638,32,22),
+                // Recycle Station door
+                new HitBox(544,616,32,22),
+                // School door
+                new HitBox(768,638,32,22)
+            }
         );
-
+    }
+    
+    public void createTownHall(){
         townHall = new Room("Town Hall", 128, 194,
-                new HitBox[]{
-                    //Walls
-                    new HitBox(0,0,256,44), new HitBox(0,187,96,22), new HitBox(160,187,96,22), new HitBox(-10,44,10,143), new HitBox(256,44,10,143)},
-                new Door(new HitBox(96,209,64,10), streets)
+            new HitBox[]{
+                //Walls
+                new HitBox(0,0,256,44), new HitBox(0,187,96,22), new HitBox(160,187,96,22), new HitBox(-10,44,10,143), new HitBox(256,44,10,143)},
+            new Door(new HitBox(96,209,64,10), streets)
         );
-
-        nonsustainableHouse = new Room("NSH", 240, 104,
+    }
+        
+    public void createNonsustainableHouse(){
+        nonsustainableHouse = new Room("NSH", 240, 115,
                 new HitBox[]{new HitBox(0,0,10,10)},
-                new Door(new HitBox(96,209,64,10), streets)
+                new Door(new HitBox(256,104,10,44), streets)
         );
+    }
 
+    public void createPoliceStation(){
         policeStation = new Room("Police Station", 16, 128,
                 new HitBox[]{new HitBox(0,0,10,10)},
                 new Door(new HitBox(96,209,64,10), streets)
         );
+    }
 
+    public void createBank(){
         bank = new Room("Bank", 16, 104,
                 new HitBox[]{new HitBox(0,0,10,10)},
                 new Door(new HitBox(96,209,64,10), streets)
         );
+    }
 
+    public void createClothingFactory(){
         clothingFactory = new Room("Colothing Factory", 16, 104,
                 new HitBox[]{new HitBox(0,0,10,10)},
                 new Door(new HitBox(96,209,64,10), streets)
         );
-
+    }
+    
+    public void createSchool(){
         school = new Room("School", 128, 32,
                 new HitBox[]{new HitBox(0,0,10,10)},
                 new Door(new HitBox(96,209,64,10), streets)
         );
-
+    }
+    
+    public void createPark(){
         park = new Room("Park", 240, 104,
                 new HitBox[]{new HitBox(0,0,10,10)},
                 new Door(new HitBox(96,209,64,10), streets)
         );
+    }
 
+    public void createRecyclingStation(){
         recyclingStation = new Room("Recycling Station", 16, 128,
                 new HitBox[]{new HitBox(0,0,10,10)},
                 new Door(new HitBox(96,209,64,10), streets)
         );
+    }
+    
+    public void createRooms(){
+            createStreets();
+            createTownHall();
+            createNonsustainableHouse();
+            createPoliceStation();
+            createBank();
+            createClothingFactory();
+            createSchool();
+            createPark();
+            createRecyclingStation();
+            currentRoom = townHall;
+        }
 
-        currentRoom = townHall;
         
         
         /** Rooms are created and named.
@@ -95,8 +146,8 @@ public class Game {
         int[] hospitalItems = new int[]{0,0,0,50,30,20,0,10,60,0};
     
     */
-    }
     
+        
     
     public int collisionDetectionX(int dx){
         for (int i = 0; i < currentRoom.hitboxesInRoom.length; i++) {
@@ -123,21 +174,55 @@ public class Game {
     }
     
     
-    public void collisionWithObjects(int x, int y){
-        for (int i = 0; i < currentRoom.hitboxesInRoom.length; i++){
-            currentRoom.hitboxesInRoom[i].collisionWithObject(x, y);
+    public void collisionWithObjects(int x, int y, Room room){
+        for (int i = 0; i < room.hitboxesInRoom.length; i++){
+            room.hitboxesInRoom[i].collisionWithObject(x, y);
         }
     }
     
     
     public Room newRoom(int x, int y, Room room){
-        currentRoom.door.doorFrame.collisionWithObject(x, y);
-        System.out.println(currentRoom.door.doorFrame.checkIfTriggered());
-        if (currentRoom.door.doorFrame.checkIfTriggered()){
-            room = currentRoom.door.leadsTo;
-            roomSwitch = true;
+        System.out.println(room.name);
+        if (room.equals(streets)){
+            for (int i =0; i<streets.multipleDoors.length; i++){
+            streets.multipleDoors[i].collisionWithObject(x, y);
+                if (streets.multipleDoors[0].checkIfTriggered()){
+                    room = townHall;
+                    roomSwitch = true;
+                } else if (streets.multipleDoors[1].checkIfTriggered()){
+                    room = nonsustainableHouse;
+                    roomSwitch = true;
+                } else if (streets.multipleDoors[2].checkIfTriggered()){
+                    room = park;
+                    roomSwitch = true;
+                } else if (streets.multipleDoors[3].checkIfTriggered()){
+                    room = bank;
+                    roomSwitch = true;
+                } else if (streets.multipleDoors[4].checkIfTriggered()){
+                    room = clothingFactory;
+                    roomSwitch = true;
+                } else if (streets.multipleDoors[5].checkIfTriggered()){
+                    room = policeStation;
+                    roomSwitch = true;
+                } else if (streets.multipleDoors[6].checkIfTriggered()){
+                    room = recyclingStation;
+                    roomSwitch = true;
+                } else if (streets.multipleDoors[7].checkIfTriggered()){
+                    room = school;
+                    roomSwitch = true;
+                } else {
+                    room = room;
+                }
+            }
         } else {
-            room = currentRoom;
+            room.door.doorFrame.collisionWithObject(x, y);
+            //System.out.println(currentRoom.door.doorFrame.checkIfTriggered());
+            if (room.door.doorFrame.checkIfTriggered()){
+                room = room.door.leadsTo;
+                roomSwitch = true;
+            } else {
+                room = room;
+            }
         }
         return room;
     }
@@ -146,7 +231,8 @@ public class Game {
     public int getSpawnPointX(int x, Room room, int previousRoom){
         if (roomSwitch){
             if (room.equals(streets)){
-                x = -World.characterX +600*World.scale;
+                //x = -300 + 560*4;
+                x = -World.characterX +streets.multipleSpawnPoints[previousRoom][0]*World.scale;
             } else {
                 x = -World.characterX +room.spawnPX*World.scale;
             }
@@ -160,11 +246,11 @@ public class Game {
     public int getSpawnPointY(int y, Room room, int previousRoom){
         if (roomSwitch){
             if (room.equals(streets)){
-                y = -World.characterY +450*World.scale;
+                //y = -300 +450*4;
+                y = -World.characterY +streets.multipleSpawnPoints[previousRoom][1]*World.scale;
             } else {
                 y = -World.characterY +room.spawnPY*World.scale;
             }
-            
             roomSwitch = false;  
         } else {
             y = y;

@@ -105,7 +105,7 @@ public class App extends Application {
     private ImageView character;
     
     public App(){
-        game.createRooms();
+        game.createRooms();        
     }
     
     @Override
@@ -234,8 +234,6 @@ public class App extends Application {
                     // All the metods, that need to be updatet during runtime are called here.
                     moveCharacter(moving, goNorth, goSouth, goEast, goWest, dx, dy, animationTimer, facing);
                     drawRoom(game.currentRoom);
-                    System.out.println(game.currentRoom.name);
-                    System.out.println(game.previousRoom);
                     game.currentRoom = game.newRoom(World.gameX, World.gameY, game.currentRoom);
                 }
             };
@@ -255,7 +253,7 @@ public class App extends Application {
         this.streetTop.setY(World.gameY);
         
         // The games cordinants are needet to position the collision.... If this function is not called, the game will run without collision.
-        game.collisionWithObjects(World.gameX, World.gameY);
+        game.collisionWithObjects(World.gameX, World.gameY, game.currentRoom);
 
         // character_animation
         if (moving) {
@@ -290,7 +288,6 @@ public class App extends Application {
     private void drawRoom(Room currentRoom){
         World.gameX = game.getSpawnPointX(World.gameX, currentRoom, game.previousRoom);
         World.gameY = game.getSpawnPointY(World.gameY, currentRoom, game.previousRoom);
-        System.out.println(World.gameY);
         
         if (currentRoom.equals(game.streets)){
            roomX = 0;

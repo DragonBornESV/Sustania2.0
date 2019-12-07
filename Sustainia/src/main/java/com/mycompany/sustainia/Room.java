@@ -15,7 +15,7 @@ public class Room {
     HitBox[] hitboxesInRoom;
     
     Door door;
-    Door[] multipleDoors;
+    HitBox[] multipleDoors;
             
     public Room(String name, int spawnPX, int spawnPY, HitBox[] hitboxesInRoom, Door door) {
         this.name = name;
@@ -26,11 +26,10 @@ public class Room {
     }
     
     
-    public Room(String name, int[] multiSpawnPX, int[] multiSpawnPY, HitBox[] hitboxesInRoom, Door door) {
+    public Room(String name, int[][] multipleSpawnPoints, HitBox[] hitboxesInRoom, HitBox[] multipleDoors) {
         this.name = name;
-        this.multiSpawnPX = multiSpawnPX;
-        this.multiSpawnPY = multiSpawnPY;
+        this.multipleSpawnPoints = multipleSpawnPoints;
         this.hitboxesInRoom = hitboxesInRoom;
-        this.door = door;
+        this.multipleDoors = multipleDoors;
     }
 }

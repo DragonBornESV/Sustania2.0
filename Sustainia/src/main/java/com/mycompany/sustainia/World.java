@@ -14,7 +14,7 @@ public class World {
      * Because you view the game ad a 45 degree angle, the horizontal movmentspeed will alwayes equal sqrt((Vspeed^2)*2)) 
      */
     public static int characterMovementSpeedV = 1*scale;
-    public static int characterMovementSpeedH = (int)1.5*scale;
+    public static int characterMovementSpeedH = (int)(1.5*scale);
     
     // here the starting width and hight of the game part of the screen is defined.
     public static int gameScreenWidth = 600;
