@@ -145,6 +145,9 @@ public class App extends Application {
                     case S: goSouth = false; break;
                     case D: goEast  = false; break;
                     case A: goWest  = false; break;
+                    //Detects the drop-key 'Q'
+                    //Just for now, the item to be dropped is always the first item
+                    case Q: dropItem();
                 }
             }
         });
@@ -270,13 +273,21 @@ public class App extends Application {
                     roomItems.get(i).getHitBox().width, 
                     roomItems.get(i).getHitBox().height));
             */
-            
-            System.out.println(roomItems.get(i).name + ": " + tempItem.getX() + ", " + tempItem.getY());
-            System.out.println(roomItems.get(i).getHitBox());
         }
         
         //Adds all the new items to the group
         itemsGroup.getChildren().addAll(items);
+    }
+    
+    /**
+     * Tells the game to drop an item. Right now it's the first item in the
+     * inventory.
+     * 
+     * This method can be used by the press of the button Q or the drop button
+     * on screen.
+     */
+    private void dropItem() {
+        game.dropItem(game.getInventory().getItemsInInventory().get(0));
     }
     
     private void drawRoom(Room currentRoom){

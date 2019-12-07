@@ -66,4 +66,22 @@ public class Inventory {
         return itemsInInventory;
     }
     
+    /**
+     * Can be used to return the names of the items in the inventory.
+     * @return the names of the items in the inventory.
+     */
+    public String toString() {
+        String toBePrinted = "[";
+        
+        for (int i = 0; i < itemsInInventory.size(); i++) {
+            if (i != 0) {
+                toBePrinted += ", ";
+            }
+            
+            toBePrinted += itemsInInventory.get(i).getName();
+        }
+        
+        return toBePrinted + "]";
+    }
+    
 }

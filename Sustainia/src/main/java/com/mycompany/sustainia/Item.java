@@ -10,9 +10,9 @@ import javafx.scene.image.ImageView;
  * the amount(count) of the item
  * and the weight of the item in form of a double. 
  */
-public class Item {
+public class Item implements Cloneable {
     
-    String name;
+    private String name;
     
     private int itemX = 0;
     private int itemY = 0;
@@ -62,42 +62,32 @@ public class Item {
         //The image that is shown as the item.
         itemImage = imageNumber;
     }
+
     
-    /**
-     * @return the itemX
-     */
     public int getItemX() {
         return itemX;
     }
 
-    /**
-     * @param itemX the itemX to set
-     */
     public void setItemX(int itemX) {
         this.itemX = itemX;
         hb = new HitBox(this.itemX, this.itemY, hb.width, hb.height);
     }
 
-    /**
-     * @return the itemY
-     */
     public int getItemY() {
         return itemY;
     }
 
-    /**
-     * @param itemY the itemY to set
-     */
     public void setItemY(int itemY) {
         this.itemY = itemY;
         hb = new HitBox(this.itemX, this.itemY, hb.width, hb.height);
     }
 
-    /**
-     * @return the hb
-     */
     public HitBox getHitBox() {
         return hb;
+    }
+    
+    public String getName() {
+        return name;
     }
     
     public void setPosition(int itemX, int itemY) {
@@ -109,4 +99,37 @@ public class Item {
     public void printPosition() {
         System.out.println(itemX + ", " + itemY);
     }
+    
+    /**
+     * This can be used to clone a standard item from the World class and set
+     * their position at the same time.
+     * @param x the x-coordinate of the cloned item.
+     * @param y the y-coordiante of the cloned item.
+     * @return the cloned item with the new position.
+     */
+    public Item cloneAndPosition(int x, int y) {
+        Item newItem = null;
+        try {
+            newItem = (Item) this.clone();
+            newItem.setPosition(x, y);
+        } catch (CloneNotSupportedException ex) {
+            System.out.println("Could not clone item");
+        }
+        
+        return newItem;
+    }
+    
+    /**
+     * Overrides the clone method from the interface Cloneable which makes
+     * the object able to be cloned. This is used in the cloneAndPosition
+     * method.
+     * 
+     * @return a clone of the item-object.
+     * @throws CloneNotSupportedException 
+     */
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+    
 }
