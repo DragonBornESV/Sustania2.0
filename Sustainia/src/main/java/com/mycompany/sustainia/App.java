@@ -6,6 +6,7 @@ import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
@@ -39,11 +40,6 @@ import java.lang.Object;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.control.Control;
 
 import javafx.scene.control.Labeled;
@@ -53,10 +49,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 
 import javafx.scene.Parent;
-
-
-import javafx.scene.layout.ConstraintsBase;
-import javafx.scene.layout.ColumnConstraints;
 
 // import java.awt.event.KeyEvent;
 
@@ -107,18 +99,18 @@ public class App extends Application {
     public void start(Stage stage) throws FileNotFoundException {
         
         // black background image
-        FileInputStream inputBackground = new FileInputStream("img\\background.png");
+        FileInputStream inputBackground = new   FileInputStream("Sustainia\\img\\background.png");
         Image backgroundImage = new Image(inputBackground, 600, 600, true, false);
 
         // Creates a new image, from the selected parth on computer
-        FileInputStream inputCharacter = new FileInputStream("img\\ch.png");
+        FileInputStream inputCharacter = new FileInputStream("Sustainia\\img\\ch.png");
         Image characterImage = new Image(inputCharacter,128*World.scale,128*World.scale,true,false);
         
     // Streets
-        FileInputStream inputRooms = new FileInputStream("img\\rooms.png");
+        FileInputStream inputRooms = new FileInputStream("Sustainia\\img\\rooms.png");
         Image roomsImage = new Image(inputRooms,1120*World.scale,1188*World.scale,true,false);
         
-        FileInputStream inputStreetsTop = new FileInputStream("img\\street_top.png");
+        FileInputStream inputStreetsTop = new FileInputStream("Sustainia\\img\\street_top.png");
         Image streetsTopImage = new Image(inputStreetsTop,1120*4,770*4,true,false);
         
         
@@ -166,13 +158,38 @@ public class App extends Application {
         
         Text text = new Text("  baby Yoda \n  will save \n  us all");
         text.setFont(new Font(50));
+
+        Button button = new Button();
         
         GridPane gridpane = new GridPane();
         gridpane.getColumnConstraints().add(new ColumnConstraints(601));
         gridpane.getColumnConstraints().add(new ColumnConstraints(300));
         gridpane.add(root, 0, 0);
-        gridpane.add(text, 1, 0);
-        
+
+
+        //creating a gridpane for RightPanel
+        GridPane rightColumn = new GridPane();
+        rightColumn.getRowConstraints().add(new RowConstraints(500));
+        rightColumn.getRowConstraints().add(new RowConstraints(100));
+        rightColumn.getColumnConstraints().add(new ColumnConstraints(300));
+        gridpane.add(rightColumn,1,0);
+        gridpane.setGridLinesVisible(false);
+        rightColumn.setGridLinesVisible(false);
+
+        //Creating a gridpane for buttons to be placed in
+        GridPane containButtons = new GridPane();
+        containButtons.getRowConstraints().add(new RowConstraints(100));
+        containButtons.getColumnConstraints().add(new ColumnConstraints(300));
+        rightColumn.add(containButtons,0,1);
+        containButtons.setGridLinesVisible(true);
+
+
+
+
+
+
+
+
         //Creating a scene object 
         Scene scene = new Scene(gridpane, World.gameScreenWidth+301, World.gameScreenHeight);
         
