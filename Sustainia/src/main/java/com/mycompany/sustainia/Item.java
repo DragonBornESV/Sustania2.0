@@ -18,9 +18,7 @@ public class Item implements Cloneable {
     private int itemY = 0;
     private HitBox hb = new HitBox(itemX,itemY,16*4,16*4);
     
-    int itemImage = 0;
-    
-    private ImageView image;
+    int imageNumber = 0;
     
     Material[] materials = new Material[10];
     double weight;
@@ -37,7 +35,7 @@ public class Item implements Cloneable {
         }
         weight = sumOfMaterials * 0.1;
         
-        itemImage = imageNumber;
+        this.imageNumber = imageNumber;
     }
     
     public Item(String name, int itemX, int itemY, Material[] materials, int imageNumber, HitBox hb){
@@ -60,7 +58,7 @@ public class Item implements Cloneable {
         this.hb = new HitBox(hb.topLeftX + itemX, hb.topLeftX + itemX, hb.width, hb.height);
         
         //The image that is shown as the item.
-        itemImage = imageNumber;
+        this.imageNumber = imageNumber;
     }
 
     

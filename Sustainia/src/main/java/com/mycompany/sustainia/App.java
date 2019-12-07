@@ -254,7 +254,7 @@ public class App extends Application {
             //Sets the image to the item
             ImageView tempItem = new ImageView(itemsImage);
             //Shows the correct sprite by using the itemsImage number.
-            tempItem.setViewport(new Rectangle2D(roomItems.get(i).itemImage*16*4, 0, 16*4, 16*4));
+            tempItem.setViewport(new Rectangle2D(roomItems.get(i).imageNumber*16*4, 0, 16*4, 16*4));
             
             //Sets the image of the items to the correct location in the scene.
             tempItem.setX(roomItems.get(i).getItemX());
