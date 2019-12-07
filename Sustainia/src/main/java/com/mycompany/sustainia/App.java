@@ -328,7 +328,7 @@ public class App extends Application {
                     System.out.println(game.currentRoom.name);
                     game.currentRoom = game.newRoom(World.gameX, World.gameY, game.currentRoom);
                     update();
-                    
+                    Parameter.mapAddScore("City Equality", 10);
 
 
 

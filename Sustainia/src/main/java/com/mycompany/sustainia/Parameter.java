@@ -118,13 +118,15 @@ public class Parameter {
 
             }
 
-             */
+
 
             if (p.getScore() == 100) {
                 System.out.println("Congratulations you won the game!");
                 Parameter.printScore();
-                System.exit(0);
+
             }
+
+             */
         }
     }
 
