@@ -72,6 +72,8 @@ public class App extends Application {
     boolean goWest  = false;
     boolean moving  = false;
     
+    boolean startingGame = true;
+    
     boolean newRoom = true;
     
     int facing = 0;
@@ -102,6 +104,9 @@ public class App extends Application {
     private ImageView streetTop;
     private ImageView character;
     
+    public App(){
+        game.createRooms();
+    }
     
     @Override
     public void start(Stage stage) throws FileNotFoundException {
@@ -209,7 +214,6 @@ public class App extends Application {
         stage.setScene(scene);
         //Displaying the contents of the stage
         stage.show();
-        
         characterAnimation();
     }
     
@@ -231,6 +235,7 @@ public class App extends Application {
                     moveCharacter(moving, goNorth, goSouth, goEast, goWest, dx, dy, animationTimer, facing);
                     drawRoom(game.currentRoom);
                     System.out.println(game.currentRoom.name);
+                    System.out.println(game.previousRoom);
                     game.currentRoom = game.newRoom(World.gameX, World.gameY, game.currentRoom);
                 }
             };
@@ -283,8 +288,9 @@ public class App extends Application {
         
     }
     private void drawRoom(Room currentRoom){
-        World.gameX = game.getSpawnPointX(World.gameX, currentRoom);
-        World.gameY = game.getSpawnPointY(World.gameY, currentRoom);
+        World.gameX = game.getSpawnPointX(World.gameX, currentRoom, game.previousRoom);
+        World.gameY = game.getSpawnPointY(World.gameY, currentRoom, game.previousRoom);
+        System.out.println(World.gameY);
         
         if (currentRoom.equals(game.streets)){
            roomX = 0;
@@ -304,27 +310,35 @@ public class App extends Application {
             if (currentRoom.equals(game.townHall)){
                 roomX = 0;
                 roomY = 770*World.scale;
+                game.previousRoom = 0;
             } else if (currentRoom.equals(game.nonsustainableHouse)){
                 roomX = 256*World.scale;
                 roomY = 770*World.scale;
+                game.previousRoom = 1;
             } else if (currentRoom.equals(game.park)){
                 roomX = 512*World.scale;
                 roomY = 770*World.scale;
+                game.previousRoom = 2;
             } else if (currentRoom.equals(game.bank)){
                 roomX = 768*World.scale;
                 roomY = 770*World.scale;
+                game.previousRoom = 3;
             } else if (currentRoom.equals(game.clothingFactory)){
                 roomX = 0;
                 roomY = 979*World.scale;
+                game.previousRoom = 4;
             } else if (currentRoom.equals(game.policeStation)){
                 roomX = 256*World.scale;
                 roomY = 979*World.scale;
+                game.previousRoom = 5;
             } else if (currentRoom.equals(game.recyclingStation)){
                 roomX = 512*World.scale;
                 roomY = 979*World.scale;
+                game.previousRoom = 6;
             } else if (currentRoom.equals(game.school)){
                 roomX = 768*World.scale;
                 roomY = 979*World.scale;
+                game.previousRoom = 7;
             }
             
             if (World.roomWidth - World.gameX < World.gameScreenWidth){
