@@ -38,6 +38,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.lang.Object;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -216,10 +217,12 @@ public class App extends Application {
         parameterGridpane.setVgap(2);
         parameterGridpane.add(titelParamater, 0 ,0);
         parameterGridpane.setHalignment(titelParamater, HPos.CENTER);
+        parameterGridpane.add(ParameterPanel.mainBar.getStackPane(),0,1);
+
 
         for (int i = 0; i < ParameterPanel.list.size(); i++) {
 
-            parameterGridpane.add(ParameterPanel.list.get(i).getStackPane(),0,i+1);
+            parameterGridpane.add(ParameterPanel.list.get(i).getStackPane(),0,i+2);
         }
 
 
@@ -299,12 +302,18 @@ public class App extends Application {
     }
 
     public void update(){
+        DecimalFormat numberFormat = new DecimalFormat("#.00");
+        double value = 0;
         for (ParameterPanel p: ParameterPanel.list) {
-
 
             p.getProgressBar().setProgress(Parameter.parameterList.get(p.getParameterName()).getScore()/100);
             p.getProgressText().setText((Parameter.parameterList.get(p.getParameterName()).getScore())+"%");
+            value += Parameter.parameterList.get(p.getParameterName()).getScore();
         }
+        ParameterPanel.mainBar.getProgressBar().setProgress((value/7)/100);
+        ParameterPanel.mainBar.getProgressText().setText(numberFormat.format(value/7)+"%");
+
+
 
     }
     
@@ -328,7 +337,7 @@ public class App extends Application {
                     System.out.println(game.currentRoom.name);
                     game.currentRoom = game.newRoom(World.gameX, World.gameY, game.currentRoom);
                     update();
-                    Parameter.mapAddScore("City Equality", 10);
+                    Parameter.mapAddScore("City Equality", 1);
 
 
 

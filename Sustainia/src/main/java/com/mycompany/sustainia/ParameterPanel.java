@@ -9,6 +9,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class ParameterPanel extends Node {
     private ProgressBar progressBar;
     private Text parameterName, progressText;
     public static List<ParameterPanel> list = new ArrayList<>();
+    static ParameterPanel mainBar = new ParameterPanel();
 
     public ProgressBar getProgressBar() {
         return progressBar;
@@ -33,6 +35,31 @@ public class ParameterPanel extends Node {
         return progressText;
     }
 
+    public ParameterPanel(){
+        stackPane = new StackPane();
+        gridPane = new GridPane();
+        progressBar = new ProgressBar();
+        progressBar.setMinSize(250, 28);
+        progressBar.setProgress(0);
+        parameterName = new Text("Main Score");
+        progressText = new Text("%");
+
+        stackPane.getChildren().add(progressBar);
+        stackPane.getChildren().add(gridPane);
+
+        gridPane.getColumnConstraints().add(new ColumnConstraints(30));
+        gridPane.getColumnConstraints().add(new ColumnConstraints(120));
+        gridPane.getColumnConstraints().add(new ColumnConstraints(110));
+        gridPane.getRowConstraints().add(new RowConstraints(progressBar.getMinHeight()));
+
+        gridPane.add(parameterName, 1,0);
+        gridPane.add(progressText,2,0);
+
+        gridPane.setHalignment(parameterName, HPos.LEFT);
+        gridPane.setHalignment(progressText, HPos.RIGHT);
+
+
+    }
 
 
 
@@ -41,7 +68,7 @@ public class ParameterPanel extends Node {
         stackPane = new StackPane();
         gridPane = new GridPane();
         progressBar = new ProgressBar();
-        progressBar.setMinSize(250, 25);
+        progressBar.setMinSize(250, 28);
         progressBar.setProgress(0);
         parameterName = new Text(name);
         progressText = new Text("%");
@@ -49,14 +76,15 @@ public class ParameterPanel extends Node {
         stackPane.getChildren().add(progressBar);
         stackPane.getChildren().add(gridPane);
 
-        gridPane.getColumnConstraints().add(new ColumnConstraints(150));
+        gridPane.getColumnConstraints().add(new ColumnConstraints(30));
+        gridPane.getColumnConstraints().add(new ColumnConstraints(120));
         gridPane.getColumnConstraints().add(new ColumnConstraints(110));
         gridPane.getRowConstraints().add(new RowConstraints(progressBar.getMinHeight()));
 
-        gridPane.add(parameterName, 0,0);
-        gridPane.add(progressText,1,0);
+        gridPane.add(parameterName, 1,0);
+        gridPane.add(progressText,2,0);
 
-        gridPane.setHalignment(parameterName, HPos.CENTER);
+        gridPane.setHalignment(parameterName, HPos.LEFT);
         gridPane.setHalignment(progressText, HPos.RIGHT);
 
         list.add(this);
