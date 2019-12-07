@@ -284,7 +284,7 @@ public class App extends Application {
     }
     private void drawRoom(Room currentRoom){
         World.gameX = game.getSpawnPointX(World.gameX, currentRoom);
-        World.gameY = game.getSpawnPointX(World.gameY, currentRoom);
+        World.gameY = game.getSpawnPointY(World.gameY, currentRoom);
         
         if (currentRoom.equals(game.streets)){
            roomX = 0;

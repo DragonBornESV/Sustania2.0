@@ -6,12 +6,16 @@ public class Game {
     Room placeHolder;
     
     Room streets = new Room("Streets", 560, 450,
-            new HitBox[]{new HitBox(0,0,10,10)},
+            new HitBox[]{
+                // Level Barrier
+                new HitBox(0,298,1120,20)},
             new Door(new HitBox(700,700,64,10), placeHolder)
     );
     
     Room townHall = new Room("Town Hall", 128, 194,
-            new HitBox[]{new HitBox(0,0,256,44), new HitBox(0,187,96,22), new HitBox(160,187,96,22), new HitBox(-10,44,10,143), new HitBox(256,44,10,143)},
+            new HitBox[]{
+                //Walls
+                new HitBox(0,0,256,44), new HitBox(0,187,96,22), new HitBox(160,187,96,22), new HitBox(-10,44,10,143), new HitBox(256,44,10,143)},
             new Door(new HitBox(96,209,64,10), streets)
     );
     
@@ -115,12 +119,14 @@ public class Game {
         return dy;
     }
     
+    
     public void collisionWithObjects(int x, int y){
         for (int i = 0; i < currentRoom.hitboxesInRoom.length; i++){
             currentRoom.hitboxesInRoom[i].collisionWithObject(x, y);
-            // her tjekkes der for collision med NPS'er ved at gikke på <hitbox>.triggerd
         }
     }
+    
+    
     public Room newRoom(int x, int y, Room room){
         currentRoom.door.doorFrame.collisionWithObject(x, y);
         System.out.println(currentRoom.door.doorFrame.checkIfTriggered());
@@ -137,7 +143,6 @@ public class Game {
     public int getSpawnPointX(int x, Room room){
         if (roomSwitch){
             x = -World.characterX +room.spawnPX*World.scale;
-            roomSwitch = false;
         } else {
             x = x;
         }
@@ -152,11 +157,6 @@ public class Game {
             y = y;
         }
         return y;
-    }
-    
-    
-    public boolean getRoomSwitch(){
-        return roomSwitch;
     }
     
     
