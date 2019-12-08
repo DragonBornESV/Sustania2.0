@@ -234,7 +234,7 @@ public class App extends Application {
                     // All the metods, that need to be updatet during runtime are called here.
                     moveCharacter(moving, goNorth, goSouth, goEast, goWest, dx, dy, animationTimer, facing);
                     drawRoom(game.currentRoom);
-                    game.currentRoom = game.newRoom(World.gameX, World.gameY, game.currentRoom);
+                    game.currentRoom = game.newRoom(World.gameX, World.gameY, game.currentRoom, game.streets);
                 }
             };
 

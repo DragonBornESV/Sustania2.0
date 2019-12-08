@@ -22,9 +22,21 @@ public class Game {
     public void createStreets(){
         streets = new Room("Streets", new int[][]{
             // Front of Town Hall
-            {560,460},
+            {560,451},
             // Front of Non-Sustainable house
-            {208,374}
+            {208,374},
+            // Front of Park
+            {208,506},
+            // Front of Bank
+            {912,374},
+            // Front of Clothing Factory
+            {912,506},
+            // Front of police station
+            {336,622},
+            // Front of Recyclestation
+            {560,600},
+            // Front of School
+            {784,622}
         },
         new HitBox[]{
             // Level Barrier
@@ -64,50 +76,64 @@ public class Game {
         
     public void createNonsustainableHouse(){
         nonsustainableHouse = new Room("NSH", 240, 115,
-                new HitBox[]{new HitBox(0,0,10,10)},
-                new Door(new HitBox(256,104,10,44), streets)
-        );
-    }
-
-    public void createPoliceStation(){
-        policeStation = new Room("Police Station", 16, 128,
-                new HitBox[]{new HitBox(0,0,10,10)},
-                new Door(new HitBox(96,209,64,10), streets)
-        );
-    }
-
-    public void createBank(){
-        bank = new Room("Bank", 16, 104,
-                new HitBox[]{new HitBox(0,0,10,10)},
-                new Door(new HitBox(96,209,64,10), streets)
-        );
-    }
-
-    public void createClothingFactory(){
-        clothingFactory = new Room("Colothing Factory", 16, 104,
-                new HitBox[]{new HitBox(0,0,10,10)},
-                new Door(new HitBox(96,209,64,10), streets)
-        );
-    }
-    
-    public void createSchool(){
-        school = new Room("School", 128, 32,
-                new HitBox[]{new HitBox(0,0,10,10)},
-                new Door(new HitBox(96,209,64,10), streets)
+            new HitBox[]{
+                // Walls
+                new HitBox(0,0,224,44), new HitBox(224,0,32,104), new HitBox(224,148,32,61), new HitBox(-10,44,10,165), new HitBox(0,209,224,10)},
+            new Door(new HitBox(256,104,10,44), streets)
         );
     }
     
     public void createPark(){
-        park = new Room("Park", 240, 104,
-                new HitBox[]{new HitBox(0,0,10,10)},
-                new Door(new HitBox(96,209,64,10), streets)
+        park = new Room("Park", 240, 115,
+            new HitBox[]{
+                // Walls
+                new HitBox(0,0,224,44), new HitBox(224,0,32,104), new HitBox(224,148,32,61), new HitBox(-10,44,10,165), new HitBox(0,209,224,10)},
+            new Door(new HitBox(256,104,10,44), streets)
+        );
+    }
+    
+    public void createBank(){
+        bank = new Room("Bank", 16, 115,
+            new HitBox[]{
+                // Walls
+                new HitBox(32,0,224,44), new HitBox(0,0,32,104), new HitBox(0,148,32,61), new HitBox(256,44,10,165), new HitBox(32,209,224,10)},
+            new Door(new HitBox(-10,104,10,44), streets)
+        );
+    }
+    
+    public void createClothingFactory(){
+        clothingFactory = new Room("Colothing Factory", 16, 115,
+            new HitBox[]{
+                // Walls
+                new HitBox(32,0,224,44), new HitBox(0,0,32,104), new HitBox(0,148,32,61), new HitBox(256,44,10,165), new HitBox(32,209,224,10)},
+            new Door(new HitBox(-10,104,10,44), streets)
         );
     }
 
+    public void createPoliceStation(){
+        policeStation = new Room("Police Station", 128, 55,
+            new HitBox[]{
+                // Walls
+                new HitBox(0,22,96,44), new HitBox(96,0,16,44), new HitBox(144,0,16,44), new HitBox(160,22,96,44), new HitBox(-10,66,10,143), new HitBox(256,66,10,143), new HitBox(0,209,256,10)},
+            new Door(new HitBox(112,0,32,44), streets)
+        );
+    }
+    
     public void createRecyclingStation(){
-        recyclingStation = new Room("Recycling Station", 16, 128,
-                new HitBox[]{new HitBox(0,0,10,10)},
-                new Door(new HitBox(96,209,64,10), streets)
+        recyclingStation = new Room("Recycling Station", 128, 44,
+            new HitBox[]{
+                //Walls
+                new HitBox(0,0,112,44), new HitBox(144,0,112,44), new HitBox(-10,44,10,165), new HitBox(256,44,10,165), new HitBox(0,209,256,10)},
+            new Door(new HitBox(112,0,32,44), streets)
+        );
+    }
+    
+    public void createSchool(){
+        school = new Room("School", 128, 55,
+            new HitBox[]{
+                // Walls
+                new HitBox(0,22,96,44), new HitBox(96,0,16,44), new HitBox(144,0,16,44), new HitBox(160,22,96,44), new HitBox(-10,66,10,143), new HitBox(256,66,10,143), new HitBox(0,209,256,10)},
+            new Door(new HitBox(112,0,32,44), streets)
         );
     }
     
@@ -115,13 +141,13 @@ public class Game {
             createStreets();
             createTownHall();
             createNonsustainableHouse();
-            createPoliceStation();
+            createPark();
             createBank();
             createClothingFactory();
-            createSchool();
-            createPark();
+            createPoliceStation();
             createRecyclingStation();
-            currentRoom = townHall;
+            createSchool();
+            currentRoom = streets;
         }
 
         
@@ -181,7 +207,7 @@ public class Game {
     }
     
     
-    public Room newRoom(int x, int y, Room room){
+    public Room newRoom(int x, int y, Room room, Room roomStreets){
         System.out.println(room.name);
         if (room.equals(streets)){
             for (int i =0; i<streets.multipleDoors.length; i++){
@@ -229,6 +255,7 @@ public class Game {
     
     
     public int getSpawnPointX(int x, Room room, int previousRoom){
+        System.out.println(previousRoom);
         if (roomSwitch){
             if (room.equals(streets)){
                 //x = -300 + 560*4;
