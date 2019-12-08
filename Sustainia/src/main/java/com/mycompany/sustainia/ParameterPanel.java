@@ -41,6 +41,7 @@ public class ParameterPanel extends Node {
         progressBar = new ProgressBar();
         progressBar.setMinSize(250, 28);
         progressBar.setProgress(0);
+        progressBar.setStyle("-fx-accent: greenyellow");
         parameterName = new Text("Main Score");
         progressText = new Text("%");
 

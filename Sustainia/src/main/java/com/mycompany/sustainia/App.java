@@ -41,6 +41,7 @@ import java.lang.Object;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -113,7 +114,14 @@ public class App extends Application {
         FileInputStream inputStreetsTop = new FileInputStream("Sustainia\\img\\street_top.png");
         Image streetsTopImage = new Image(inputStreetsTop,1120*4,770*4,true,false);
         
-        
+        FileInputStream startImage = new FileInputStream("Sustainia\\img\\sustainia.png");
+        Image startScreen = new Image(startImage, 900, 600, true, false);
+        ImageView view = new ImageView(startScreen);
+
+        StackPane startPane = new StackPane();
+        startPane.getChildren().add(view);
+        startPane.setAlignment(Pos.CENTER);
+
         //Setting the image view
         this.background = new ImageView(backgroundImage);
         this.rooms = new ImageView(roomsImage);
@@ -158,13 +166,14 @@ public class App extends Application {
         
         Text text = new Text("  baby Yoda \n  will save \n  us all");
         text.setFont(new Font(50));
-        Text text1 = new Text("  Din mor \n  will save \n  us all");
+        Text text1 = new Text("  Baby yoda \n  will save \n  us all");
         text1.setFont(new Font(50));
         
         GridPane gridpane = new GridPane();
         gridpane.getColumnConstraints().add(new ColumnConstraints(601));
         gridpane.getColumnConstraints().add(new ColumnConstraints(300));
         gridpane.add(root, 0, 0);
+
 
 
         //creating a gridpane for RightPanel
@@ -219,7 +228,7 @@ public class App extends Application {
         parameterGridpane.setHalignment(titelParamater, HPos.CENTER);
         parameterGridpane.add(ParameterPanel.mainBar.getStackPane(),0,1);
 
-
+        //Adding all of the Parameters to the gridpane to display them.
         for (int i = 0; i < ParameterPanel.list.size(); i++) {
 
             parameterGridpane.add(ParameterPanel.list.get(i).getStackPane(),0,i+2);
@@ -254,16 +263,19 @@ public class App extends Application {
             rightColumn.add(parameterGridpane,0,0);
         });
 
-        Button refresh = new Button();
-         refresh.setOnAction(event -> {
-             Parameter.mapAddScore("City Equality", 10);
-         });
 
-        containButtons.add(refresh, 2,0);
 
         //Creating a scene object 
         Scene scene = new Scene(gridpane, World.gameScreenWidth+301, World.gameScreenHeight);
-        
+        Scene start = new Scene(startPane, World.gameScreenWidth+301, World.gameScreenHeight);
+        //Start screen button
+        Button startButton = new Button("Start");
+        startButton.setMinSize(200, 100);
+        startButton.setOnAction(event -> {
+            stage.setScene(scene);
+        });
+
+        startPane.getChildren().add(startButton);
 // KEYS pressed
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -294,7 +306,7 @@ public class App extends Application {
         stage.setTitle("Moving Image Test");
         
         //Adding scene to the stage        
-        stage.setScene(scene);
+        stage.setScene(start);
         //Displaying the contents of the stage
         stage.show();
 
