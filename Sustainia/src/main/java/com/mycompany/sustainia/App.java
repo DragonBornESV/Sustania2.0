@@ -101,7 +101,7 @@ public class App extends Application {
     
     private ImageView background;
     private ImageView rooms;
-    private ImageView streetTop;
+    private ImageView roomsTop;
     private ImageView character;
     
     public App(){
@@ -119,12 +119,12 @@ public class App extends Application {
         FileInputStream inputCharacter = new FileInputStream("img\\ch.png");
         Image characterImage = new Image(inputCharacter,128*World.scale,128*World.scale,true,false);
         
-    // Streets
+    // Rooms
         FileInputStream inputRooms = new FileInputStream("img\\rooms.png");
         Image roomsImage = new Image(inputRooms,1120*World.scale,1188*World.scale,true,false);
-        
-        FileInputStream inputStreetsTop = new FileInputStream("img\\street_top.png");
-        Image streetsTopImage = new Image(inputStreetsTop,1120*4,770*4,true,false);
+    // RoomsTop
+        FileInputStream inputRoomsTop = new FileInputStream("img\\roomsTop.png");
+        Image roomsTopImage = new Image(inputRoomsTop,1120*World.scale,1188*World.scale,true,false);
         
         
         //Setting the image view
@@ -132,7 +132,7 @@ public class App extends Application {
         this.rooms = new ImageView(roomsImage);
         this.character = new ImageView(characterImage);
         character.setViewport(new Rectangle2D(0, 0, World.characterWidth, World.characterHeight));
-        this.streetTop = new ImageView(streetsTopImage);
+        this.roomsTop = new ImageView(roomsTopImage);
         
         //Setting the position of the image 
         this.background.setX(0);
@@ -147,8 +147,8 @@ public class App extends Application {
         this.character.setX(World.characterX -World.characterWidth/2);
         this.character.setY(World.characterY -World.characterHeight/2);
         
-        this.streetTop.setX(World.gameX);
-        this.streetTop.setY(World.gameY);
+        this.roomsTop.setX(imageX);
+        this.roomsTop.setY(imageY);
         
         //setting the fit height and width of the image view 
         this.rooms.setFitWidth(World.gameScreenWidth);
@@ -157,17 +157,18 @@ public class App extends Application {
         this.character.setFitWidth(World.characterWidth);
         this.character.setFitHeight(World.characterHeight);
         
-        this.streetTop.setFitWidth(1120);
-        this.streetTop.setFitHeight(770);
+        this.roomsTop.setFitWidth(World.gameScreenWidth);
+        this.roomsTop.setFitHeight(World.gameScreenHeight);
+
         
         //Setting the preserve ratio of the image view 
         this.background.setPreserveRatio(true);
         this.rooms.setPreserveRatio(true);
         this.character.setPreserveRatio(true);
-        this.streetTop.setPreserveRatio(true);
+        this.roomsTop.setPreserveRatio(true);
         
         //Creating a Group object  
-        Group root = new Group(this.background, this.rooms, this.character);
+        Group root = new Group(this.background, this.rooms, this.character, this.roomsTop);
         
         Text text = new Text("  baby Yoda \n  will save \n  us all");
         text.setFont(new Font(50));
@@ -249,9 +250,6 @@ public class App extends Application {
         World.gameX += dx;
         World.gameY += dy;
 
-        this.streetTop.setX(World.gameX);
-        this.streetTop.setY(World.gameY);
-        
         // The games cordinants are needet to position the collision.... If this function is not called, the game will run without collision.
         game.collisionWithObjects(World.gameX, World.gameY, game.currentRoom);
 
@@ -369,12 +367,17 @@ public class App extends Application {
         }
         
         rooms.setViewport(new Rectangle2D(rectX, rectY, rectWidth, rectHeight));
+        roomsTop.setViewport(new Rectangle2D(rectX, rectY, rectWidth, rectHeight));
         
         this.rooms.setFitWidth(rectWidth);
         this.rooms.setFitHeight(rectHeight);
         this.rooms.setX(imageX);
         this.rooms.setY(imageY);
         
+        this.roomsTop.setFitWidth(rectWidth);
+        this.roomsTop.setFitHeight(rectHeight);
+        this.roomsTop.setX(imageX);
+        this.roomsTop.setY(imageY);        
     }
     
 

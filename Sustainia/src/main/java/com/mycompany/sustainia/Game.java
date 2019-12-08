@@ -40,9 +40,12 @@ public class Game {
         },
         new HitBox[]{
             // Level Barrier
-            new HitBox(0,298,1120,20),
+            new HitBox(0,298,1120,20), new HitBox(0,770,1120,10),
             // TownHall
-            new HitBox(448,318,224,110), new HitBox(448,428,96,34), new HitBox(576,428,96,34)},
+            new HitBox(448,318,224,110), new HitBox(448,428,96,34), new HitBox(576,428,96,34),
+            // Recyclestation
+            new HitBox(480,614,64,24), new HitBox(576,614,64,24), new HitBox(480,638,160,110)
+        },
  
             new HitBox[]{
                 // Town Hall door
@@ -123,7 +126,7 @@ public class Game {
         recyclingStation = new Room("Recycling Station", 128, 44,
             new HitBox[]{
                 //Walls
-                new HitBox(0,0,112,44), new HitBox(144,0,112,44), new HitBox(-10,44,10,165), new HitBox(256,44,10,165), new HitBox(0,209,256,10)},
+                new HitBox(0,0,112,44), new HitBox(144,0,112,44), new HitBox(-6,44,10,161), new HitBox(252,44,10,161), new HitBox(0,205,256,10)},
             new Door(new HitBox(112,0,32,44), streets)
         );
     }
