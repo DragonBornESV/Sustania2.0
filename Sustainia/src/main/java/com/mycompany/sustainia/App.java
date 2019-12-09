@@ -194,8 +194,6 @@ public class App extends Application {
         gridpane.getColumnConstraints().add(new ColumnConstraints(300));
         gridpane.add(root, 0, 0);
 
-
-
         //creating a gridpane for RightPanel
         GridPane rightColumn = new GridPane();
         rightColumn.getRowConstraints().add(new RowConstraints(500));
@@ -253,10 +251,7 @@ public class App extends Application {
 
             parameterGridpane.add(ParameterPanel.list.get(i).getStackPane(),0,i+2);
         }
-
-
-
-
+        
         rightColumn.add(parameterGridpane, 0,0);
 
 
@@ -329,7 +324,7 @@ public class App extends Application {
         stage.setTitle("Moving Image Test");
         
         //Adding scene to the stage        
-        stage.setScene(start);
+        stage.setScene(scene);
         //Displaying the contents of the stage
         stage.show();
         characterAnimation();
@@ -370,14 +365,14 @@ public class App extends Application {
                     drawRoom(game.currentRoom);
 
                     game.currentRoom = game.roomChangeCheck(World.gameX, World.gameY);
-                    System.out.println(game.currentRoom.name);
+                    //System.out.println(game.currentRoom.name);
                     update();
                     Parameter.mapAddScore("City Equality", 1);
 
                 }
             };
 
-            timer.start();
+        timer.start();
     }
     
     private void moveCharacter (boolean moving, boolean goNorth, boolean goSouth, boolean goEast, boolean goWest, int dx, int dy, int at, int facing){
@@ -557,6 +552,10 @@ public class App extends Application {
                     roomItems.get(i).getHitBox().width, 
                     roomItems.get(i).getHitBox().height));
             */
+            
+            roomItems.get(i).printPosition();
+            
+            System.out.println("All items loaded");
         }
         
         //Adds all the new items to the group

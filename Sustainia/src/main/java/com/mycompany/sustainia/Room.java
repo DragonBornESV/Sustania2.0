@@ -39,6 +39,7 @@ public class Room
         this.spawnPY = spawnPY;
         this.hitboxesInRoom = hitboxesInRoom;
         this.door = door;
+        this.itemsInRoom = itemsInRoom;
     }
     
     /**
@@ -54,6 +55,7 @@ public class Room
         this.multipleSpawnPoints = multipleSpawnPoints;
         this.hitboxesInRoom = hitboxesInRoom;
         this.multipleDoors = multipleDoors;
+        this.itemsInRoom = itemsInRoom;
     
     }
 
