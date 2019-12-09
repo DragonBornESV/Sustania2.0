@@ -105,21 +105,21 @@ public class App extends Application {
     public void start(Stage stage) throws FileNotFoundException {
         
         // black background image
-        FileInputStream inputBackground = new   FileInputStream("img\\background.png");
+        FileInputStream inputBackground = new   FileInputStream("Sustainia\\img\\background.png");
         Image backgroundImage = new Image(inputBackground, 600, 600, true, false);
 
         // Creates a new image, from the selected parth on computer
-        FileInputStream inputCharacter = new FileInputStream("img\\ch.png");
+        FileInputStream inputCharacter = new FileInputStream("Sustainia\\img\\ch.png");
         Image characterImage = new Image(inputCharacter,128*World.scale,128*World.scale,true,false);
         
     // Rooms
-        FileInputStream inputRooms = new FileInputStream("img\\rooms.png");
+        FileInputStream inputRooms = new FileInputStream("Sustainia\\img\\rooms.png");
         Image roomsImage = new Image(inputRooms,1120*World.scale,1188*World.scale,true,false);
     // RoomsTop
-        FileInputStream inputRoomsTop = new FileInputStream("img\\roomsTop.png");
+        FileInputStream inputRoomsTop = new FileInputStream("Sustainia\\img\\roomsTop.png");
         Image roomsTopImage = new Image(inputRoomsTop,1120*World.scale,1188*World.scale,true,false);
         
-        FileInputStream startImage = new FileInputStream("img\\sustainia.png");
+        FileInputStream startImage = new FileInputStream("Sustainia\\img\\sustainia.png");
         Image startScreen = new Image(startImage, 900, 600, true, false);
         ImageView view = new ImageView(startScreen);
 
@@ -172,7 +172,7 @@ public class App extends Application {
         
         Text text = new Text("  baby Yoda \n  will save \n  us all");
         text.setFont(new Font(50));
-        Text text1 = new Text("  Baby yoda \n  will save \n  us all");
+        Text text1 = new Text("  123 \n  will save \n  us all");
         text1.setFont(new Font(50));
         
         GridPane gridpane = new GridPane();
@@ -184,12 +184,13 @@ public class App extends Application {
 
         //creating a gridpane for RightPanel
         GridPane rightColumn = new GridPane();
-        rightColumn.getRowConstraints().add(new RowConstraints(500));
-        rightColumn.getRowConstraints().add(new RowConstraints(100));
+        rightColumn.getRowConstraints().add(new RowConstraints(230));
+        rightColumn.getRowConstraints().add(new RowConstraints(320));
+        rightColumn.getRowConstraints().add(new RowConstraints(50));
         rightColumn.getColumnConstraints().add(new ColumnConstraints(300));
         gridpane.add(rightColumn,1,0);
         gridpane.setGridLinesVisible(false);
-        rightColumn.setGridLinesVisible(false);
+        rightColumn.setGridLinesVisible(true);
 
 
         //ParameterBar
@@ -250,23 +251,24 @@ public class App extends Application {
         GridPane containButtons = new GridPane();
         containButtons.getRowConstraints().add(new RowConstraints(100));
 
-        rightColumn.add(containButtons,0,1);
+        rightColumn.add(text,0,1);
+        rightColumn.add(containButtons,0,2);
 
 
 
         //Buttons to swap between panels
-        Button scoreButton = new Button("Score");
+        Button scoreButton = new Button("Materials");
         Button inventoryButton = new Button("Inventory");
         containButtons.add(inventoryButton, 0,0);
         containButtons.add(scoreButton,1,0);
         containButtons.setHgap(10);
         scoreButton.setOnAction(event -> {
-            rightColumn.getChildren().remove(parameterGridpane);
-            rightColumn.add(text1,0,0);
+            rightColumn.getChildren().remove(text);
+            rightColumn.add(text1,0,1);
         });
         inventoryButton.setOnAction(event -> {
             rightColumn.getChildren().remove(text1);
-            rightColumn.add(parameterGridpane,0,0);
+            rightColumn.add(text,0,1);
         });
 
 
@@ -312,7 +314,7 @@ public class App extends Application {
         stage.setTitle("Moving Image Test");
         
         //Adding scene to the stage        
-        stage.setScene(start);
+        stage.setScene(scene);
         //Displaying the contents of the stage
         stage.show();
         characterAnimation();
