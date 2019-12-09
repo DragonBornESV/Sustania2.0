@@ -3,7 +3,7 @@ package com.mycompany.sustainia;
 class NPC {
     HitBox NPC;
     Room currentRoom;
-    private final Say[] dialog;
+    //private final Say[] dialog;
     private int persuasionValue = 0;
     private final int persuasionTrigger = 50;
     private final String endTriggerMessage;
@@ -14,9 +14,11 @@ class NPC {
     
     private final String npcName;
     
-    public NPC (HitBox hitbox, Room currentRoom){
+    public NPC (String npcName, HitBox hitbox, Room currentRoom, String endTriggerMessage){
+        this.npcName = npcName;
         this.NPC = hitbox;
         this.currentRoom = currentRoom;
+        this.endTriggerMessage = endTriggerMessage;
     }
     
     String getNpcName() {
