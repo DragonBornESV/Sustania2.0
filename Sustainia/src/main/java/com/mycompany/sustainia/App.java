@@ -300,9 +300,12 @@ public class App extends Application {
                     case S: goSouth = true; break;
                     case D: goEast  = true; break;
                     case A: goWest  = true; break;
+                    
                     //Detects the drop-key 'Q'
                     //Just for now, the item to be dropped is always the first item
                     case Q: dropItem();
+                    //Leave convo
+                    case L: leaveConvo();
                 }
             }
         });
@@ -571,6 +574,10 @@ public class App extends Application {
      */
     private void dropItem() {
         game.dropItem(game.getInventory().getItemsInInventory().get(0));
+    }
+    
+    private void leaveConvo(){
+        //wantToLeave == true;
     }
     
     public static void runApp(String[] args) {
