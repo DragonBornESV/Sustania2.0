@@ -1,4 +1,5 @@
-package worldofzuul;
+package com.mycompany.sustainia;
+
 
 /**This class contains dialog elements used by the NPC class. 
  * 
@@ -10,7 +11,6 @@ public class Say {
     private String npcText;
     private String[] responses;
     private int[] persuasionPoints;
-    private Parser parser;
     private int chosenResponse = 0;
     
     private boolean wantToLeave = false;
@@ -22,12 +22,11 @@ public class Say {
      * @param responses         A string-array of available responses.
      * @param persuasionPoints  The points available, when choosing the responses above.
      */
-    Say(String npcText, String[] responses, int[] persuasionPoints, Parser parser) {
+    Say(String npcText, String[] responses, int[] persuasionPoints) {
         this.npcText = npcText;
         this.responses = responses;
         this.persuasionPoints = persuasionPoints;
-        this.parser = parser;
-    }
+        }
     
     /**Prints the message from the NPC and displays the available responses and
      * the corresponding numbers. It then prompts the player to choose an
@@ -36,13 +35,6 @@ public class Say {
      * @return the points gained from the chosen response.
      */
     public int print(String npcName) {
-        
-        //Prints the NPCs message
-        System.out.println("");
-        System.out.println("---------------------------------");
-        System.out.println("");
-        System.out.println(npcName + ": " + npcText);
-        System.out.println("");
         
         //Prints the available responses and the corresponding numbers.
         for (int i = 0; i < responses.length; i++) {
@@ -90,7 +82,8 @@ public class Say {
      * Another method than the on from the Game class. This one is only used
      * when the player is in a oconversation with a NPC.
      */
-    private void processCommand(Command command) 
+    /***
+     private void processCommand(Command command) 
     {
         CommandWord commandWord = command.getCommandWord();
 
@@ -119,7 +112,7 @@ public class Say {
             System.out.println("If you want to leave the conversation enter '" + CommandWord.LEAVE + "'.");
         }
     }
-    
+    */
     private void chooseReponse(Command command) {
         if (!command.hasSecondWord()) {
             System.out.println("Say what? Choose a response...");
