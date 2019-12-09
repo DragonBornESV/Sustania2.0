@@ -95,7 +95,7 @@ public class Game {
             //Checks if the player hit the item
             if (currentRoom.getItemsInRoom().get(i).getHitBox().checkIfTriggered()) {
                 
-                System.out.println("Ramte item!");
+                System.out.println("Hit item");
                 pickUpItem(currentRoom.getItemsInRoom().get(i));
             }
         }
@@ -127,6 +127,7 @@ public class Game {
      */
     public void dropItem(Item item) {
         if (item != null) {
+            //SKAL LAVES OM UNDER MERGE
             item.setPosition(-World.gameX + World.gameScreenWidth/2 - 8*4, -World.gameY+World.gameScreenHeight/2 + 16*4);
             currentRoom.getItemsInRoom().add(item);
             inv.getItemsInInventory().remove(item);

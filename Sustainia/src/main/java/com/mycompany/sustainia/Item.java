@@ -1,7 +1,5 @@
 package com.mycompany.sustainia;
 
-import javafx.scene.image.ImageView;
-
 /*
  * This class createss our objekt/datatype item.
  * Item consists of a name in form of a string,
