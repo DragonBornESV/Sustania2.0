@@ -3,7 +3,7 @@ package com.mycompany.sustainia;
 public class World {
     
     // the scale variable, defines the factor, that the pixels in the images are scaled up with.
-    public static int scale = 3;
+    public static int scale = 4;
     
     // here the width and hight of the charecter (in pixels) are difined.
     public static int characterWidth = 32*scale;
