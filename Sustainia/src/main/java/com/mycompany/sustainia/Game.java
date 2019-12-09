@@ -51,7 +51,9 @@ public class Game {
             // TownHall
             new HitBox(448,318,224,110), new HitBox(448,428,96,34), new HitBox(576,428,96,34),
             // Recyclestation
-            new HitBox(480,614,64,24), new HitBox(576,614,64,24), new HitBox(480,638,160,110)
+            new HitBox(480,614,64,24), new HitBox(576,614,64,24), new HitBox(480,638,160,110),
+            // School
+            new HitBox(672,616,2,154)
         },
  
             new HitBox[]{
@@ -78,10 +80,15 @@ public class Game {
     public void createTownHall(){
         townHall = new Room("Town Hall", 128, 194,
             new HitBox[]{
-                //Walls
-                new HitBox(0,0,256,44), new HitBox(0,187,96,22), new HitBox(160,187,96,22), new HitBox(-10,44,10,143), new HitBox(256,44,10,143)},
-            new Door(new HitBox(96,209,64,10), streets)
-        , new ArrayList<>(Arrays.asList(new Item[] {World.axe.cloneAndPosition(100, 100), World.glassBottle.cloneAndPosition(200, 100)})));
+                // Walls
+                new HitBox(0,0,256,44), new HitBox(0,185,98,22), new HitBox(158,185,98,22), new HitBox(-8,44,10,143), new HitBox(254,44,10,143),
+                // Desk
+                new HitBox(80,83,32,44), new HitBox(144,83,32,44), new HitBox(112,105,32,22),
+                // Book shelf
+                new HitBox(2,44,16,45), new HitBox(18,44,64,12), new HitBox(238,44,16,45), new HitBox(174,44,64,12)
+                },
+            new Door(new HitBox(96,209,64,10), streets),
+        new ArrayList<>(Arrays.asList(new Item[] {World.axe.cloneAndPosition(100, 100), World.glassBottle.cloneAndPosition(200, 100)})));
     }
         
     public void createNonsustainableHouse(){
