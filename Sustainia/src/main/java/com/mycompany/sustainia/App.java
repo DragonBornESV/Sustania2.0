@@ -113,25 +113,25 @@ public class App extends Application {
     public void start(Stage stage) throws FileNotFoundException {
         
         // black background image
-        FileInputStream inputBackground = new   FileInputStream("img\\background.png");
+        FileInputStream inputBackground = new   FileInputStream("Sustainia\\img\\background.png");
         Image backgroundImage = new Image(inputBackground, 600, 600, true, false);
 
         // Creates a new image, from the selected parth on computer
-        FileInputStream inputCharacter = new FileInputStream("img\\ch.png");
+        FileInputStream inputCharacter = new FileInputStream("Sustainia\\img\\ch.png");
         Image characterImage = new Image(inputCharacter,128*World.scale,128*World.scale,true,false);
 
         // Gets the image of the items
-        inputItems = new FileInputStream("img\\items.png");
+        inputItems = new FileInputStream("Sustainia\\img\\items.png");
         itemsImage = new Image(inputItems,160*World.scale,16*World.scale,true,false);
         
     // Rooms
-        FileInputStream inputRooms = new FileInputStream("img\\rooms.png");
+        FileInputStream inputRooms = new FileInputStream("Sustainia\\img\\rooms.png");
         Image roomsImage = new Image(inputRooms,1120*World.scale,1188*World.scale,true,false);
     // RoomsTop
-        FileInputStream inputRoomsTop = new FileInputStream("img\\roomsTop.png");
+        FileInputStream inputRoomsTop = new FileInputStream("Sustainia\\img\\roomsTop.png");
         Image roomsTopImage = new Image(inputRoomsTop,1120*World.scale,1188*World.scale,true,false);
         
-        FileInputStream startImage = new FileInputStream("img\\sustainia.png");
+        FileInputStream startImage = new FileInputStream("Sustainia\\img\\sustainia.png");
         Image startScreen = new Image(startImage, 900, 600, true, false);
         ImageView view = new ImageView(startScreen);
 
@@ -182,26 +182,32 @@ public class App extends Application {
         //Loads the items into the game view
         loadItems();
         
-        //Creating a Group object  
+        //Creating a Group object
         Group root = new Group(this.background, this.rooms, this.itemsGroup, this.character, this.roomsTop);
-        
+
         itemsGroup.setManaged(false);
         root.setManaged(false);
-        
+
+        StackPane game = new StackPane();
+        game.getChildren().add(root);
+        TextBox textBox = new TextBox(root);
+        game.getChildren().add(textBox.getGridPane());
+
         Text text = new Text("  baby Yoda \n  will save \n  us all");
         text.setFont(new Font(50));
-        Text text1 = new Text("  Baby yoda \n  will save \n  us all");
+        Text text1 = new Text("  123 \n  will save \n  us all");
         text1.setFont(new Font(50));
         
         GridPane gridpane = new GridPane();
         gridpane.getColumnConstraints().add(new ColumnConstraints(801));
         gridpane.getColumnConstraints().add(new ColumnConstraints(300));
-        gridpane.add(root, 0, 0);
+        gridpane.add(game, 0, 0);
 
         //creating a gridpane for RightPanel
         GridPane rightColumn = new GridPane();
-        rightColumn.getRowConstraints().add(new RowConstraints(500));
-        rightColumn.getRowConstraints().add(new RowConstraints(100));
+        rightColumn.getRowConstraints().add(new RowConstraints(230));
+        rightColumn.getRowConstraints().add(new RowConstraints(320));
+        rightColumn.getRowConstraints().add(new RowConstraints(50));
         rightColumn.getColumnConstraints().add(new ColumnConstraints(300));
         gridpane.add(rightColumn,1,0);
         gridpane.setGridLinesVisible(false);
@@ -255,31 +261,55 @@ public class App extends Application {
 
             parameterGridpane.add(ParameterPanel.list.get(i).getStackPane(),0,i+2);
         }
-        
+
         rightColumn.add(parameterGridpane, 0,0);
 
+        //Inventory Panel is added to rightColumn
+        FileInputStream imageYoda = new FileInputStream("Sustainia\\img\\babyyoda.png");
+        ImageView babyYoda = new ImageView(new Image(imageYoda,100, 100, true,false));
+        FileInputStream imageYoda1 = new FileInputStream("Sustainia\\img\\babyyodasoup.png");
+        ImageView babyYoda1 = new ImageView(new Image(imageYoda1,100, 100, true,false));
+        InventoryPanel invPanel = new InventoryPanel();
+        rightColumn.add(invPanel.getGridPane(),0,1);
+
+        invPanel.addInventory(babyYoda);
+
+        Button yodaButton = new Button("Add Baby Yoda");
+        yodaButton.setOnAction(actionEvent -> {
+            invPanel.addInventory(babyYoda1);
+        });
+        Button removeYodaButton = new Button("Remove Selected Baby Yoda");
+        removeYodaButton.setOnAction(actionEvent -> {
+            invPanel.removeInv();
+
+        });
+
+        //Materials Panel is created
+        MaterialsPanel matPanel = new MaterialsPanel();
 
         //Creating a gridpane for buttons to be placed in
         GridPane containButtons = new GridPane();
         containButtons.getRowConstraints().add(new RowConstraints(100));
+        containButtons.add(yodaButton,2,0);
+        containButtons.add(removeYodaButton,3,0);
 
-        rightColumn.add(containButtons,0,1);
+        rightColumn.add(containButtons,0,2);
 
 
 
         //Buttons to swap between panels
-        Button scoreButton = new Button("Score");
+        Button materialsButton = new Button("Materials");
         Button inventoryButton = new Button("Inventory");
         containButtons.add(inventoryButton, 0,0);
-        containButtons.add(scoreButton,1,0);
+        containButtons.add(materialsButton,1,0);
         containButtons.setHgap(10);
-        scoreButton.setOnAction(event -> {
-            rightColumn.getChildren().remove(parameterGridpane);
-            rightColumn.add(text1,0,0);
+        materialsButton.setOnAction(event -> {
+            rightColumn.getChildren().remove(invPanel.getGridPane());
+            rightColumn.add(matPanel.getGridPane(),0,1);
         });
         inventoryButton.setOnAction(event -> {
-            rightColumn.getChildren().remove(text1);
-            rightColumn.add(parameterGridpane,0,0);
+            rightColumn.getChildren().remove(matPanel.getGridPane());
+            rightColumn.add(invPanel.getGridPane(),0,1);
         });
 
 
