@@ -169,7 +169,10 @@ public class App extends Application {
         
         //Creating a Group object  
         Group root = new Group(this.background, this.rooms, this.character, this.roomsTop);
-        
+        StackPane game = new StackPane();
+        game.getChildren().add(root);
+        TextBox textBox = new TextBox(root);
+        game.getChildren().add(textBox.getGridPane());
         Text text = new Text("  baby Yoda \n  will save \n  us all");
         text.setFont(new Font(50));
         Text text1 = new Text("  123 \n  will save \n  us all");
@@ -178,7 +181,7 @@ public class App extends Application {
         GridPane gridpane = new GridPane();
         gridpane.getColumnConstraints().add(new ColumnConstraints(801));
         gridpane.getColumnConstraints().add(new ColumnConstraints(300));
-        gridpane.add(root, 0, 0);
+        gridpane.add(game, 0, 0);
 
 
 
@@ -190,7 +193,7 @@ public class App extends Application {
         rightColumn.getColumnConstraints().add(new ColumnConstraints(300));
         gridpane.add(rightColumn,1,0);
         gridpane.setGridLinesVisible(false);
-        rightColumn.setGridLinesVisible(true);
+        rightColumn.setGridLinesVisible(false);
 
 
         //ParameterBar
@@ -241,34 +244,54 @@ public class App extends Application {
             parameterGridpane.add(ParameterPanel.list.get(i).getStackPane(),0,i+2);
         }
 
-
-
-
         rightColumn.add(parameterGridpane, 0,0);
 
+        //Inventory Panel is added to rightColumn
+        FileInputStream imageYoda = new FileInputStream("Sustainia\\img\\babyyoda.png");
+        ImageView babyYoda = new ImageView(new Image(imageYoda,100, 100, true,false));
+        FileInputStream imageYoda1 = new FileInputStream("Sustainia\\img\\babyyodasoup.png");
+        ImageView babyYoda1 = new ImageView(new Image(imageYoda1,100, 100, true,false));
+        InventoryPanel invPanel = new InventoryPanel();
+        rightColumn.add(invPanel.getGridPane(),0,1);
+
+        invPanel.addInventory(babyYoda);
+
+        Button yodaButton = new Button("Add Baby Yoda");
+        yodaButton.setOnAction(actionEvent -> {
+            invPanel.addInventory(babyYoda1);
+        });
+        Button removeYodaButton = new Button("Remove Selected Baby Yoda");
+        removeYodaButton.setOnAction(actionEvent -> {
+            invPanel.removeInv();
+
+        });
+
+        //Materials Panel is created
+        MaterialsPanel matPanel = new MaterialsPanel();
 
         //Creating a gridpane for buttons to be placed in
         GridPane containButtons = new GridPane();
         containButtons.getRowConstraints().add(new RowConstraints(100));
+        containButtons.add(yodaButton,2,0);
+        containButtons.add(removeYodaButton,3,0);
 
-        rightColumn.add(text,0,1);
         rightColumn.add(containButtons,0,2);
 
 
 
         //Buttons to swap between panels
-        Button scoreButton = new Button("Materials");
+        Button materialsButton = new Button("Materials");
         Button inventoryButton = new Button("Inventory");
         containButtons.add(inventoryButton, 0,0);
-        containButtons.add(scoreButton,1,0);
+        containButtons.add(materialsButton,1,0);
         containButtons.setHgap(10);
-        scoreButton.setOnAction(event -> {
-            rightColumn.getChildren().remove(text);
-            rightColumn.add(text1,0,1);
+        materialsButton.setOnAction(event -> {
+            rightColumn.getChildren().remove(invPanel.getGridPane());
+            rightColumn.add(matPanel.getGridPane(),0,1);
         });
         inventoryButton.setOnAction(event -> {
-            rightColumn.getChildren().remove(text1);
-            rightColumn.add(text,0,1);
+            rightColumn.getChildren().remove(matPanel.getGridPane());
+            rightColumn.add(invPanel.getGridPane(),0,1);
         });
 
 
