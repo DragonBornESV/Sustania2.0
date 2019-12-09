@@ -68,9 +68,16 @@ public class App extends Application {
     boolean startingGame = true;
     
     boolean newRoom = true;
-    
+
     int facing = 0;
     int animationTimer = 0;
+
+    //For items
+    private ArrayList<ImageView> items;
+    private Group itemsGroup = new Group();   //All the visible items are stored here
+    
+    FileInputStream inputItems;
+    Image itemsImage;
     
     /*
      * the following variables defines the rectangle, witch the rooms are maped to.
@@ -111,6 +118,10 @@ public class App extends Application {
         // Creates a new image, from the selected parth on computer
         FileInputStream inputCharacter = new FileInputStream("img\\ch.png");
         Image characterImage = new Image(inputCharacter,128*World.scale,128*World.scale,true,false);
+
+        // Gets the image of the items
+        inputItems = new FileInputStream("img\\items.png");
+        itemsImage = new Image(inputItems,160*4,16*4,true,false);
         
     // Rooms
         FileInputStream inputRooms = new FileInputStream("img\\rooms.png");
@@ -166,9 +177,12 @@ public class App extends Application {
         this.rooms.setPreserveRatio(true);
         this.character.setPreserveRatio(true);
         this.roomsTop.setPreserveRatio(true);
+
+        //Loads the items into the game view
+        loadItems();
         
         //Creating a Group object  
-        Group root = new Group(this.background, this.rooms, this.character, this.roomsTop);
+        Group root = new Group(this.background, this.rooms, this.character, this.itemsGroup, this.roomsTop);
         
         Text text = new Text("  baby Yoda \n  will save \n  us all");
         text.setFont(new Font(50));
@@ -291,6 +305,9 @@ public class App extends Application {
                     case S: goSouth = true; break;
                     case D: goEast  = true; break;
                     case A: goWest  = true; break;
+                    //Detects the drop-key 'Q'
+                    //Just for now, the item to be dropped is always the first item
+                    case Q: dropItem();
                 }
             }
         });
@@ -373,6 +390,12 @@ public class App extends Application {
 
         // The games cordinants are needet to position the collision.... If this function is not called, the game will run without collision.
         game.collisionWithObjects(World.gameX, World.gameY, game.currentRoom);
+
+        //Updates the items if it needs it
+        if (game.needsUpdate()) {
+            loadItems();
+            game.setNeedsUpdate(false);
+        }
 
         // character_animation
         if (moving) {
@@ -500,7 +523,56 @@ public class App extends Application {
         this.roomsTop.setX(imageX);
         this.roomsTop.setY(imageY);
     }
+
+    private void loadItems() {
+        //Clears all the previous items.
+        itemsGroup.getChildren().clear();
+        
+        //The items are put into an array of images
+        items = new ArrayList<ImageView>();
+        
+        //roomItems are now the items in the room
+        ArrayList<Item> roomItems = game.currentRoom.getItemsInRoom();
+        
+        for (int i = 0; i < roomItems.size(); i++) {
+            //Sets the image to the item
+            ImageView tempItem = new ImageView(itemsImage);
+            //Shows the correct sprite by using the itemsImage number.
+            tempItem.setViewport(new Rectangle2D(roomItems.get(i).imageNumber*16*4, 0, 16*4, 16*4));
+            
+            //Sets the image of the items to the correct location in the scene.
+            tempItem.setX(roomItems.get(i).getItemX());
+            tempItem.setY(roomItems.get(i).getItemY());
+            //tempItem.setY(roomItems.get(i).getItemY());
+            
+            //Adds the imageView of the item to the list.
+            //These will be added to the group later.
+            items.add(tempItem);
+            
+            //This can be used to show the hitboxes.
+            /*
+            itemsGroup.getChildren().add(
+                    new Rectangle(roomItems.get(i).getHitBox().topLeftX,
+                    roomItems.get(i).getHitBox().topLeftY, 
+                    roomItems.get(i).getHitBox().width, 
+                    roomItems.get(i).getHitBox().height));
+            */
+        }
+        
+        //Adds all the new items to the group
+        itemsGroup.getChildren().addAll(items);
+    }
     
+    /**
+     * Tells the game to drop an item. Right now it's the first item in the
+     * inventory.
+     * 
+     * This method can be used by the press of the button Q or the drop button
+     * on screen.
+     */
+    private void dropItem() {
+        game.dropItem(game.getInventory().getItemsInInventory().get(0));
+    }
     
     public static void runApp(String[] args) {
         launch();

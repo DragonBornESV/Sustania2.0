@@ -1,21 +1,28 @@
 package com.mycompany.sustainia;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Game {
     boolean roomSwitch = true;
 
     int previousRoom;
     
-    Room townHall, streets, nonsustainableHouse, policeStation, bank, clothingFactory, school, park, recyclingStation;
+    Room streets, townHall, nonsustainableHouse, policeStation, bank, 
+            clothingFactory, school, park, recyclingStation;
     
     Room currentRoom;
- // private Inventory inv;
-        
+    private Inventory inv;
+
     public static String name;
+    
+    //This is true, when the item graphics needs to be updated
+    private boolean needsUpdate = false;
     
     public Game() 
     {
         Parameter.createParameters();
-  //    inv = new Inventory();
+        inv = new Inventory();
     }
     
     
@@ -140,44 +147,24 @@ public class Game {
         );
     }
     
+    /** Rooms are created and named.
+     *  Rooms are assigned an intro which describes where the player are at.
+     *  Rooms are also assigned an exit command.
+     */
     public void createRooms(){
-            createStreets();
-            createTownHall();
-            createNonsustainableHouse();
-            createPark();
-            createBank();
-            createClothingFactory();
-            createPoliceStation();
-            createRecyclingStation();
-            createSchool();
-            currentRoom = streets;
-        }
+        createStreets();
+        createTownHall();
+        createNonsustainableHouse();
+        createPark();
+        createBank();
+        createClothingFactory();
+        createPoliceStation();
+        createRecyclingStation();
+        createSchool();
+        currentRoom = streets;
+    }
 
-        
-        
-        /** Rooms are created and named.
-         *  Rooms are assigned an intro which describes where the player are at.
-         *  Rooms are also assigned an exit command.
-         */
-        
-    /*    
-        int[] mayorItems = new int[]{0,0,0,0,2,0,0,0,0,0};
-        int[] houseItems = new int[]{5,1,4,40,1,5,10,40,100,4};
-        int[] policeItems = new int[]{0,1,0,5,8,0,0,0,50,40};
-        int[] bankItems = new int[]{0,0,0,0,10,0,0,0,30,0};
-        int[] factoryItems = new int[]{0,0,70,100,5,0,0,0,0,0};
-        int[] waterPlantItems = new int[]{0,0,0,0,3,0,0,0,10,0};
-        int[] schoolItems = new int[]{0,2,0,0,50,0,10,60,120,0};
-        int[] supermarketItems = new int[]{100,10,30,90,9,50,100,0,200,40};
-        int[] storeItems = new int[]{0,0,10,300,5,10,0,0,0,0};
-        int[] buildingItems = new int[]{100,5,0,10,0,0,30,20,40,20};
-        int[] parkItems = new int[]{0,0,0,0,0,0,25,70,50,0};
-        int[] hospitalItems = new int[]{0,0,0,50,30,20,0,10,60,0};
-    
-    */
-    
-        
-    
+
     public int collisionDetectionX(int dx){
         for (int i = 0; i < currentRoom.hitboxesInRoom.length; i++) {
             if (currentRoom.hitboxesInRoom[i].collisionLeft){
@@ -189,6 +176,7 @@ public class Game {
         }
         return dx;
     }
+
     
     public int collisionDetectionY(int dy){
         for (int i = 0; i < currentRoom.hitboxesInRoom.length; i++) {
@@ -206,6 +194,18 @@ public class Game {
     public void collisionWithObjects(int x, int y, Room room){
         for (int i = 0; i < room.hitboxesInRoom.length; i++){
             room.hitboxesInRoom[i].collisionWithObject(x, y);
+        }
+
+        // Checks if the items collide with the player. 
+        for (int i = 0; i < currentRoom.getItemsInRoom().size(); i++) {
+            currentRoom.getItemsInRoom().get(i).getHitBox().collisionWithObject(x, y);
+            
+            //Checks if the player hit the item
+            if (currentRoom.getItemsInRoom().get(i).getHitBox().checkIfTriggered()) {
+                
+                System.out.println("Hit item");
+                pickUpItem(currentRoom.getItemsInRoom().get(i));
+            }
         }
     }
     
@@ -262,12 +262,62 @@ public class Game {
             } else {
                 x = -World.characterX +room.spawnPX*World.scale;
             }
-        } else {
-            x = x;
         }
-        return x;
+    }
+
+    /**
+     * Picks up the item by moving it from the room to the inventory and requests
+     * an update.
+     * @param item 
+     */
+    public void pickUpItem(Item item) {
+        if (item != null) {
+            
+            inv.getItemsInInventory().add(item);
+            currentRoom.getItemsInRoom().remove(item);
+            System.out.println(inv); //For debugging
+            
+            needsUpdate = true;
+        } else {
+            System.out.println("No item selected");
+        }
+        
     }
     
+    /**
+     * Drops the item by moving the item-object from the inventory to the room
+     * and requests an update.
+     * @param item 
+     */
+    public void dropItem(Item item) {
+        if (item != null) {
+            //SKAL LAVES OM UNDER MERGE
+            item.setPosition(-World.gameX + World.gameScreenWidth/2 - 8*4, -World.gameY+World.gameScreenHeight/2 + 16*4);
+            currentRoom.getItemsInRoom().add(item);
+            inv.getItemsInInventory().remove(item);
+            
+            needsUpdate = true;
+        } else {
+            System.out.println("No item selected");
+        }
+        
+    }
+    
+    /**
+     * A way that the app-class can detect if it needs to update its items.
+     * @return true if the item graphics needs to be updated 
+     */
+    public boolean needsUpdate() {
+        return needsUpdate;
+    }
+    
+    public void setNeedsUpdate(boolean value) {
+        needsUpdate = value;
+    }
+    
+    public Inventory getInventory() {
+        return inv;
+    }
     
     public int getSpawnPointY(int y, Room room, int previousRoom){
         if (roomSwitch){
