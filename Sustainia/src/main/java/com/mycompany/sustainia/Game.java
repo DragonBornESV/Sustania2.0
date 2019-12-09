@@ -39,7 +39,7 @@ public class Game {
             {784,622}
         },
         new HitBox[]{
-            // Level Barrier
+            // LHitBoxevel Barrier
             new HitBox(0,298,1120,20), new HitBox(0,770,1120,10),
             // TownHall
             new HitBox(448,318,224,110), new HitBox(448,428,96,34), new HitBox(576,428,96,34),
