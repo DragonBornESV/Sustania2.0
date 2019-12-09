@@ -17,7 +17,7 @@ public class World {
     public static int characterMovementSpeedH = (int)(1.5*scale);
     
     // here the starting width and hight of the game part of the screen is defined.
-    public static int gameScreenWidth = 600;
+    public static int gameScreenWidth = 800;
     public static int gameScreenHeight = 600;
     
     // here the placment of the main character is defined.

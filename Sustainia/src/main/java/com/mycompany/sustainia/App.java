@@ -162,7 +162,7 @@ public class App extends Application {
 
         
         //Setting the preserve ratio of the image view 
-        this.background.setPreserveRatio(true);
+        //this.background.setPreserveRatio(true);
         this.rooms.setPreserveRatio(true);
         this.character.setPreserveRatio(true);
         this.roomsTop.setPreserveRatio(true);
@@ -174,7 +174,7 @@ public class App extends Application {
         text.setFont(new Font(50));
         
         GridPane gridpane = new GridPane();
-        gridpane.getColumnConstraints().add(new ColumnConstraints(601));
+        gridpane.getColumnConstraints().add(new ColumnConstraints(801));
         gridpane.getColumnConstraints().add(new ColumnConstraints(300));
         gridpane.add(root, 0, 0);
         gridpane.add(text, 1, 0);
@@ -235,7 +235,7 @@ public class App extends Application {
                     // All the metods, that need to be updatet during runtime are called here.
                     moveCharacter(moving, goNorth, goSouth, goEast, goWest, dx, dy, animationTimer, facing);
                     drawRoom(game.currentRoom);
-                    game.currentRoom = game.newRoom(World.gameX, World.gameY, game.currentRoom, game.streets);
+                    game.currentRoom = game.roomChangeCheck(World.gameX, World.gameY);
                 }
             };
 
@@ -377,10 +377,10 @@ public class App extends Application {
         this.roomsTop.setFitWidth(rectWidth);
         this.roomsTop.setFitHeight(rectHeight);
         this.roomsTop.setX(imageX);
-        this.roomsTop.setY(imageY);        
+        this.roomsTop.setY(imageY);
     }
     
-
+    
     public static void runApp(String[] args) {
         launch();
     }

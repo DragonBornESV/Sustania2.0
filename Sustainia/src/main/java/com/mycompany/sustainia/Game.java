@@ -210,50 +210,46 @@ public class Game {
     }
     
     
-    public Room newRoom(int x, int y, Room room, Room roomStreets){
-        System.out.println(room.name);
-        if (room.equals(streets)){
-            for (int i =0; i<streets.multipleDoors.length; i++){
+    public Room roomChangeCheck(int x, int y){
+        System.out.println(currentRoom.name);
+        if (currentRoom.equals(streets)){
+            for (int i =0; i <streets.multipleDoors.length; i++){
             streets.multipleDoors[i].collisionWithObject(x, y);
                 if (streets.multipleDoors[0].checkIfTriggered()){
-                    room = townHall;
+                    currentRoom = townHall;
                     roomSwitch = true;
                 } else if (streets.multipleDoors[1].checkIfTriggered()){
-                    room = nonsustainableHouse;
+                    currentRoom = nonsustainableHouse;
                     roomSwitch = true;
                 } else if (streets.multipleDoors[2].checkIfTriggered()){
-                    room = park;
+                    currentRoom = park;
                     roomSwitch = true;
                 } else if (streets.multipleDoors[3].checkIfTriggered()){
-                    room = bank;
+                    currentRoom = bank;
                     roomSwitch = true;
                 } else if (streets.multipleDoors[4].checkIfTriggered()){
-                    room = clothingFactory;
+                    currentRoom = clothingFactory;
                     roomSwitch = true;
                 } else if (streets.multipleDoors[5].checkIfTriggered()){
-                    room = policeStation;
+                    currentRoom = policeStation;
                     roomSwitch = true;
                 } else if (streets.multipleDoors[6].checkIfTriggered()){
-                    room = recyclingStation;
+                    currentRoom = recyclingStation;
                     roomSwitch = true;
                 } else if (streets.multipleDoors[7].checkIfTriggered()){
-                    room = school;
+                    currentRoom = school;
                     roomSwitch = true;
-                } else {
-                    room = room;
                 }
             }
         } else {
-            room.door.doorFrame.collisionWithObject(x, y);
+            currentRoom.door.doorFrame.collisionWithObject(x, y);
             //System.out.println(currentRoom.door.doorFrame.checkIfTriggered());
-            if (room.door.doorFrame.checkIfTriggered()){
-                room = room.door.leadsTo;
+            if (currentRoom.door.doorFrame.checkIfTriggered()){
+                currentRoom = currentRoom.door.leadsTo;
                 roomSwitch = true;
-            } else {
-                room = room;
             }
         }
-        return room;
+        return currentRoom;
     }
     
     
@@ -281,7 +277,7 @@ public class Game {
             } else {
                 y = -World.characterY +room.spawnPY*World.scale;
             }
-            roomSwitch = false;  
+            roomSwitch = false;
         } else {
             y = y;
         }
