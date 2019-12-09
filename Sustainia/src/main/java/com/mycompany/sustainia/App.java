@@ -50,6 +50,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 
 import javafx.scene.Parent;
+import javafx.scene.shape.Rectangle;
 
 // import java.awt.event.KeyEvent;
 
@@ -121,7 +122,7 @@ public class App extends Application {
 
         // Gets the image of the items
         inputItems = new FileInputStream("img/items.png");
-        itemsImage = new Image(inputItems,160*4,16*4,true,false);
+        itemsImage = new Image(inputItems,160*World.scale,16*World.scale,true,false);
         
     // Rooms
         FileInputStream inputRooms = new FileInputStream("img/rooms.png");
@@ -182,7 +183,10 @@ public class App extends Application {
         loadItems();
         
         //Creating a Group object  
-        Group root = new Group(this.background, this.rooms, this.character, this.itemsGroup, this.roomsTop);
+        Group root = new Group(this.background, this.rooms, this.itemsGroup, this.character, this.roomsTop);
+        
+        itemsGroup.setManaged(false);
+        root.setManaged(false);
         
         Text text = new Text("  baby Yoda \n  will save \n  us all");
         text.setFont(new Font(50));
@@ -517,6 +521,9 @@ public class App extends Application {
         this.roomsTop.setFitHeight(rectHeight);
         this.roomsTop.setX(imageX);
         this.roomsTop.setY(imageY);
+        this.itemsGroup.setTranslateX(-World.gameX);
+        this.itemsGroup.setTranslateY(-World.gameY);
+        
     }
 
     private void loadItems() {
@@ -533,7 +540,7 @@ public class App extends Application {
             //Sets the image to the item
             ImageView tempItem = new ImageView(itemsImage);
             //Shows the correct sprite by using the itemsImage number.
-            tempItem.setViewport(new Rectangle2D(roomItems.get(i).imageNumber*16*4, 0, 16*4, 16*4));
+            tempItem.setViewport(new Rectangle2D(roomItems.get(i).imageNumber*16*World.scale, 0, 16*World.scale, 16*World.scale));
             
             //Sets the image of the items to the correct location in the scene.
             tempItem.setX(roomItems.get(i).getItemX());
@@ -541,21 +548,11 @@ public class App extends Application {
             //tempItem.setY(roomItems.get(i).getItemY());
             
             //Adds the imageView of the item to the list.
-            //These will be added to the group later.
+            //These will be added to the group later.'
             items.add(tempItem);
             
             //This can be used to show the hitboxes.
-            /*
-            itemsGroup.getChildren().add(
-                    new Rectangle(roomItems.get(i).getHitBox().topLeftX,
-                    roomItems.get(i).getHitBox().topLeftY, 
-                    roomItems.get(i).getHitBox().width, 
-                    roomItems.get(i).getHitBox().height));
-            */
-            
-            roomItems.get(i).printPosition();
-            
-            System.out.println("All items loaded");
+            //roomItems.get(i).printPosition();
         }
         
         //Adds all the new items to the group
