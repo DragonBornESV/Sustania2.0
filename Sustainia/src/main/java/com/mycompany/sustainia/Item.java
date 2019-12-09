@@ -14,7 +14,7 @@ public class Item implements Cloneable {
     
     private int itemX = 0;
     private int itemY = 0;
-    private HitBox hb = new HitBox(itemX,itemY,16*4,16*4);
+    private HitBox hb = new HitBox(itemX,itemY,16,16);
     
     int imageNumber = 0;
     
@@ -87,9 +87,9 @@ public class Item implements Cloneable {
     }
     
     public void setPosition(int itemX, int itemY) {
-        this.itemX = itemX;
-        this.itemY = itemY;
-        hb = new HitBox(this.itemX, this.itemY, hb.width, hb.height);
+        this.itemX = itemX*World.scale;
+        this.itemY = itemY*World.scale;
+        hb = new HitBox(this.itemX/World.scale, this.itemY/World.scale, hb.width, hb.height);
     }
     
     public void printPosition() {

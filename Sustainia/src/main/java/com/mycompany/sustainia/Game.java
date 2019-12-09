@@ -81,7 +81,7 @@ public class Game {
                 //Walls
                 new HitBox(0,0,256,44), new HitBox(0,187,96,22), new HitBox(160,187,96,22), new HitBox(-10,44,10,143), new HitBox(256,44,10,143)},
             new Door(new HitBox(96,209,64,10), streets)
-        , new ArrayList<>(Arrays.asList(new Item[] {World.axe.cloneAndPosition(100, 100)})));
+        , new ArrayList<>(Arrays.asList(new Item[] {World.axe.cloneAndPosition(100, 100), World.glassBottle.cloneAndPosition(200, 100)})));
     }
         
     public void createNonsustainableHouse(){
@@ -309,7 +309,7 @@ public class Game {
     public void dropItem(Item item) {
         if (item != null) {
             //SKAL LAVES OM UNDER MERGE
-            item.setPosition(-World.gameX + World.gameScreenWidth/2 - 8*4, -World.gameY+World.gameScreenHeight/2 + 16*4);
+            item.setPosition((World.gameX +World.characterX -8*World.scale)/World.scale, (World.gameY +World.characterY + 16*World.scale)/World.scale);
             currentRoom.getItemsInRoom().add(item);
             inv.getItemsInInventory().remove(item);
             
