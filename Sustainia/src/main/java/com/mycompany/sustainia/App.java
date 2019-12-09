@@ -122,7 +122,7 @@ public class App extends Application {
 
         // Gets the image of the items
         inputItems = new FileInputStream("img\\items.png");
-        itemsImage = new Image(inputItems,160*4,16*4,true,false);
+        itemsImage = new Image(inputItems,160*World.scale,16*World.scale,true,false);
         
     // Rooms
         FileInputStream inputRooms = new FileInputStream("img\\rooms.png");
@@ -552,9 +552,7 @@ public class App extends Application {
             items.add(tempItem);
             
             //This can be used to show the hitboxes.
-            roomItems.get(i).printPosition();
-            
-            System.out.println("All items loaded");
+            //roomItems.get(i).printPosition();
         }
         
         //Adds all the new items to the group
