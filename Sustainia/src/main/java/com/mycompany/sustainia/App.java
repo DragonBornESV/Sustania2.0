@@ -183,6 +183,7 @@ public class App extends Application {
         loadItems();
         
 <<<<<<< HEAD
+<<<<<<< HEAD
         //Creating a Group object
         Group root = new Group(this.background, this.rooms, this.itemsGroup, this.character, this.roomsTop);
 
@@ -199,6 +200,11 @@ public class App extends Application {
         Group root = new Group(this.background, this.rooms, this.character, this.roomsTop);
         
 >>>>>>> parent of 14e16c6... Lavet alle mulige ting
+=======
+        //Creating a Group object  
+        Group root = new Group(this.background, this.rooms, this.character, this.roomsTop);
+        
+>>>>>>> parent of 14e16c6... Lavet alle mulige ting
         Text text = new Text("  baby Yoda \n  will save \n  us all");
         text.setFont(new Font(50));
         Text text1 = new Text("  123 \n  will save \n  us all");
@@ -208,6 +214,11 @@ public class App extends Application {
         gridpane.getColumnConstraints().add(new ColumnConstraints(801));
         gridpane.getColumnConstraints().add(new ColumnConstraints(300));
         gridpane.add(root, 0, 0);
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> parent of 14e16c6... Lavet alle mulige ting
 
         //creating a gridpane for RightPanel
         GridPane rightColumn = new GridPane();
