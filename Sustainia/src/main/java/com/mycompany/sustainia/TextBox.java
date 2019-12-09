@@ -23,7 +23,7 @@ public class TextBox extends Node {
 
         gridPane.getRowConstraints().add(new RowConstraints(400));
         gridPane.getColumnConstraints().add(new ColumnConstraints(801));
-        textBox = new Label("Tyk");
+        textBox = new Label("kewewkærewælrkewælrklæewærlewlærkelwærklewkæ");
         textBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         gridPane.add(textBox, 0, 1);
         gridPane.setHalignment(textBox, HPos.CENTER);
