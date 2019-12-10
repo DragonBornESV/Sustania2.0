@@ -77,19 +77,9 @@ public class Say {
         }
     }
     
-    /**private void chooseReponse(Command command) {
-        if (!command.hasSecondWord()) {
-            System.out.println("Say what? Choose a response...");
-        } else {
-            //This is to catch if the second word isn't able to be converted to an integer.
-            try {
-                chosenResponse = Integer.parseInt(command.getSecondWord());
-                
-            } catch (NumberFormatException e) {
-                System.out.println("Enter a number...");
-            }
-        }
-    }*/
+    public void setChosenResponse(int value) {
+        this.chosenResponse = value;
+    }
 
     private void printHelp() 
     {

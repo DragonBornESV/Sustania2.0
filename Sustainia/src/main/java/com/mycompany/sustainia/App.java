@@ -311,9 +311,14 @@ public class App extends Application {
                     
                     //Detects the drop-key 'Q'
                     //Just for now, the item to be dropped is always the first item
-                    case Q: dropItem();
+                    case Q: dropItem(); break;
                     //Leave convo
-                    case L: leaveConvo();
+                    case L: leaveConvo(); break;
+                    //Convo responses
+                    case DIGIT1: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(1); break;
+                    case DIGIT2: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(2); break;
+                    case DIGIT3: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(3); break;
+                    case DIGIT4: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(4); break;
                 }
             }
         });
