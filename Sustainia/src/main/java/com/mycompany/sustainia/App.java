@@ -4,7 +4,6 @@ import com.mycompany.sustainia.GUI.*;
 // Standert javaFX imports
 import javafx.application.Application;
 import javafx.animation.AnimationTimer;
-import javafx.geometry.*;
 import javafx.scene.Scene;
 
 import javafx.scene.control.*;
@@ -17,41 +16,19 @@ import javafx.scene.input.KeyEvent;
 // Specific to image loading imports
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import static javafx.application.Application.launch;
+
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 // for key presses
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import javafx.animation.AnimationTimer;
-import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.event.EventHandler;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 
-import java.lang.Object;
+import javafx.geometry.Rectangle2D;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
-import javafx.scene.Node;
-import javafx.scene.Parent;
-
-import javafx.scene.text.Text;
-import javafx.scene.text.Font;
-
-import javafx.scene.Parent;
-import javafx.scene.shape.Rectangle;
 
 // import java.awt.event.KeyEvent;
 
@@ -143,16 +120,6 @@ public class App extends Application {
         FileInputStream inputRoomsTop = new FileInputStream("Sustainia//img//roomsTop.png");
         Image roomsTopImage = new Image(inputRoomsTop,1120*World.scale,1188*World.scale,true,false);
 
-        FileInputStream startImage = new FileInputStream("Sustainia//img//sustainia.png");
-
-        Image startScreen = new Image(startImage, 900, 600, true, false);
-        ImageView view = new ImageView(startScreen);
-
-        StackPane startPane = new StackPane();
-        
-        startPane.getChildren().add(view);
-        startPane.setAlignment(Pos.CENTER);
-
         //Setting the image view
         this.background = new ImageView(backgroundImage);
         this.rooms = new ImageView(roomsImage);
@@ -204,149 +171,76 @@ public class App extends Application {
 
         StackPane game1 = new StackPane();
         game1.getChildren().add(root);
+        gamePanel.getChildren().add(root);
+        //Creating a TextBox/TerminalBox
         textBox = new TextBox();
-        game1.getChildren().add(textBox.getGridPane());
+        //Adding the TextBox/TerminalBox to the StackPane.
+        gamePanel.getChildren().add(textBox.getGridPane());
 
 
+        //Creating a gridPane to make a splitview for the Window with 2 cells.
+        GridPane splitView = new GridPane();
+        //Arranging the size of the 2 Columns.
+        splitView.getColumnConstraints().add(new ColumnConstraints(801));
+        splitView.getColumnConstraints().add(new ColumnConstraints(300));
+        //Adding the Game into the left column at cell (0, 0).
+        splitView.add(gamePanel, 0, 0);
 
-        GridPane gridpane = new GridPane();
-        gridpane.getColumnConstraints().add(new ColumnConstraints(801));
-        gridpane.getColumnConstraints().add(new ColumnConstraints(300));
-        gridpane.add(game1, 0, 0);
-
-        //creating a gridpane for RightPanel
+        //creating a gridPane for the right column which is the UI Panel, that allows the user to see their progress, display between Inventory and Materials.
         GridPane rightColumn = new GridPane();
+        //Arranging the size of the column/row cells.
         rightColumn.getRowConstraints().add(new RowConstraints(230));
         rightColumn.getRowConstraints().add(new RowConstraints(320));
         rightColumn.getRowConstraints().add(new RowConstraints(50));
         rightColumn.getColumnConstraints().add(new ColumnConstraints(300));
-        gridpane.add(rightColumn,1,0);
-        gridpane.setGridLinesVisible(false);
-        rightColumn.setGridLinesVisible(false);
+        //Adding the Panel into the right column at cell (1,0)
+        splitView.add(rightColumn,1,0);
 
-        
-
-        //ParameterBar
-        Text navn = new Text("Parameter");
-        navn.setFont(new Font(15));
-
+        //Creating all the parameters(Domain)
         Parameter.createParameters();
-
-        //
-        ParameterPanel p1 = new ParameterPanel("City Equality");
-        ParameterPanel p2 = new ParameterPanel("City Green Energy");
-        ParameterPanel p3 = new ParameterPanel("City Clean Water");
-        ParameterPanel p4 = new ParameterPanel("Sustainable Housing");
-        ParameterPanel p5 = new ParameterPanel("City Clean Air");
-        ParameterPanel p6 = new ParameterPanel("City Cleanliness");
-        ParameterPanel p7 = new ParameterPanel("City Security");
-
-
-        //creating a gridpane to hold and display all parameters
-        Text titelParamater = new Text("Parameter");
-        titelParamater.setFont(new Font(20));
-        GridPane parameterGridpane = new GridPane();
-        parameterGridpane.getColumnConstraints().add(new ColumnConstraints(300));
-        parameterGridpane.setVgap(2);
-        parameterGridpane.add(titelParamater, 0 ,0);
-        parameterGridpane.setHalignment(titelParamater, HPos.CENTER);
-        parameterGridpane.add(ParameterPanel.mainBar.getStackPane(),0,1);
-
-        //Adding all of the Parameters to the gridpane to display them.
-        for (int i = 0; i < ParameterPanel.list.size(); i++) {
-
-            parameterGridpane.add(ParameterPanel.list.get(i).getStackPane(),0,i+2);
-        }
-
-        rightColumn.add(parameterGridpane, 0,0);
+        //Creating all GUI Parameters(GUI/Presentation)
+        ParameterPanel.createParameterPanel();
+        //Inserting all the GUI Parameters into the Panel
+        ParameterPanel.insertParametersIntoPanel();
+        //Inserting the GridPane (who holds all the GUI Parameters) into the rightColumnPanel
+        rightColumn.add(ParameterPanel.parameterGridpane, 0,0);
 
         //Inventory Panel is added to rightColumn
-        FileInputStream imageYoda = new FileInputStream("Sustainia\\img\\babyyoda.png");
-        ImageView babyYoda = new ImageView(new Image(imageYoda,100, 100, true,false));
-        FileInputStream imageYoda1 = new FileInputStream("Sustainia\\img\\babyyodasoup.png");
-        ImageView babyYoda1 = new ImageView(new Image(imageYoda1,100, 100, true,false));
         InventoryPanel invPanel = new InventoryPanel(game.getInventory().getItemsInInventory());
         rightColumn.add(invPanel.getGridPane(),0,1);
-
-
-
-
-
-        Button yodaButton = new Button("Add Baby Yoda");
-        yodaButton.setOnAction(actionEvent -> {
-                System.out.println("dialogen virker");
-                game.currentRoom.getNPC().runDialog("mayorNpc");
-
-        });
-        Button removeYodaButton = new Button("Remove Selected Baby Yoda");
-        removeYodaButton.setOnAction(actionEvent -> {
-
-
-        });
-
         //Materials Panel is created
         MaterialsPanel matPanel = new MaterialsPanel();
 
-        //Creating a gridpane for buttons to be placed in
-        GridPane containButtons = new GridPane();
-        containButtons.getRowConstraints().add(new RowConstraints(100));
-        containButtons.add(yodaButton,2,0);
-        containButtons.add(removeYodaButton,3,0);
+        //Creates ButtonPanel which contains all the buttons
+        ButtonPanel buttonPanel = new ButtonPanel();
+        //Adding all the Buttons to the UI Panel into cell (0, 2).
+        rightColumn.add(buttonPanel.getGridPaneButtons(),0,2);
 
-        rightColumn.add(containButtons,0,2);
-
-
-
-        //Buttons to swap between panels
-        Button materialsButton = new Button("Materials");
-        Button inventoryButton = new Button("Inventory");
-        containButtons.add(inventoryButton, 0,0);
-        containButtons.add(materialsButton,1,0);
-        containButtons.setHgap(10);
-        materialsButton.setOnAction(event -> {
+        //Assigning the button "Material" to remove the InvPanel and add MatPanel into the cell the whose InvPanel was removed from.
+        buttonPanel.getMaterialsButton().setOnAction(event -> {
             rightColumn.getChildren().remove(invPanel.getGridPane());
             rightColumn.add(matPanel.getGridPane(),0,1);
         });
-        inventoryButton.setOnAction(event -> {
+        //Assigning the button "Inventory" to remove the MatPanel and add InvPanel into the cell the whose MatPanel was removed from.
+        buttonPanel.getInventoryButton().setOnAction(event -> {
             rightColumn.getChildren().remove(matPanel.getGridPane());
             rightColumn.add(invPanel.getGridPane(),0,1);
         });
 
-
+        //Created StartMenu to display Start screen when game starts
+        StartMenu startMenu = new StartMenu();
 
         //Creating a scene object 
-        Scene scene = new Scene(gridpane, World.gameScreenWidth+301, World.gameScreenHeight);
-        Scene start = new Scene(startPane, World.gameScreenWidth+301, World.gameScreenHeight);
+        Scene scene = new Scene(splitView, World.gameScreenWidth+301, World.gameScreenHeight);
+        Scene start = new Scene(startMenu.getStartMenu(), World.gameScreenWidth+301, World.gameScreenHeight);
 
-        
-        //Entering player name
-        TextField playerName = new TextField();
-        playerName.setPromptText("Please enter your name:");
-
-        playerName.setMinSize(15, 10);
-        GridPane startScreenGridPane = new GridPane();
-        startScreenGridPane.getRowConstraints().add(new RowConstraints(450));
-        startScreenGridPane.getColumnConstraints().add(new ColumnConstraints(300));
-        startScreenGridPane.getColumnConstraints().add(new ColumnConstraints(500));
-
-        //Start screen button
-        Button startButton = new Button("Start");
-        startButton.setMinSize(200, 100);
-        startButton.setOnAction(event -> {
+        startMenu.getStartButton().setOnAction(event -> {
             //possible to use player name for the rest of the game
-            Game.name = playerName.getText();
+            Game.name = startMenu.getPlayerName().getText();
             stage.setScene(scene);
             System.out.println(game.name);
         });
-        startScreenGridPane.add(playerName, 1,0);
-        startScreenGridPane.setValignment(playerName, VPos.BOTTOM);
-        startScreenGridPane.add(startButton,1,1 );
-        startScreenGridPane.setHalignment(startButton, HPos.CENTER);
-        startScreenGridPane.setVgap(20);
 
-
-
-        startPane.getChildren().add(startScreenGridPane);
 // KEYS pressed
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
