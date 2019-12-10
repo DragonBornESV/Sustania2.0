@@ -3,5 +3,6 @@ module com.mycompany.sustainia {
     requires java.desktop;
     requires javafx.base;
     requires javafx.graphics;
+
     exports com.mycompany.sustainia;
 }

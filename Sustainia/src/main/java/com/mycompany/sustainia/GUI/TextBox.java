@@ -1,4 +1,4 @@
-package com.mycompany.sustainia;
+package com.mycompany.sustainia.GUI;
 
 import javafx.animation.TranslateTransition;
 import javafx.geometry.HPos;

@@ -19,7 +19,9 @@ public class Item implements Cloneable {
     private HitBox hb = new HitBox(itemX,itemY,16,16);
 
     ImageView image;
-
+    public ImageView getImage(){
+        return this.image;
+    }
     int imageNumber = 0;
     
     Material[] materials = new Material[10];

@@ -1,5 +1,6 @@
 package com.mycompany.sustainia;
 
+import com.mycompany.sustainia.GUI.*;
 // Standert javaFX imports
 import javafx.application.Application;
 import javafx.animation.AnimationTimer;
@@ -107,7 +108,7 @@ public class App extends Application {
     private ImageView character;
     
     //DialogBox
-    TextBox textBox;
+    com.mycompany.sustainia.GUI.TextBox textBox;
     
     public App(){
         game.createRooms();        

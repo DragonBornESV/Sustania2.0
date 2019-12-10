@@ -1,4 +1,5 @@
-package com.mycompany.sustainia;
+package com.mycompany.sustainia.GUI;
+import com.mycompany.sustainia.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class MaterialsPanel extends Node {
-    private ObservableList<Material> observableList;
+    private ObservableList<com.mycompany.sustainia.Material> observableList;
     private ListView<Material> listView;
     private GridPane gridPane;
     private Text header;

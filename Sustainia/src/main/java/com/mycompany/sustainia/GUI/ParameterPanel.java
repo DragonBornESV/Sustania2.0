@@ -1,4 +1,4 @@
-package com.mycompany.sustainia;
+package com.mycompany.sustainia.GUI;
 
 import javafx.geometry.HPos;
 import javafx.scene.Node;
@@ -20,7 +20,7 @@ public class ParameterPanel extends Node {
     private ProgressBar progressBar;
     private Text parameterName, progressText;
     public static List<ParameterPanel> list = new ArrayList<>();
-    static ParameterPanel mainBar = new ParameterPanel();
+    public static ParameterPanel mainBar = new ParameterPanel();
 
     public ProgressBar getProgressBar() {
         return progressBar;

@@ -1,6 +1,7 @@
-package com.mycompany.sustainia;
+package com.mycompany.sustainia.GUI;
+import com.mycompany.sustainia.*;
 
-import javafx.collections.FXCollections;
+
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -12,13 +13,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 
 public class InventoryPanel extends Node {
 
-    private ObservableList<Item> observableList;
+    private ObservableList<com.mycompany.sustainia.Item> observableList;
     private ListView<Item> listView;
     private GridPane gridPane;
     private Text header;
