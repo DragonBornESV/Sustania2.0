@@ -24,6 +24,6 @@ public class Material {
 
     @Override
     public String toString(){
-        return  "Material: "+this.name+" | Value: "+this.value+" | Weight: "+this.weight;
+        return  "Material: "+this.name+"\t"+"| Value: "+this.value+"\t"+"| Weight: "+this.weight;
     }
 }
