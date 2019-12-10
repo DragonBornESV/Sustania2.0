@@ -156,8 +156,6 @@ public class Game {
                 + Game.name + "!\nLet´s get started!","City Security",30);
         
         townHall.setNPC(mayorNpc);
-        
-        
     }
         
     public void createNonsustainableHouse(){
