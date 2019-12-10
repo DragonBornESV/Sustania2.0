@@ -326,7 +326,8 @@ public class App extends Application {
         //Entering player name
         TextField playerName = new TextField("Please enter your name:");
         startPane.getChildren().add(playerName);
-        playerName.setMinSize(50, 100);
+        playerName.setMiniSize(15,10);
+        Game.name = playerName.getText();
 
         startPane.getChildren().add(startButton);
 // KEYS pressed
