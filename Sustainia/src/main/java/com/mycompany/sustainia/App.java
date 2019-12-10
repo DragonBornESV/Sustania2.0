@@ -117,28 +117,33 @@ public class App extends Application {
     public void start(Stage stage) throws FileNotFoundException {
         
         // black background image
-        FileInputStream inputBackground = new   FileInputStream("img/background.png");
+
+        FileInputStream inputBackground = new   FileInputStream("Sustainia//img//background.png");
+
         Image backgroundImage = new Image(inputBackground, 600, 600, true, false);
 
         // Creates a new image, from the selected parth on computer
-        FileInputStream inputCharacter = new FileInputStream("img/ch.png");
+        FileInputStream inputCharacter = new FileInputStream("Sustainia//img//ch.png");
         characterImage = new Image(inputCharacter,128*World.scale,128*World.scale,true,false);
 
         // Gets the image of the items
-        inputItems = new FileInputStream("img/items.png");
+
+        inputItems = new FileInputStream("Sustainia//img//items.png");
+
         itemsImage = new Image(inputItems,160*World.scale,16*World.scale,true,false);
         
         // NPC image
         
         
         // Rooms
-        FileInputStream inputRooms = new FileInputStream("img/rooms.png");
+        FileInputStream inputRooms = new FileInputStream("Sustainia//img//rooms.png");
         Image roomsImage = new Image(inputRooms,1120*World.scale,1188*World.scale,true,false);
         // RoomsTop
-        FileInputStream inputRoomsTop = new FileInputStream("img/roomsTop.png");
+        FileInputStream inputRoomsTop = new FileInputStream("Sustainia//img//roomsTop.png");
         Image roomsTopImage = new Image(inputRoomsTop,1120*World.scale,1188*World.scale,true,false);
-        
-        FileInputStream startImage = new FileInputStream("img/sustainia.png");
+
+        FileInputStream startImage = new FileInputStream("Sustainia//img//sustainia.png");
+
         Image startScreen = new Image(startImage, 900, 600, true, false);
         ImageView view = new ImageView(startScreen);
 
@@ -220,6 +225,7 @@ public class App extends Application {
         gridpane.setGridLinesVisible(false);
         rightColumn.setGridLinesVisible(false);
 
+        
 
         //ParameterBar
         Text navn = new Text("Parameter");
@@ -269,6 +275,8 @@ public class App extends Application {
 
         Button yodaButton = new Button("Add Baby Yoda");
         yodaButton.setOnAction(actionEvent -> {
+                System.out.println("dialogen virker");
+                game.currentRoom.getNPC().runDialog("mayorNpc");
 
         });
         Button removeYodaButton = new Button("Remove Selected Baby Yoda");
@@ -359,7 +367,7 @@ public class App extends Application {
         stage.setTitle("Moving Image Test");
         
         //Adding scene to the stage        
-        stage.setScene(scene);
+        stage.setScene(start);
         //Displaying the contents of the stage
         stage.show();
         characterAnimation();

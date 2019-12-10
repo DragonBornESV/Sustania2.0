@@ -52,8 +52,10 @@ public class TextBox extends Node {
         return gridPane;
     }
 
+
     public void setTextBox(String string){
         textBox.setText(string);
+
     }
 
 }
