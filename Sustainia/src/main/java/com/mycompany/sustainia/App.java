@@ -188,17 +188,17 @@ public class App extends Application {
         itemsGroup.setManaged(false);
         root.setManaged(false);
 
-        StackPane game = new StackPane();
-        game.getChildren().add(root);
+        StackPane game1 = new StackPane();
+        game1.getChildren().add(root);
         TextBox textBox = new TextBox();
-        game.getChildren().add(textBox.getGridPane());
+        game1.getChildren().add(textBox.getGridPane());
 
 
 
         GridPane gridpane = new GridPane();
         gridpane.getColumnConstraints().add(new ColumnConstraints(801));
         gridpane.getColumnConstraints().add(new ColumnConstraints(300));
-        gridpane.add(game, 0, 0);
+        gridpane.add(game1, 0, 0);
 
         //creating a gridpane for RightPanel
         GridPane rightColumn = new GridPane();
@@ -250,10 +250,10 @@ public class App extends Application {
         ImageView babyYoda = new ImageView(new Image(imageYoda,100, 100, true,false));
         FileInputStream imageYoda1 = new FileInputStream("Sustainia\\img\\babyyodasoup.png");
         ImageView babyYoda1 = new ImageView(new Image(imageYoda1,100, 100, true,false));
-        InventoryPanel invPanel = new InventoryPanel();
+        InventoryPanel invPanel = new InventoryPanel(game.getInventory().getItemsInInventory());
         rightColumn.add(invPanel.getGridPane(),0,1);
 
-        invPanel.addInventory(babyYoda);
+
 
 
 
@@ -263,7 +263,7 @@ public class App extends Application {
         });
         Button removeYodaButton = new Button("Remove Selected Baby Yoda");
         removeYodaButton.setOnAction(actionEvent -> {
-            invPanel.removeInv();
+
 
         });
 
@@ -554,7 +554,9 @@ public class App extends Application {
             ImageView tempItem = new ImageView(itemsImage);
             //Shows the correct sprite by using the itemsImage number.
             tempItem.setViewport(new Rectangle2D(roomItems.get(i).imageNumber*16*World.scale, 0, 16*World.scale, 16*World.scale));
-            
+
+            roomItems.get(i).image = tempItem;
+
             //Sets the image of the items to the correct location in the scene.
             tempItem.setX(roomItems.get(i).getItemX());
             tempItem.setY(roomItems.get(i).getItemY());

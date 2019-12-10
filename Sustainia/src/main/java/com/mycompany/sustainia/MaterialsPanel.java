@@ -1,5 +1,6 @@
 package com.mycompany.sustainia;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -11,29 +12,30 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class MaterialsPanel extends Node {
-    private ObservableList<String> observableList;
-    private ListView<String> listView;
-
-    public GridPane getGridPane() {
-        return gridPane;
-    }
-
+    private ObservableList<Material> observableList;
+    private ListView<Material> listView;
     private GridPane gridPane;
     private Text header;
 
     public MaterialsPanel(){
         header = new Text("Materials");
         header.setFont(new Font(20));
-
-
+        listView = new ListView<>();
+        observableList = FXCollections.observableArrayList();
         gridPane = new GridPane();
         gridPane.getColumnConstraints().add(new ColumnConstraints(290));
-        gridPane.add(header,0,0);
 
+        gridPane.add(header,0,0);
         gridPane.setHalignment(header, HPos.CENTER);
+
+        gridPane.add(listView,0,1);
         gridPane.setPadding(new Insets(5));
+        listView.setItems(observableList);
         gridPane.setGridLinesVisible(true);
 
     }
 
+    public GridPane getGridPane() {
+        return gridPane;
+    }
 }

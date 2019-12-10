@@ -18,51 +18,31 @@ import java.util.List;
 
 public class InventoryPanel extends Node {
 
-    private ObservableList<ImageView> observableList;
-
-    public ListView<ImageView> getListView() {
-        return listView;
-    }
-
-    private ListView<ImageView> listView;
-
-    public GridPane getGridPane() {
-        return gridPane;
-    }
-
+    private ObservableList<Item> observableList;
+    private ListView<Item> listView;
     private GridPane gridPane;
     private Text header;
-    private ImageView imageView;
 
-    public InventoryPanel(){
+
+    public InventoryPanel(ObservableList<Item> itemsInInventory){
         header = new Text("Inventory");
         header.setFont(new Font(20));
         listView = new ListView<>();
-        observableList = FXCollections.observableArrayList();
+        observableList = itemsInInventory;
         gridPane = new GridPane();
         gridPane.getColumnConstraints().add(new ColumnConstraints(290));
         gridPane.add(header,0,0);
         gridPane.add(listView,0,1);
         gridPane.setHalignment(header, HPos.CENTER);
         gridPane.setPadding(new Insets(5));
-        gridPane.setGridLinesVisible(true);
-
-    }
-
-    public void addInventory(ImageView imageView){
         listView.setItems(observableList);
-        observableList.add(imageView);
-        updateList();
-    }
-    public void removeInv(){
-        ImageView imageSelected = listView.getSelectionModel().getSelectedItem();
-        observableList.remove(imageSelected);
+        listView.setCellFactory(itemListView -> new ImageTextCell());
 
-        updateList();
+
     }
 
-    public void updateList(){
-
+    public GridPane getGridPane() {
+        return gridPane;
     }
 
 

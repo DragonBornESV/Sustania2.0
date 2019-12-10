@@ -1,5 +1,8 @@
 package com.mycompany.sustainia;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 
 public class Inventory {
@@ -9,7 +12,7 @@ public class Inventory {
     int carryingCapacity = 100; // The total amount of weight the player is able to carry.
     Material[] materialArray;
 
-    private ArrayList<Item> itemsInInventory;
+    private ObservableList<Item> itemsInInventory;
     
     HitBox standardHitBox = new HitBox(0,0,10,10);
     
@@ -19,7 +22,7 @@ public class Inventory {
         // (it is clones because the count attribute is modified during gameplay in each object.)
         materialArray = World.materialArray.clone();
         
-        itemsInInventory = new ArrayList<>(); 
+        itemsInInventory = FXCollections.observableArrayList();
         updateInventory();
 
     }
@@ -62,7 +65,7 @@ public class Inventory {
     /**
      * @return the itemsInInventory
      */
-    public ArrayList<Item> getItemsInInventory() {
+    public ObservableList<Item> getItemsInInventory() {
         return itemsInInventory;
     }
     
