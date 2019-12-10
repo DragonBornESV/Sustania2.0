@@ -22,9 +22,12 @@ public class MaterialsPanel extends Node {
         header.setFont(new Font(20));
         listView = new ListView<>();
         observableList = FXCollections.observableArrayList();
+        for (Material m : World.materialArray) {
+            observableList.add(m);
+        }
+
         gridPane = new GridPane();
         gridPane.getColumnConstraints().add(new ColumnConstraints(290));
-
         gridPane.add(header,0,0);
         gridPane.setHalignment(header, HPos.CENTER);
 
@@ -32,6 +35,7 @@ public class MaterialsPanel extends Node {
         gridPane.setPadding(new Insets(5));
         listView.setItems(observableList);
         gridPane.setGridLinesVisible(true);
+
 
     }
 

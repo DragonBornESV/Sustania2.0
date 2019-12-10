@@ -21,5 +21,9 @@ public class Material {
     public void setCount(int newCount) {
         count = newCount;
     }
-    
+
+    @Override
+    public String toString(){
+        return  "Material: "+this.name+" | Value: "+this.value+" | Weight: "+this.weight;
+    }
 }
