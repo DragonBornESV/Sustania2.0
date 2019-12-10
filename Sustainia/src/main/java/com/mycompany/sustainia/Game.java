@@ -154,7 +154,9 @@ public class Game {
         
         NPC mayorNpc = new NPC("The Mayor",new Say[]{dMayor1,dMayor2,dMayor3},"Alright " 
                 + Game.name + "!\nLet´s get started!","City Security",30);
-        
+
+        mayorNpc.setNpcX(300);
+        mayorNpc.setNpcY(300);
         townHall.setNPC(mayorNpc);
     }
         

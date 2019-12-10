@@ -222,6 +222,7 @@ public class App extends Application {
         gridpane.setGridLinesVisible(false);
         rightColumn.setGridLinesVisible(false);
 
+        
 
         //ParameterBar
         Text navn = new Text("Parameter");
@@ -271,6 +272,8 @@ public class App extends Application {
 
         Button yodaButton = new Button("Add Baby Yoda");
         yodaButton.setOnAction(actionEvent -> {
+                System.out.println("dialogen virker");
+                game.currentRoom.getNPC().runDialog("mayorNpc");
 
         });
         Button removeYodaButton = new Button("Remove Selected Baby Yoda");
@@ -361,7 +364,7 @@ public class App extends Application {
         stage.setTitle("Moving Image Test");
         
         //Adding scene to the stage        
-        stage.setScene(scene);
+        stage.setScene(start);
         //Displaying the contents of the stage
         stage.show();
         characterAnimation();
