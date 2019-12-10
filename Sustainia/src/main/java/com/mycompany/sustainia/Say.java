@@ -34,11 +34,11 @@ public class Say {
      * 
      * @return the points gained from the chosen response.
      */
-    public int print(String npcName) {
-        
+    public int print(String npcName, String allText) {
+       
         //Prints the available responses and the corresponding numbers.
         for (int i = 0; i < responses.length; i++) {
-            System.out.println("[" + (i+1) + "]\t" + responses[i]);
+            allText += "[" + (i+1) + "]\t" + responses[i] + "\n";
         }
         
         //Prints the prompt message

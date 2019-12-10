@@ -181,6 +181,7 @@ public class Game {
         Say dhouseBuilder2 = new Say("We are gonna go with FSC wood, but what the windows!"
                 + "\nWhat type of windows do we need?", rhouseBuilder2, rphouseBuilder2);
 
+
         /*
         NPC houseBuilderNpc = new NPC("the factory worker",new Say[]{dhouseBuilder1,dhouseBuilder2},"Alright " 
                 + Game.name + "!\nWe will do that!","Sustainiable Housing",50,"City Equality",30);
@@ -188,6 +189,7 @@ public class Game {
         nonsustainableHouse.setNPC(houseBuilderNpc);
 
          */
+
         
     }
     
@@ -275,6 +277,7 @@ public class Game {
         int[] rpFactoryWorker3 = new int[]{0,30,-10,10};
         Say dFactoryWorker3 = new Say("We are going to make eco-labeled clothing is actually a good idea."
                 +"\nDo you know why?", rFactoryWorker3, rpFactoryWorker3);
+
         /*
         NPC factoryWorkerNpc = new NPC("the factory worker",new Say[]{dFactoryWorker1,dFactoryWorker2,dFactoryWorker3},"Alright "
                 + Game.name + "!\nI will use your advice, thank you!","City Green Energy",30,"City Clean Water", 30,"City Clean Air",30);
@@ -282,6 +285,7 @@ public class Game {
         clothingFactory.setNPC(factoryWorkerNpc);
 
          */
+
     }
 
     public void createPoliceStation(){

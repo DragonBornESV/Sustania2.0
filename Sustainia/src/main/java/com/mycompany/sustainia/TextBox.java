@@ -33,7 +33,7 @@ public class TextBox extends Node {
 
         gridPane.getRowConstraints().add(new RowConstraints(600));
 
-        textBox = new TextArea(" Baby Yoda \n Baby Yoda\n Baby Yoda \n Baby Yoda \n Baby Yoda \n Baby Yoda \n Baby Yoda");
+        textBox = new TextArea();
         titledPane.setContent(textBox);
         textBox.setMaxHeight(100);
         textBox.setEditable(false);
@@ -52,8 +52,10 @@ public class TextBox extends Node {
         return gridPane;
     }
 
-    public void addToTextBox(){
-        
+
+    public void setTextBox(String string){
+        textBox.setText(string);
+
     }
 
 }

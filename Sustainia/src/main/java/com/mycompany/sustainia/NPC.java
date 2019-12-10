@@ -8,6 +8,7 @@ public class NPC {
     private final int persuasionTrigger = 50;
     private final String endTriggerMessage;
     private boolean pointsGiven = false;
+    private boolean dialogRunning = false;
     
     private String parameterName;   //The name of the parameter this NPC effects.
     private int points;             //The points the parameter change with.
@@ -17,6 +18,8 @@ public class NPC {
     private int npcX;
     private int npcY;
     private HitBox hb = new HitBox(getNpcX(), getNpcY(),32,32);
+    
+    private String allText = "";
     
     int i;
     
@@ -89,12 +92,18 @@ public class NPC {
         return dialog[i];
     }
     
+    public String getAllText() {
+        return allText;
+    }
+    
     
     public void runDialog(String npcName) {
+        dialogRunning = true;
+        
         //Iterates through the Say objects and runs the print method. The points 
         //are added as it goes along. 
         for (i = 0; i < dialog.length; i++) {
-            persuasionValue += dialog[i].print(npcName);
+            persuasionValue += dialog[i].print(npcName, allText);
             
             //Checks if the player wants to leave the conversation
             if (dialog[i].isWantToLeave() == true) {
@@ -131,5 +140,10 @@ public class NPC {
         System.out.println(endTriggerMessage);
         System.out.println("");
         
+        dialogRunning = false;
+    }
+    
+    public boolean isDialogRunning (){
+        return dialogRunning;
     }
 }

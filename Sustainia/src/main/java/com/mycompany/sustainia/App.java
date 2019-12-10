@@ -106,6 +106,9 @@ public class App extends Application {
     private ImageView roomsTop;
     private ImageView character;
     
+    //DialogBox
+    TextBox textBox;
+    
     public App(){
         game.createRooms();        
     }
@@ -114,7 +117,9 @@ public class App extends Application {
     public void start(Stage stage) throws FileNotFoundException {
         
         // black background image
+
         FileInputStream inputBackground = new   FileInputStream("Sustainia//img//background.png");
+
         Image backgroundImage = new Image(inputBackground, 600, 600, true, false);
 
         // Creates a new image, from the selected parth on computer
@@ -122,7 +127,9 @@ public class App extends Application {
         characterImage = new Image(inputCharacter,128*World.scale,128*World.scale,true,false);
 
         // Gets the image of the items
+
         inputItems = new FileInputStream("Sustainia//img//items.png");
+
         itemsImage = new Image(inputItems,160*World.scale,16*World.scale,true,false);
         
         // NPC image
@@ -134,8 +141,9 @@ public class App extends Application {
         // RoomsTop
         FileInputStream inputRoomsTop = new FileInputStream("Sustainia//img//roomsTop.png");
         Image roomsTopImage = new Image(inputRoomsTop,1120*World.scale,1188*World.scale,true,false);
-        
+
         FileInputStream startImage = new FileInputStream("Sustainia//img//sustainia.png");
+
         Image startScreen = new Image(startImage, 900, 600, true, false);
         ImageView view = new ImageView(startScreen);
 
@@ -194,7 +202,7 @@ public class App extends Application {
 
         StackPane game1 = new StackPane();
         game1.getChildren().add(root);
-        TextBox textBox = new TextBox();
+        textBox = new TextBox();
         game1.getChildren().add(textBox.getGridPane());
 
 
@@ -371,7 +379,10 @@ public class App extends Application {
         ParameterPanel.mainBar.getProgressBar().setProgress((value/7)/100);
         ParameterPanel.mainBar.getProgressText().setText(numberFormat.format(value/7)+"%");
 
-
+        //Checks if dialog is running
+        if (game.currentRoom.getNPC().isDialogRunning()) {
+            textBox.setTextBox(game.currentRoom.getNPC().getAllText());
+        }
 
     }
     
