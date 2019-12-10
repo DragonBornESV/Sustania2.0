@@ -9,7 +9,8 @@ public class Game {
     int previousRoom;
     
     Room streets, townHall, nonsustainableHouse, policeStation, bank, 
-            clothingFactory, school, park, recyclingStation;
+            clothingFactory, school, park;
+    RecyclingStationRoom recyclingStation;
     
     Room currentRoom;
     private Inventory inv;
@@ -137,12 +138,16 @@ public class Game {
     }
     
     public void createRecyclingStation(){
-        recyclingStation = new Room("Recycling Station", 128, 44,
+        recyclingStation = new RecyclingStationRoom("Recycling Station", 128, 44,
             new HitBox[]{
-                //Walls
+            //Walls
                 new HitBox(0,0,112,44), new HitBox(144,0,112,44), new HitBox(-6,44,10,161), new HitBox(252,44,10,161), new HitBox(0,205,256,10)},
-            new Door(new HitBox(112,0,32,44), streets)
-        , new ArrayList<>());
+            //Door
+                new Door(new HitBox(112,0,32,44), streets), 
+            //Items
+                new ArrayList<>(),
+            //Container
+                new HitBox(86,150,86,55));
     }
     
     public void createSchool(){
@@ -201,6 +206,12 @@ public class Game {
     public void collisionWithObjects(int x, int y, Room room){
         for (int i = 0; i < room.hitboxesInRoom.length; i++){
             room.hitboxesInRoom[i].collisionWithObject(x, y);
+        }
+        
+        // Checks if the container is hit in the recycling station room.
+        if (recyclingStation.getContainerHitBox().checkIfTriggered()) {
+            //Executes the recycleMaterials method.
+            inv.recycleMaterials();
         }
 
         // Checks if the items collide with the player. 
@@ -326,6 +337,7 @@ public class Game {
         }
         
     }
+ 
     
     /**
      * A way that the app-class can detect if it needs to update its items.

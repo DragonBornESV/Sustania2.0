@@ -20,30 +20,24 @@ public class Inventory {
         materialArray = World.materialArray.clone();
         
         itemsInInventory = new ArrayList<>(); 
-        updateInventory();
+        updateWeight();
 
     }
     
    
 /* 
- * The method updateInventory() is used to update the money value and the carry value.
+ * The method updateWeight() is used to update the money value and the carry value.
  * The method is called whenever an item is removed or placed in the inventory
  */  
-  public void updateInventory() {
+    public void updateWeight() {
         double tempWeight = 0;         // The first temporary variable is used to calculate the amount of weight the player is carrying.
-        double tempValue = 0;        // The second temporary variable is used to calculate the total material value the player is carrying.
       
-    // This for loop loops through the item array and takes the weight value and multiplies it with the item count value.      
-    for (int i = 0; i < itemsInInventory.size(); i++){                
+        // This for loop loops through the item array and takes the weight value and multiplies it with the item count value.      
+        for (int i = 0; i < itemsInInventory.size(); i++){                
             tempWeight += getItemsInInventory().get(i).weight;
         }
-    // This for loop loops through the material array and takes the value of each material and multiplies it with the material count value.
-    for (int j = 0; j < materialArray.length; j++){
-            tempValue += materialArray[j].value*materialArray[j].count;
-        }
+
         carrying = tempWeight;
-        money = tempValue;
-        
     }
   
     /*
@@ -51,13 +45,28 @@ public class Inventory {
      * The selected item is removed from the inventory and the materials the item consists of is added to the inventory.
      */
     public void salvageMaterials(Item itemToSalvage){
-        
+        //Iterates through the materials in the item and adds them to the 
+        //materials in the inventory
         for (int i = 0; i < itemToSalvage.materials.length; i++) {
             materialArray[i].count += itemToSalvage.materials[i].count;
         }
         
+        //Removes the salvaged item from the inventory
         getItemsInInventory().remove(itemToSalvage);
-    } 
+        
+        System.out.println(materialArray);
+    }
+    
+    
+    public void recycleMaterials() {
+        for (int i = 0; i < materialArray.length; i++) {
+            money += materialArray[i].count * materialArray[i].value;
+            materialArray[i].count = 0;
+        }
+        
+        System.out.println(money);
+        updateWeight();
+    }
 
     /**
      * @return the itemsInInventory
@@ -71,17 +80,17 @@ public class Inventory {
      * @return the names of the items in the inventory.
      */
     public String toString() {
-        String toBePrinted = "[";
+        String toBeReturned = "[";
         
         for (int i = 0; i < itemsInInventory.size(); i++) {
             if (i != 0) {
-                toBePrinted += ", ";
+                toBeReturned += ", ";
             }
             
-            toBePrinted += itemsInInventory.get(i).getName();
+            toBeReturned += itemsInInventory.get(i).getName();
         }
         
-        return toBePrinted + "]";
+        return toBeReturned + "]";
     }
     
 }
