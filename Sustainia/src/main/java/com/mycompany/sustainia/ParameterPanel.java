@@ -88,6 +88,7 @@ public class ParameterPanel extends Node {
 
         gridPane.setHalignment(parameterName, HPos.LEFT);
         gridPane.setHalignment(progressText, HPos.RIGHT);
+        
 
         list.add(this);
 
