@@ -169,8 +169,9 @@ public class App extends Application {
         itemsGroup.setManaged(false);
         root.setManaged(false);
 
-        StackPane game1 = new StackPane();
-        game1.getChildren().add(root);
+        //Creating a stackPane to insert a TerminalBox/TextBox onto the gameWindow
+        StackPane gamePanel = new StackPane();
+        //Adding the Game to the StackPane.
         gamePanel.getChildren().add(root);
         //Creating a TextBox/TerminalBox
         textBox = new TextBox();
