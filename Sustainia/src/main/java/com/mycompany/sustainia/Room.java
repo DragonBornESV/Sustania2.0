@@ -143,6 +143,11 @@ public class Room
     }
     
 
+    public void setNPC(NPC npc) {
+        this.npc = npc;
+    }
+    
+
     public ArrayList<Item> getItemsInRoom() {
         return itemsInRoom;
     }

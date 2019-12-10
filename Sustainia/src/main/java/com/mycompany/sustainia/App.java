@@ -79,6 +79,7 @@ public class App extends Application {
     
     FileInputStream inputItems;
     Image itemsImage;
+    Image characterImage;
     
     /*
      * the following variables defines the rectangle, witch the rooms are maped to.
@@ -113,25 +114,28 @@ public class App extends Application {
     public void start(Stage stage) throws FileNotFoundException {
         
         // black background image
-        FileInputStream inputBackground = new   FileInputStream("Sustainia\\img\\background.png");
+        FileInputStream inputBackground = new   FileInputStream("img//background.png");
         Image backgroundImage = new Image(inputBackground, 600, 600, true, false);
 
         // Creates a new image, from the selected parth on computer
-        FileInputStream inputCharacter = new FileInputStream("Sustainia\\img\\ch.png");
-        Image characterImage = new Image(inputCharacter,128*World.scale,128*World.scale,true,false);
+        FileInputStream inputCharacter = new FileInputStream("img/ch.png");
+        characterImage = new Image(inputCharacter,128*World.scale,128*World.scale,true,false);
 
         // Gets the image of the items
-        inputItems = new FileInputStream("Sustainia\\img\\items.png");
+        inputItems = new FileInputStream("img//items.png");
         itemsImage = new Image(inputItems,160*World.scale,16*World.scale,true,false);
         
-    // Rooms
-        FileInputStream inputRooms = new FileInputStream("Sustainia\\img\\rooms.png");
+        // NPC image
+        
+        
+        // Rooms
+        FileInputStream inputRooms = new FileInputStream("img/rooms.png");
         Image roomsImage = new Image(inputRooms,1120*World.scale,1188*World.scale,true,false);
-    // RoomsTop
-        FileInputStream inputRoomsTop = new FileInputStream("Sustainia\\img\\roomsTop.png");
+        // RoomsTop
+        FileInputStream inputRoomsTop = new FileInputStream("img/roomsTop.png");
         Image roomsTopImage = new Image(inputRoomsTop,1120*World.scale,1188*World.scale,true,false);
         
-        FileInputStream startImage = new FileInputStream("Sustainia\\img\\sustainia.png");
+        FileInputStream startImage = new FileInputStream("img//sustainia.png");
         Image startScreen = new Image(startImage, 900, 600, true, false);
         ImageView view = new ImageView(startScreen);
 
@@ -317,9 +321,17 @@ public class App extends Application {
                     case S: goSouth = true; break;
                     case D: goEast  = true; break;
                     case A: goWest  = true; break;
+                    
                     //Detects the drop-key 'Q'
                     //Just for now, the item to be dropped is always the first item
-                    case Q: dropItem();
+                    case Q: dropItem(); break;
+                    //Leave convo
+                    case L: leaveConvo(); break;
+                    //Convo responses
+                    case DIGIT1: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(1); break;
+                    case DIGIT2: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(2); break;
+                    case DIGIT3: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(3); break;
+                    case DIGIT4: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(4); break;
                 }
             }
         });
@@ -570,6 +582,17 @@ public class App extends Application {
             //roomItems.get(i).printPosition();
         }
         
+        //Load NPC
+        if (game.currentRoom.hasNPC()){
+            ImageView npcImageView = new ImageView(characterImage);
+            npcImageView.setViewport(new Rectangle2D(0, 0, World.characterWidth, World.characterHeight));
+            
+            npcImageView.setX(game.currentRoom.getNPC().getNpcX());
+            npcImageView.setY(game.currentRoom.getNPC().getNpcY());
+            
+            itemsGroup.getChildren().add(npcImageView);
+        }
+        
         //Adds all the new items to the group
         itemsGroup.getChildren().addAll(items);
     }
@@ -583,6 +606,10 @@ public class App extends Application {
      */
     private void dropItem() {
         game.dropItem(game.getInventory().getItemsInInventory().get(0));
+    }
+    
+    private void leaveConvo(){
+        //wantToLeave == true;
     }
     
     public static void runApp(String[] args) {

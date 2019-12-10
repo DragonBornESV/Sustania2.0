@@ -100,5 +100,5 @@ public class World {
     
     // An array is created, which contains one of each material. it is used to print the materials.
     public static Material[] materialArray = {aluminum, cloth, compost, concrete, copper, glass, iron, paper, oakWood, plastic, rubber}; 
-    
+        
 }
