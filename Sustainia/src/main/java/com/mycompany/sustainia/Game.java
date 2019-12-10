@@ -53,7 +53,7 @@ public class Game {
             // Recyclestation
             new HitBox(480,614,64,24), new HitBox(576,614,64,24), new HitBox(480,638,160,110),
             // School
-            new HitBox(672,616,2,154)
+            new HitBox(672,616,2,154), new HitBox(704,638,160,55), new HitBox(704,693,96,55), new HitBox(768,616,2,22), new HitBox(798,616,2,22), new HitBox(879,705,2,42)
         },
  
             new HitBox[]{
@@ -72,7 +72,7 @@ public class Game {
                 // Recycle Station door
                 new HitBox(544,616,32,22),
                 // School door
-                new HitBox(768,638,32,22)
+                new HitBox(770,638,28,22)
             }
         , new ArrayList<>());
     }
