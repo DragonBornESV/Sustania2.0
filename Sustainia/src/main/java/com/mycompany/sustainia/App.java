@@ -327,7 +327,8 @@ public class App extends Application {
         TextField playerName = new TextField("Please enter your name:");
         startPane.getChildren().add(playerName);
 
-        playerName.setMiniSize(15,10);
+        playerName.setMinSize(15, 10);
+        playerName.setMaxWidth(40);
         Game.name = playerName.getText();
 
         startPane.getChildren().add(startButton);
@@ -344,9 +345,9 @@ public class App extends Application {
                     //Detects the drop-key 'Q'
                     //Just for now, the item to be dropped is always the first item
                     case Q: dropItem(); break;
-                    //Leave convo
+                    //Leave conversation
                     case L: leaveConvo(); break;
-                    //Convo responses
+                    //Conversation responses
                     case DIGIT1: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(1); break;
                     case DIGIT2: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(2); break;
                     case DIGIT3: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(3); break;
