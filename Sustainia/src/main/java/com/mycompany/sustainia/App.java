@@ -143,6 +143,9 @@ public class App extends Application {
         ImageView view = new ImageView(startScreen);
 
         StackPane startPane = new StackPane();
+        TextField playerName = new TextField("Please enter your name:");
+        startPane.getChildren().add(playerName);
+        
         startPane.getChildren().add(view);
         startPane.setAlignment(Pos.CENTER);
 
