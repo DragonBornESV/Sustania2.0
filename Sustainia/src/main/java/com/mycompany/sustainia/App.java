@@ -190,14 +190,11 @@ public class App extends Application {
 
         StackPane game = new StackPane();
         game.getChildren().add(root);
-        TextBox textBox = new TextBox(root);
+        TextBox textBox = new TextBox();
         game.getChildren().add(textBox.getGridPane());
 
-        Text text = new Text("  baby Yoda \n  will save \n  us all");
-        text.setFont(new Font(50));
-        Text text1 = new Text("  123 \n  will save \n  us all");
-        text1.setFont(new Font(50));
-        
+
+
         GridPane gridpane = new GridPane();
         gridpane.getColumnConstraints().add(new ColumnConstraints(801));
         gridpane.getColumnConstraints().add(new ColumnConstraints(300));
@@ -217,22 +214,6 @@ public class App extends Application {
         //ParameterBar
         Text navn = new Text("Parameter");
         navn.setFont(new Font(15));
-        Text procent = new Text("%");
-        StackPane test = new StackPane();
-        GridPane testGridpane = new GridPane();
-        ProgressBar bar = new ProgressBar();
-        ProgressBar bar1 = new ProgressBar();
-        bar.setMinSize(250, 30);
-        test.getChildren().add(bar);
-        test.getChildren().add(testGridpane);
-        testGridpane.getColumnConstraints().add(new ColumnConstraints(150));
-        testGridpane.getColumnConstraints().add(new ColumnConstraints(110));
-        testGridpane.getRowConstraints().add(new RowConstraints(bar.getMinHeight()));
-        testGridpane.setGridLinesVisible(true);
-        testGridpane.add(navn, 0,0);
-        testGridpane.add(procent,1,0);
-        testGridpane.setHalignment(navn, HPos.CENTER);
-        testGridpane.setHalignment(procent, HPos.RIGHT);
 
         Parameter.createParameters();
 
@@ -274,9 +255,11 @@ public class App extends Application {
 
         invPanel.addInventory(babyYoda);
 
+
+
         Button yodaButton = new Button("Add Baby Yoda");
         yodaButton.setOnAction(actionEvent -> {
-            invPanel.addInventory(babyYoda1);
+
         });
         Button removeYodaButton = new Button("Remove Selected Baby Yoda");
         removeYodaButton.setOnAction(actionEvent -> {

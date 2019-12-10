@@ -69,7 +69,7 @@ public class ParameterPanel extends Node {
         stackPane = new StackPane();
         gridPane = new GridPane();
         progressBar = new ProgressBar();
-        progressBar.setMinSize(250, 20);
+        progressBar.setMinSize(250, 23);
         progressBar.setProgress(0);
         parameterName = new Text(name);
         progressText = new Text("%");
