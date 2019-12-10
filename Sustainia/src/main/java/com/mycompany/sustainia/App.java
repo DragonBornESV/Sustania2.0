@@ -316,21 +316,36 @@ public class App extends Application {
         //Creating a scene object 
         Scene scene = new Scene(gridpane, World.gameScreenWidth+301, World.gameScreenHeight);
         Scene start = new Scene(startPane, World.gameScreenWidth+301, World.gameScreenHeight);
+
+        
+        //Entering player name
+        TextField playerName = new TextField();
+        playerName.setPromptText("Please enter your name:");
+
+        playerName.setMinSize(15, 10);
+        GridPane startScreenGridPane = new GridPane();
+        startScreenGridPane.getRowConstraints().add(new RowConstraints(450));
+        startScreenGridPane.getColumnConstraints().add(new ColumnConstraints(300));
+        startScreenGridPane.getColumnConstraints().add(new ColumnConstraints(500));
+
         //Start screen button
         Button startButton = new Button("Start");
         startButton.setMinSize(200, 100);
         startButton.setOnAction(event -> {
+            //possible to use player name for the rest of the game
+            Game.name = playerName.getText();
             stage.setScene(scene);
+            System.out.println(game.name);
         });
-        
-        //Entering player name
-        TextField playerName = new TextField("Please enter your name:");
-        startPane.getChildren().add(playerName);
-        playerName.setMinSize(15,10);
-        //possible to use player name for the rest of the game
-        Game.name = playerName.getText();
+        startScreenGridPane.add(playerName, 1,0);
+        startScreenGridPane.setValignment(playerName, VPos.BOTTOM);
+        startScreenGridPane.add(startButton,1,1 );
+        startScreenGridPane.setHalignment(startButton, HPos.CENTER);
+        startScreenGridPane.setVgap(20);
 
-        startPane.getChildren().add(startButton);
+
+
+        startPane.getChildren().add(startScreenGridPane);
 // KEYS pressed
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -344,9 +359,9 @@ public class App extends Application {
                     //Detects the drop-key 'Q'
                     //Just for now, the item to be dropped is always the first item
                     case Q: dropItem(); break;
-                    //Leave convo
+                    //Leave conversation
                     case L: leaveConvo(); break;
-                    //Convo responses
+                    //Conversation responses
                     case DIGIT1: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(1); break;
                     case DIGIT2: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(2); break;
                     case DIGIT3: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(3); break;
