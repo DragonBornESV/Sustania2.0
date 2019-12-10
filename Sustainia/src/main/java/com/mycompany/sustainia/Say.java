@@ -43,7 +43,6 @@ public class Say {
         
         //Prints the prompt message
         System.out.println("");
-        //System.out.println("Type '" + CommandWord.SAY + "' and the coresponding number for your answer: ");
         
         //The player loops until they return a valid answer.
         while (true) {
@@ -78,41 +77,6 @@ public class Say {
         }
     }
     
-    /**
-     * Another method than the on from the Game class. This one is only used
-     * when the player is in a oconversation with a NPC.
-     */
-    /***
-     private void processCommand(Command command) 
-    {
-        CommandWord commandWord = command.getCommandWord();
-
-        if(commandWord == CommandWord.UNKNOWN) {
-            System.out.println("I don't know what you mean...");
-            return;
-        }
-
-        if (commandWord == CommandWord.HELP) {
-            printHelp();
-        }
-        else if (commandWord == CommandWord.GO) {
-            System.out.println("You can't go. You're in the middle of talking!");
-        }
-        else if (commandWord == CommandWord.TALK) {
-            System.out.println("You are already talking!");
-        }
-        else if (commandWord == CommandWord.SAY) {
-            chooseReponse(command);
-        }
-        else if (commandWord == CommandWord.LEAVE) {
-            System.out.println("You are leaving the conversation.");
-            wantToLeave = true;
-        }
-        else if (commandWord == CommandWord.QUIT) {
-            System.out.println("If you want to leave the conversation enter '" + CommandWord.LEAVE + "'.");
-        }
-    }
-    */
     /**private void chooseReponse(Command command) {
         if (!command.hasSecondWord()) {
             System.out.println("Say what? Choose a response...");
