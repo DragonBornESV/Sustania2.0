@@ -50,8 +50,8 @@ public class Say {
             
             //This is the same statements as in the Game class, but with special
             //commands just for the conversation scenarios. 
-            //Command command = parser.getCommand();
-            //processCommand(command);
+           // Command command = parser.getCommand();
+           // processCommand(command);
             
             //Check if the player wants to leave the conversation.
             if (isWantToLeave()) {
@@ -113,7 +113,7 @@ public class Say {
         }
     }
     */
-    /*private void chooseReponse(Command command) {
+    /**private void chooseReponse(Command command) {
         if (!command.hasSecondWord()) {
             System.out.println("Say what? Choose a response...");
         } else {
