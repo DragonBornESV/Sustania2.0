@@ -148,8 +148,6 @@ public class App extends Application {
         ImageView view = new ImageView(startScreen);
 
         StackPane startPane = new StackPane();
-        TextField playerName = new TextField("Please enter your name:");
-        startPane.getChildren().add(playerName);
         
         startPane.getChildren().add(view);
         startPane.setAlignment(Pos.CENTER);
@@ -324,6 +322,11 @@ public class App extends Application {
         startButton.setOnAction(event -> {
             stage.setScene(scene);
         });
+        
+        //Entering player name
+        TextField playerName = new TextField("Please enter your name:");
+        startPane.getChildren().add(playerName);
+        playerName.setMinSize(50, 100);
 
         startPane.getChildren().add(startButton);
 // KEYS pressed
