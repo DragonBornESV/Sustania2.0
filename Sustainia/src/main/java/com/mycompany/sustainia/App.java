@@ -79,6 +79,7 @@ public class App extends Application {
     
     FileInputStream inputItems;
     Image itemsImage;
+    Image characterImage;
     
     /*
      * the following variables defines the rectangle, witch the rooms are maped to.
@@ -118,16 +119,19 @@ public class App extends Application {
 
         // Creates a new image, from the selected parth on computer
         FileInputStream inputCharacter = new FileInputStream("img/ch.png");
-        Image characterImage = new Image(inputCharacter,128*World.scale,128*World.scale,true,false);
+        characterImage = new Image(inputCharacter,128*World.scale,128*World.scale,true,false);
 
         // Gets the image of the items
         inputItems = new FileInputStream("img/items.png");
         itemsImage = new Image(inputItems,160*World.scale,16*World.scale,true,false);
         
-    // Rooms
+        // NPC image
+        
+        
+        // Rooms
         FileInputStream inputRooms = new FileInputStream("img/rooms.png");
         Image roomsImage = new Image(inputRooms,1120*World.scale,1188*World.scale,true,false);
-    // RoomsTop
+        // RoomsTop
         FileInputStream inputRoomsTop = new FileInputStream("img/roomsTop.png");
         Image roomsTopImage = new Image(inputRoomsTop,1120*World.scale,1188*World.scale,true,false);
         
@@ -556,6 +560,17 @@ public class App extends Application {
             
             //This can be used to show the hitboxes.
             //roomItems.get(i).printPosition();
+        }
+        
+        //Load NPC
+        if (game.currentRoom.hasNPC()){
+            ImageView npcImageView = new ImageView(characterImage);
+            npcImageView.setViewport(new Rectangle2D(0, 0, World.characterWidth, World.characterHeight));
+            
+            npcImageView.setX(game.currentRoom.getNPC().getNpcX());
+            npcImageView.setY(game.currentRoom.getNPC().getNpcY());
+            
+            itemsGroup.getChildren().add(npcImageView);
         }
         
         //Adds all the new items to the group

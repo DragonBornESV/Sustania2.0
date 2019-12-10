@@ -82,6 +82,8 @@ public class Game {
                 new HitBox(0,0,256,44), new HitBox(0,187,96,22), new HitBox(160,187,96,22), new HitBox(-10,44,10,143), new HitBox(256,44,10,143)},
             new Door(new HitBox(96,209,64,10), streets),
             new ArrayList<>(Arrays.asList(new Item[] {World.axe.cloneAndPosition(100, 100), World.glassBottle.cloneAndPosition(200, 100)})));
+        
+        townHall.setNPC(new NPC("Bob", 100, 100, "ses"));
     }
         
     public void createNonsustainableHouse(){

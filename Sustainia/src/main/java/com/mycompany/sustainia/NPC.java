@@ -1,7 +1,6 @@
 package com.mycompany.sustainia;
 
 class NPC {
-    HitBox NPC;
     Room currentRoom;
     //private final Say[] dialog;
     private int persuasionValue = 0;
@@ -14,15 +13,47 @@ class NPC {
     
     private final String npcName;
     
-    public NPC (String npcName, HitBox hitbox, Room currentRoom, String endTriggerMessage){
+    private int npcX;
+    private int npcY;
+    private HitBox hb = new HitBox(getNpcX(), getNpcY(),32,32);
+    
+    public NPC (String npcName, int npcX, int npcY, String endTriggerMessage){
         this.npcName = npcName;
-        this.NPC = hitbox;
-        this.currentRoom = currentRoom;
+        this.npcX = npcX;
+        this.npcY = npcY;
         this.endTriggerMessage = endTriggerMessage;
     }
     
     String getNpcName() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * @return the npcX
+     */
+    public int getNpcX() {
+        return npcX;
+    }
+
+    /**
+     * @param npcX the npcX to set
+     */
+    public void setNpcX(int npcX) {
+        this.npcX = npcX;
+    }
+
+    /**
+     * @return the npcY
+     */
+    public int getNpcY() {
+        return npcY;
+    }
+
+    /**
+     * @param npcY the npcY to set
+     */
+    public void setNpcY(int npcY) {
+        this.npcY = npcY;
     }
 
 }
