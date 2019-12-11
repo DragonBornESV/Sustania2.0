@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
@@ -85,7 +87,7 @@ public class App extends Application {
     private ImageView character;
     
     //DialogBox
-    com.mycompany.sustainia.GUI.TextBox textBox;
+    static TextBox textBox;
     
     public App(){
         game.createRooms();        
@@ -96,17 +98,17 @@ public class App extends Application {
         
         // black background image
 
-        FileInputStream inputBackground = new   FileInputStream("Sustainia//img//background.png");
+        FileInputStream inputBackground = new FileInputStream("Sustainia/img/background.png");
 
         Image backgroundImage = new Image(inputBackground, 600, 600, true, false);
 
         // Creates a new image, from the selected parth on computer
-        FileInputStream inputCharacter = new FileInputStream("Sustainia//img//ch.png");
+        FileInputStream inputCharacter = new FileInputStream("Sustainia/img/ch.png");
         characterImage = new Image(inputCharacter,128*World.scale,128*World.scale,true,false);
 
         // Gets the image of the items
 
-        inputItems = new FileInputStream("Sustainia//img//items.png");
+        inputItems = new FileInputStream("Sustainia/img/items.png");
 
         itemsImage = new Image(inputItems,160*World.scale,16*World.scale,true,false);
         
@@ -114,10 +116,10 @@ public class App extends Application {
         
         
         // Rooms
-        FileInputStream inputRooms = new FileInputStream("Sustainia//img//rooms.png");
+        FileInputStream inputRooms = new FileInputStream("Sustainia/img/rooms.png");
         Image roomsImage = new Image(inputRooms,1120*World.scale,1188*World.scale,true,false);
         // RoomsTop
-        FileInputStream inputRoomsTop = new FileInputStream("Sustainia//img//roomsTop.png");
+        FileInputStream inputRoomsTop = new FileInputStream("Sustainia/img/roomsTop.png");
         Image roomsTopImage = new Image(inputRoomsTop,1120*World.scale,1188*World.scale,true,false);
 
         //Setting the image view
@@ -194,10 +196,21 @@ public class App extends Application {
         rightColumn.getRowConstraints().add(new RowConstraints(320));
         rightColumn.getRowConstraints().add(new RowConstraints(50));
         rightColumn.getColumnConstraints().add(new ColumnConstraints(300));
-        rightColumn.setGridLinesVisible(true);
+
         //Adding the Panel into the right column at cell (1,0)
         splitView.add(rightColumn,1,0);
 
+
+
+        StackPane cover = new StackPane();
+        Rectangle coverBox = new Rectangle(300, 600);
+        coverBox.setFill(Color.WHITE);
+        cover.getChildren().add(coverBox);
+
+        cover.getChildren().add(rightColumn);
+
+        //Adding the Panel into the right column at cell (1,0)
+        splitView.add(cover,1,0);
         //Creating all the parameters(Domain)
         Parameter.createParameters();
         //Creating all GUI Parameters(GUI/Presentation)
@@ -243,6 +256,14 @@ public class App extends Application {
             System.out.println(game.name);
         });
 
+        Button dialogButton = new Button("Kør Dialog");
+        dialogButton.setOnAction(actionEvent -> {
+            game.currentRoom.getNPC().runDialog(game.currentRoom.getNPC().getNpcName());
+        });
+
+        buttonPanel.getGridPaneButtons().add(dialogButton,2,0);
+
+
 // KEYS pressed
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -259,10 +280,11 @@ public class App extends Application {
                     //Leave conversation
                     case L: leaveConvo(); break;
                     //Conversation responses
-                    case DIGIT1: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(1); break;
-                    case DIGIT2: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(2); break;
-                    case DIGIT3: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(3); break;
-                    case DIGIT4: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(4); break;
+                    case DIGIT1: game.currentRoom.getNPC().getCurrentSay().chooseResponse(1); break;
+                    case DIGIT2: game.currentRoom.getNPC().getCurrentSay().chooseResponse(2); break;
+                    case DIGIT3: game.currentRoom.getNPC().getCurrentSay().chooseResponse(3); break;
+                    case DIGIT4: game.currentRoom.getNPC().getCurrentSay().chooseResponse(4); break;
+
                 }
             }
         });
@@ -521,8 +543,8 @@ public class App extends Application {
             ImageView npcImageView = new ImageView(characterImage);
             npcImageView.setViewport(new Rectangle2D(0, 0, World.characterWidth, World.characterHeight));
             
-            npcImageView.setX(game.currentRoom.getNPC().getNpcX());
-            npcImageView.setY(game.currentRoom.getNPC().getNpcY());
+            npcImageView.setX(game.currentRoom.getNPC().getNpcX()*World.scale);
+            npcImageView.setY(game.currentRoom.getNPC().getNpcY()*World.scale);
             
             itemsGroup.getChildren().add(npcImageView);
         }
