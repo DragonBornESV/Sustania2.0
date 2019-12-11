@@ -35,7 +35,7 @@ public class MaterialsPanel extends Node {
         gridPane.add(listView,0,1);
         gridPane.setPadding(new Insets(5));
         listView.setItems(observableList);
-        gridPane.setGridLinesVisible(true);
+
 
 
     }
