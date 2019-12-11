@@ -156,7 +156,7 @@ public class Game {
                 + Game.name + "!\nLet´s get started!");
 
         townHall.setNPC(mayorNpc);
-        mayorNpc.setPosition(300,300);
+        mayorNpc.setPosition(100,100);
         
     }
         
@@ -423,14 +423,17 @@ public class Game {
             //Checks if the player hit the item
             if (currentRoom.getItemsInRoom().get(i).getHitBox().checkIfTriggered()) {
                 
-                System.out.println("Hit item");
+                App.textBox.setTextBox("Picked up " + room.getItemsInRoom().get(i));
                 pickUpItem(currentRoom.getItemsInRoom().get(i));
             }
         }
         //Checks if the player hits an NPC
-            if (currentRoom.hasNPC()){
-                if(currentRoom.getNPC().getHitBox().checkIfTriggered()){
-                    System.out.println("Hit NPC");
+            if (room.hasNPC()){
+                room.getNPC().getHitBox().collisionWithObject(x, y);
+                if (room.getNPC().getHitBox().checkIfTriggered()){
+                    //System.out.println("Hit NPC");
+                    //App.textBox.setTextBox();
+                    //room.getNPC().runDialog(room.getNPC().getNpcName());
                 }
             }
     }

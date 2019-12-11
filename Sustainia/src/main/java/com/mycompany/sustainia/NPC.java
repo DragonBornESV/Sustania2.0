@@ -104,6 +104,7 @@ public class NPC {
         //Iterates through the Say objects and runs the print method. The points 
         //are added as it goes along. 
         for (i = 0; i < dialog.length; i++) {
+            App.textBox.setTextBox(dialog[i].toString());
             persuasionValue += dialog[i].print(npcName, allText);
             
             //Checks if the player wants to leave the conversation

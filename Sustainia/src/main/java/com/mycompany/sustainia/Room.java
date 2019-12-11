@@ -19,7 +19,7 @@ public class Room
     int[] multiSpawnPY;
     int[][] multipleSpawnPoints;
     
-    HitBox[] hitboxesInRoom;
+    public HitBox[] hitboxesInRoom;
     
     Door door;
     HitBox[] multipleDoors;
