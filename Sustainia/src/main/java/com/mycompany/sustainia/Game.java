@@ -425,11 +425,11 @@ public class Game {
                 
                 App.textBox.setTextBox("Picked up " + room.getItemsInRoom().get(i));
                 pickUpItem(currentRoom.getItemsInRoom().get(i));
-                App.textBox.setTextBox("Picked up"+room.getItemsInRoom().get(i));
+
             }
         }
         //Checks if the player hits an NPC
-
+/*
             if (room.hasNPC()){
                 room.getNPC().getHitBox().collisionWithObject(x, y);
                 if (room.getNPC().getHitBox().checkIfTriggered()){
@@ -439,6 +439,8 @@ public class Game {
 
                 }
             }
+
+ */
 
 
     }
@@ -545,7 +547,7 @@ public class Game {
             item.setPosition((World.gameX +World.characterX -8*World.scale)/World.scale, (World.gameY +World.characterY + 16*World.scale)/World.scale);
             currentRoom.getItemsInRoom().add(item);
             inv.getItemsInInventory().remove(item);
-            
+            App.textBox.setTextBox(item+" was dropped");
             needsUpdate = true;
         } else {
             System.out.println("No item selected");
