@@ -111,6 +111,7 @@ public class NPC {
 
             persuasionValue += getCurrentSay().getPoints();
 
+
             //Checks if the player wants to leave the conversation
             if (dialog[i].isWantToLeave() == true) {
                 return;

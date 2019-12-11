@@ -539,8 +539,8 @@ public class App extends Application {
             ImageView npcImageView = new ImageView(characterImage);
             npcImageView.setViewport(new Rectangle2D(0, 0, World.characterWidth, World.characterHeight));
             
-            npcImageView.setX(game.currentRoom.getNPC().getNpcX());
-            npcImageView.setY(game.currentRoom.getNPC().getNpcY());
+            npcImageView.setX(game.currentRoom.getNPC().getNpcX()*World.scale);
+            npcImageView.setY(game.currentRoom.getNPC().getNpcY()*World.scale);
             
             itemsGroup.getChildren().add(npcImageView);
         }
