@@ -194,6 +194,7 @@ public class App extends Application {
         rightColumn.getRowConstraints().add(new RowConstraints(320));
         rightColumn.getRowConstraints().add(new RowConstraints(50));
         rightColumn.getColumnConstraints().add(new ColumnConstraints(300));
+        rightColumn.setGridLinesVisible(true);
         //Adding the Panel into the right column at cell (1,0)
         splitView.add(rightColumn,1,0);
 
