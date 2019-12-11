@@ -54,7 +54,8 @@ public class TextBox extends Node {
 
 
     public void setTextBox(String string){
-        textBox.setText(string);
+        String currentText = textBox.getText();
+        textBox.setText(string+"\n"+currentText);
 
     }
 

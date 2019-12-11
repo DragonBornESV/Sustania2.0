@@ -252,6 +252,14 @@ public class App extends Application {
             System.out.println(game.name);
         });
 
+        Button dialogButton = new Button("Kør Dialog");
+        dialogButton.setOnAction(actionEvent -> {
+            game.currentRoom.getNPC().runDialog(game.currentRoom.getNPC().getNpcName());
+        });
+
+        buttonPanel.getGridPaneButtons().add(dialogButton,2,0);
+
+
 // KEYS pressed
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -268,10 +276,11 @@ public class App extends Application {
                     //Leave conversation
                     case L: leaveConvo(); break;
                     //Conversation responses
-                    case DIGIT1: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(1); break;
-                    case DIGIT2: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(2); break;
-                    case DIGIT3: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(3); break;
-                    case DIGIT4: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(4); break;
+                    case DIGIT1: game.currentRoom.getNPC().getCurrentSay().chooseResponse(1); break;
+                    case DIGIT2: game.currentRoom.getNPC().getCurrentSay().chooseResponse(2); break;
+                    case DIGIT3: game.currentRoom.getNPC().getCurrentSay().chooseResponse(3); break;
+                    case DIGIT4: game.currentRoom.getNPC().getCurrentSay().chooseResponse(4); break;
+
                 }
             }
         });

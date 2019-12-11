@@ -425,14 +425,18 @@ public class Game {
                 
                 System.out.println("Hit item");
                 pickUpItem(currentRoom.getItemsInRoom().get(i));
+                App.textBox.setTextBox("Picked up"+room.getItemsInRoom().get(i));
             }
         }
         //Checks if the player hits an NPC
+        /*
             if (currentRoom.hasNPC()){
                 if(currentRoom.getNPC().getHitBox().checkIfTriggered()){
                     System.out.println("Hit NPC");
                 }
             }
+
+         */
     }
     
     
