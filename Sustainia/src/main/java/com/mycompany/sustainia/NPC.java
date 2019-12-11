@@ -1,8 +1,6 @@
 package com.mycompany.sustainia;
 
 public class NPC {
-    HitBox NPC;
-    Room currentRoom;
     private final Say[] dialog;
     private int persuasionValue = 0;
     private final int persuasionTrigger = 50;
@@ -17,16 +15,16 @@ public class NPC {
 
     private int npcX;
     private int npcY;
-    private HitBox hb = new HitBox(getNpcX(), getNpcY(),32,32);
+    private HitBox hb;
     
     private String allText = "";
     
     int i;
     
-    public NPC (String npcName, HitBox hitbox, Room currentRoom, Say[] dialog, String endTriggerMessage){
+    public NPC (String npcName, Say[] dialog, String endTriggerMessage){
+        //this.npcX = npcX;
+        //this.npcY = npcY;
         this.npcName = npcName;
-        this.NPC = hitbox;
-        this.currentRoom = currentRoom;
         this.dialog = dialog;
         this.endTriggerMessage = endTriggerMessage;
     }
@@ -52,12 +50,6 @@ public class NPC {
         this.points = points; 
     } 
        
-    
-    public NPC (String npcName, Say[] dialog, String endTriggerMessage) {
-        this.npcName = npcName;
-        this.dialog = dialog;
-        this.endTriggerMessage = endTriggerMessage;
-    }
 
     /**
      * @return the npcX
@@ -87,6 +79,15 @@ public class NPC {
         this.npcY = npcY;
     }   
     
+    public void setPosition(int npcX, int npcY) {
+        this.npcX = npcX;
+        this.npcY = npcY;
+        hb = new HitBox(npcX, npcY, 32, 32);
+    }
+    
+    public HitBox getHitBox() {
+        return hb;
+    }
     
     public Say getCurrentSay() {
         return dialog[i];

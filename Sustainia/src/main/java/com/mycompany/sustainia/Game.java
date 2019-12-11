@@ -152,12 +152,12 @@ public class Game {
         int[] rpMayor3 = new int[]{0};
         Say dMayor3 = new Say("Then you are of no use for our city. Goodbye!", rMayor3, rpMayor3);
         
-        NPC mayorNpc = new NPC("The Mayor",new Say[]{dMayor1,dMayor2,dMayor3},"Alright " 
-                + Game.name + "!\nLet´s get started!","City Security",30);
+        NPC mayorNpc = new NPC("The Mayor", new Say[]{dMayor1,dMayor2,dMayor3},"Alright " 
+                + Game.name + "!\nLet´s get started!");
 
-        mayorNpc.setNpcX(300);
-        mayorNpc.setNpcY(300);
         townHall.setNPC(mayorNpc);
+        mayorNpc.setPosition(300,300);
+        
     }
         
     public void createNonsustainableHouse(){
@@ -333,9 +333,10 @@ public class Game {
                 +"\nand theen bring them back to the recycling station."
                 +"\nYou can then salvage the items and get points which will help make Sustainia sustainable", rSanitationWorker1, rpSanitationWorker1);
         
-        NPC sanitationWorkerNpc = new NPC("the sanitation worker",new Say[]{dSanitationWorker1},"Alright " 
+        NPC sanitationWorkerNpc = new NPC("the sanitation worker", new Say[]{dSanitationWorker1},"Alright " 
                 + Game.name + "!\nLet´s get started!");
         
+        sanitationWorkerNpc.setPosition(400, 400);
         recyclingStation.setNPC(sanitationWorkerNpc);
     }
     
@@ -426,6 +427,12 @@ public class Game {
                 pickUpItem(currentRoom.getItemsInRoom().get(i));
             }
         }
+        //Checks if the player hits an NPC
+            if (currentRoom.hasNPC()){
+                if(currentRoom.getNPC().getHitBox().checkIfTriggered()){
+                    System.out.println("Hit NPC");
+                }
+            }
     }
     
     
