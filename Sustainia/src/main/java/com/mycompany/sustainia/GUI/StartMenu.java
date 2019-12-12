@@ -24,20 +24,28 @@ public class StartMenu extends Node {
     private Button startButton;
     private  TextField playerName;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private String name;
 
     public StartMenu() throws FileNotFoundException {
-        FileInputStream startImage = new FileInputStream("img/sustainia.png");
+
+        name = null;
+        FileInputStream startImage = new FileInputStream("Sustainia/img/sustainia.png");
+
         Image startScreen = new Image(startImage, 900, 600, true, false);
         ImageView view = new ImageView(startScreen);
         startPane = new StackPane();
         startPane.getChildren().add(view);
         startPane.setAlignment(Pos.CENTER);
 
-        //Entering player name
-        playerName = new TextField();
-        playerName.setPromptText("Please enter your name:");
 
-        playerName.setMinSize(15, 10);
         GridPane startScreenGridPane = new GridPane();
         startScreenGridPane.getRowConstraints().add(new RowConstraints(450));
         startScreenGridPane.getColumnConstraints().add(new ColumnConstraints(300));
@@ -46,6 +54,11 @@ public class StartMenu extends Node {
         //Start screen button
         startButton = new Button("Start");
         startButton.setMinSize(200, 100);
+
+        //Entering player name
+        playerName = new TextField();
+        playerName.setPromptText("Please enter your name:");
+        playerName.setMinSize(15, 10);
 
         startScreenGridPane.add(playerName, 1,0);
         startScreenGridPane.setValignment(playerName, VPos.BOTTOM);

@@ -98,17 +98,17 @@ public class App extends Application {
         
         // black background image
 
-        FileInputStream inputBackground = new FileInputStream("img/background.png");
+        FileInputStream inputBackground = new FileInputStream("Sustainia/img/background.png");
 
         Image backgroundImage = new Image(inputBackground, 600, 600, true, false);
 
         // Creates a new image, from the selected parth on computer
-        FileInputStream inputCharacter = new FileInputStream("img/ch.png");
+        FileInputStream inputCharacter = new FileInputStream("Sustainia/img/ch.png");
         characterImage = new Image(inputCharacter,128*World.scale,128*World.scale,true,false);
 
         // Gets the image of the items
 
-        inputItems = new FileInputStream("img/items.png");
+        inputItems = new FileInputStream("Sustainia/img/items.png");
 
         itemsImage = new Image(inputItems,160*World.scale,16*World.scale,true,false);
         
@@ -116,10 +116,10 @@ public class App extends Application {
         
         
         // Rooms
-        FileInputStream inputRooms = new FileInputStream("img/rooms.png");
+        FileInputStream inputRooms = new FileInputStream("Sustainia/img/rooms.png");
         Image roomsImage = new Image(inputRooms,1120*World.scale,1188*World.scale,true,false);
         // RoomsTop
-        FileInputStream inputRoomsTop = new FileInputStream("img/roomsTop.png");
+        FileInputStream inputRoomsTop = new FileInputStream("Sustainia/img/roomsTop.png");
         Image roomsTopImage = new Image(inputRoomsTop,1120*World.scale,1188*World.scale,true,false);
 
         //Setting the image view
@@ -251,10 +251,12 @@ public class App extends Application {
 
         startMenu.getStartButton().setOnAction(event -> {
             //possible to use player name for the rest of the game
-            Game.name = startMenu.getPlayerName().getText();
             stage.setScene(scene);
-            System.out.println(game.name);
+            System.out.println(startMenu.getPlayerName().getText());
+            startMenu.setName(startMenu.getPlayerName().getText());
+
         });
+        Game.playerName = startMenu.getName();
 
         Button dialogButton = new Button("Kør Dialog");
         dialogButton.setOnAction(actionEvent -> {
@@ -353,7 +355,7 @@ public class App extends Application {
                     game.currentRoom = game.roomChangeCheck(World.gameX, World.gameY);
                     //System.out.println(game.currentRoom.name);
                     update();
-                    Parameter.mapAddScore("City Equality", 1);
+
 
                 }
             };
@@ -376,6 +378,11 @@ public class App extends Application {
         if (game.needsUpdate()) {
             loadItems();
             game.setNeedsUpdate(false);
+        }
+
+        //Closes the terminal when you switch room
+        if(game.roomSwitch){
+            Conversation.leaveConversation();
         }
 
         // character_animation
