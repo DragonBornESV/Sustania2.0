@@ -7,7 +7,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class ImageTextCell extends ListCell<com.mycompany.sustainia.Item> {
+public class ImageTextCell extends ListCell<Item> {
 
     @Override
     protected void updateItem(Item item, boolean b) {

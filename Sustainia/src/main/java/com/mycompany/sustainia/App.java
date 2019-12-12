@@ -254,11 +254,12 @@ public class App extends Application {
         startMenu.getStartButton().setOnAction(event -> {
             //possible to use player name for the rest of the game
             stage.setScene(scene);
-
+            System.out.println(startMenu.getPlayerName().getText());
             startMenu.setName(startMenu.getPlayerName().getText());
             game.playerName = startMenu.getName();
-            
+
             game.createRooms();
+            game.setNeedsUpdate(true);
         });
         System.out.println("Startskærmen:" + startMenu.getName());
 
