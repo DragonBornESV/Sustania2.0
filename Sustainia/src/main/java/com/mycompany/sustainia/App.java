@@ -1,7 +1,7 @@
 package com.mycompany.sustainia;
 
 import com.mycompany.sustainia.GUI.*;
-// Standert javaFX imports
+// Standart javaFX imports
 import javafx.application.Application;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
@@ -23,7 +23,7 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-// for key presses
+//For key presses
 
 import static javafx.application.Application.launch;
 
@@ -32,7 +32,7 @@ import javafx.geometry.Rectangle2D;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-// import java.awt.event.KeyEvent;
+//Import java.awt.event.KeyEvent;
 
 /**
  * JavaFX App

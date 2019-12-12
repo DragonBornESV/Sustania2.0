@@ -1,10 +1,15 @@
 package com.mycompany.sustainia;
 
+//Import java arraylist and array
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * The Game class contains the createded rooms, hitboxes, NPCs and the player name 
+ * which is inserted from the start menu.
+ */
 public class Game {
-    boolean roomSwitch = true;
+    boolean roomSwitch = true;  //
 
     int previousRoom;
     
@@ -21,8 +26,7 @@ public class Game {
     //This is true, when the item graphics needs to be updated
     private boolean needsUpdate = false;
     
-    public Game() 
-    {
+    public Game(){
         Parameter.createParameters();
         inv = new Inventory();
     }
@@ -79,6 +83,7 @@ public class Game {
         //Setting up the NPC for the outside room
         //responses are shortend to r, responsesPoints are shortend to rp 
         //and dialog are shortend to d.
+        
         //BUSDRIVER
         String[] rBusDriver1 = new String[]{
                 "Car", "Bike", "Bus", "walk" };
@@ -432,21 +437,6 @@ public class Game {
 
             }
         }
-        
-        //Checks if the player hits an NPC
-/*
-            if (room.hasNPC()){
-                room.getNPC().getHitBox().collisionWithObject(x, y);
-                if (room.getNPC().getHitBox().checkIfTriggered()){
-                    App.textBox.setTextBox("Hit " + room.getNPC().getNpcName());
-                    //room.getNPC().runDialog(room.getNPC().getNpcName());
-
-                }
-            }
-
- */
-
-
     }
     
     
