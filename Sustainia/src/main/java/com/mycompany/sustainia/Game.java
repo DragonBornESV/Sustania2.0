@@ -115,7 +115,7 @@ public class Game {
         //and dialog are shortend to d.
         //BUSDRIVER
         String[] rBusDriver1 = new String[]{
-                "Car", "Bike", "Bus", "walk" };
+                "Car", "Bike", "Bus", "Walk" };
 
         int[] rpBusDriver1 = new int[]{0,25,25,25};
         Say dBusDriver1 = new Say("Hello " + this.playerName+ "!"
@@ -123,8 +123,10 @@ public class Game {
                 + "", rBusDriver1, rpBusDriver1);
 
         String[] rBusDriver2 = new String[]{
-                "Nothing. it doesn't hurt anyone with a little air pollution", "I don´t know", "We could all carpool!",
-            "We could use the public transportation, ride our bikes or walk around in the city.\nIt would create less air pollution"};
+                "Nothing. it doesn't hurt anyone with\n"
+                + "a little air pollution", "I don´t know", "We could all carpool!",
+            "Use the public transportation, ride our\n"
+                + "bikes or walk around in the city."};
 
         int[] rpBusDriver2 = new int[]{0,0,0,30};
         Say dBusDriver2 = new Say("We have a problem with to much air pollution in the city.\n What would do you think we should do about it?", rBusDriver2, rpBusDriver2);
@@ -183,7 +185,7 @@ public class Game {
                 "The Mayor", new Say[]{dMayor1,dMayor2,dMayor3},"Alright "
 
                 + this.playerName + "!\nLet´s get started!", //NPC navn, dialog array og endMessage
-                "City Security", 100); //Den score NPC giver efter succesfull samtale
+                "City Security", 30); //Den score NPC giver efter succesfull samtale
 
         townHall.setNPC(mayorNpc);
     }
@@ -213,7 +215,7 @@ public class Game {
 
         //HOUSE BUILDER
         String[] rhouseBuilder1 = new String[]{
-                "Pressure-impregnated wood", "FSC wood", "Fire impregnated wood"};
+                "Pressure impregnated wood", "FSC wood", "Fire impregnated wood"};
         int[] rphouseBuilder1 = new int[]{15,20,15};
         Say dhouseBuilder1 = new Say("Hello " + this.playerName+ "!"
                 +"\nMy name is Hanna and i'm working on this house."
@@ -228,9 +230,9 @@ public class Game {
 
 
         NPC houseBuilderNpc = new NPC(50, 25, //placement of the NPC
-                "the factory worker",new Say[]{dhouseBuilder1,dhouseBuilder2},"Alright "
+                "the house builder",new Say[]{dhouseBuilder1,dhouseBuilder2},"Alright "
                 + this.playerName + "!\nWe will do that!", //NPC name, dialog array and endMessage
-                "Sustainiable Housing",50); //The score the NPC adds to the parameter
+                "Sustainable Housing",50); //The score the NPC adds to the parameter
 
         nonsustainableHouse.setNPC(houseBuilderNpc);
     }
@@ -349,22 +351,24 @@ public class Game {
                 +"\nWhat would you suggest that we do?", rFactoryWorker1, rpFactoryWorker1);
 
         String[] rFactoryWorker2 = new String[]{
-                "You could use second-hand clothing and make into new clothing", "I don't know what to do!", "You could make eco-labeled clothing"};
-        int[] rpFactoryWorker2 = new int[]{20,0,30};
+                "You could use second-hand clothing and\n"
+                + "make into new clothing", "I don't know what to do!", "You could make eco-labeled clothing"};
+        int[] rpFactoryWorker2 = new int[]{30,0,30};
         Say dFactoryWorker2 = new Say("I really wanna create a great factory but the water bill is to much."
                 +"\nDo you have any idea as to how we can reduce it?", rFactoryWorker2, rpFactoryWorker2);
 
         String[] rFactoryWorker3 = new String[]{
-                "No, i don't", "Eco-labeled clothing doesn't contain chemicals, dye or heavy metals which can harm the environment and also people",
+                "No, i don't", "Eco-labeled clothing doesn't contain chemicals,\n"
+                + "dye or heavy metals which can harm the \nenvironment and also people",
                 "Because it sounds better","Because it's in greater demand"};
-        int[] rpFactoryWorker3 = new int[]{0,30,-10,10};
+        int[] rpFactoryWorker3 = new int[]{0,30,10,10};
         Say dFactoryWorker3 = new Say("We are going to make eco-labeled clothing is actually a good idea."
                 +"\nDo you know why?", rFactoryWorker3, rpFactoryWorker3);
 
         NPC factoryWorkerNpc = new NPC(25, 50, //placement of the NPC
                 "the factory worker",new Say[]{dFactoryWorker1,dFactoryWorker2,dFactoryWorker3},"Alright "
                 + this.playerName + "!\nI will use your advice, thank you!", //NPC name, dialog array and endMessage
-                "City Clean Air",30); //The score the NPC adds to the parameter
+                "City Green Energy",50); //The score the NPC adds to the parameter
 
         clothingFactory.setNPC(factoryWorkerNpc);
     }
@@ -401,18 +405,18 @@ public class Game {
                 "Yes, of course ", "No, i don't think so", "I can try"};
         int[] rpOfficer1 = new int[]{25,0,25};
         Say dOfficer1 = new Say("Hello " + this.playerName+ "!"
-                +"\nMy name is Olivia and i'm an officer. My job is to make sure that everyone in Sustainia are safe.\nIn Sustainia, we have a problem with crime and criminalactivity.\nDo you think that you can help me?", rOfficer1, rpOfficer1);
+                +"\nMy name is Olivia and i'm an officer. My job is to make sure that everyone in Sustainia are safe.\nIn Sustainia, we have a problem with crime and criminal activity.\nDo you think that you can help me?", rOfficer1, rpOfficer1);
 
         String[] rOfficer2 = new String[]{
                 "No, i don't want to help you ", "I can try", "Of course, i'll help you"};
         int[] rpOfficer2 = new int[]{0,30,30};
-        Say dOfficer2 = new Say("Alright, listen!\nThere are a arrest warrant out for this criminal named Cato.\nI'm really busy with looking out for Sustainia, would you help me out with looking for Cato?\nFind him and talk to him!", rOfficer2, rpOfficer2);
+        Say dOfficer2 = new Say("Alright, listen!\nThere are a lot of criminals arround so look out!\nIf you see something please report it to me.", rOfficer2, rpOfficer2);
 
 
         NPC officerNpc = new NPC(100, 50, //placement of the NPC
                 "the officer",new Say[]{dOfficer1,dOfficer2},"Alright "
                 + this.playerName + "!\nI trust that you will help me", //NPC name, dialog array and endMessage
-                "City Security",25); //The score the NPC adds to the parameter
+                "City Security",50); //The score the NPC adds to the parameter
 
         policeStation.setNPC(officerNpc);
     }
@@ -443,7 +447,7 @@ public class Game {
 
         NPC sanitationWorkerNpc = new NPC(50, 100, //placement of the NPC
                 "the sanitation worker", new Say[]{dSanitationWorker1},"Alright "
-                + this.playerName + "!\nLet´s get started!", //NPC name, dialog array and endMessage
+                + this.playerName + "!\nLet´s get started!\nYou can press 'b' and go to the container to recycle you items!", //NPC name, dialog array and endMessage
                 "City Cleanliness", 30); //The score the NPC adds to the parameter
 
 
@@ -471,14 +475,15 @@ public class Game {
         
                 //TEACHER
         String[] rTeacher1 = new String[]{
-                "Bad pay", "Lack of respect", "Men are better end women therefore they don't need to work in a woman field", "Men don't want to work with children"};
+                "Bad pay", "Lack of respect", "Men are better end women therefore\nthey don't need to work in a woman field", "Men don't want to work with children"};
         int[] rpTeacher1 = new int[]{20,20,-10,-10};
         Say dTeacher1 = new Say("Hello " + this.playerName+ "!"
-                +"\nMy name is Tiffany and i teach at the school of Sustainia.\nThis last week the entire school worked with the FN goals for the world and a student pointed out that there are fewer male teachers then female teachers."
+                +"\nMy name is Tiffany and i teach at the school of Sustainia.\nThis last week the entire school worked with the FN goals for the world and a student\n"
+                + "pointed out that there are fewer male teachers then female teachers."
                 + "\nWhy do you think that is?", rTeacher1, rpTeacher1);
         
         String[] rTeacher2 = new String[]{
-                "Stop, looking down on men who want to became teachers", "Why do anything about it. I think it is a good distribution", "Better pay", "Talk more about it"};
+                "Stop, looking down on men who want to \nbecame teachers", "Why do anything about it.\nI think it is a good distribution", "Better pay", "Talk more about it"};
         int[] rpTeacher2 = new int[]{50,-10,30,25};
         Say dTeacher2 = new Say("What do you think we could do to make it equal between men and women teachers?", rTeacher2, rpTeacher2);
         

@@ -105,12 +105,11 @@ public class ParameterPanel extends Node {
     public static void createParameterPanel(){
         ParameterPanel p1 = new ParameterPanel("City Equality");
         ParameterPanel p2 = new ParameterPanel("City Green Energy");
-        ParameterPanel p3 = new ParameterPanel("City Clean Water");
-        ParameterPanel p4 = new ParameterPanel("Sustainable Housing");
-        ParameterPanel p5 = new ParameterPanel("City Clean Air");
-        ParameterPanel p6 = new ParameterPanel("City Cleanliness");
-        ParameterPanel p7 = new ParameterPanel("City Security");
-        ParameterPanel p8 = new ParameterPanel("Recycling");
+        ParameterPanel p3 = new ParameterPanel("Sustainable Housing");
+        ParameterPanel p4 = new ParameterPanel("City Clean Air");
+        ParameterPanel p5 = new ParameterPanel("City Cleanliness");
+        ParameterPanel p6 = new ParameterPanel("City Security");
+        ParameterPanel p7 = new ParameterPanel("Recycling");
     }
 
     public StackPane getStackPane() {

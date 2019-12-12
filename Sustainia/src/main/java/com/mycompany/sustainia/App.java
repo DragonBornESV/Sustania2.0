@@ -270,7 +270,7 @@ public class App extends Application {
         });
         System.out.println("Startskærmen:" + startMenu.getName());
 
-        Button dialogButton = new Button("Kør Dialog");
+        Button dialogButton = new Button("Talk");
         dialogButton.setOnAction(actionEvent -> {
             Conversation conversation = new Conversation();
             Conversation.i = 0;
@@ -314,10 +314,11 @@ public class App extends Application {
         });
         
         //Setting title to the Stage 
-        stage.setTitle("Moving Image Test");
+        stage.setTitle("Sustainia");
         
         //Adding scene to the stage        
         stage.setScene(start);
+        stage.setResizable(false);
         //Displaying the contents of the stage
         stage.show();
         characterAnimation();
@@ -332,13 +333,13 @@ public class App extends Application {
             p.getProgressText().setText((Parameter.parameterList.get(p.getParameterName()).getScore())+"%");
             value += Parameter.parameterList.get(p.getParameterName()).getScore();
         }
-        if (value/7 >= 80){
+        if (value/ParameterPanel.list.size() >= 80){
             winningScreen.getView().setVisible(true);
             gamePanel.getChildren().get(0).setVisible(false);
             gamePanel.getChildren().get(1).setVisible(false);
         }
-        ParameterPanel.mainBar.getProgressBar().setProgress((value/7)/100);
-        ParameterPanel.mainBar.getProgressText().setText(numberFormat.format(value/7)+"%");
+        ParameterPanel.mainBar.getProgressBar().setProgress((value/ParameterPanel.list.size())/100);
+        ParameterPanel.mainBar.getProgressText().setText(numberFormat.format(value/ParameterPanel.list.size())+"%");
 
 
     }

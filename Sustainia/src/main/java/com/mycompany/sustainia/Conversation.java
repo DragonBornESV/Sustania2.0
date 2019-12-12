@@ -38,7 +38,7 @@ public class Conversation extends Node {
          * Checks if the NPC is convinced, and add points to a specific parameter.
          *
          */
-        if (points > npc.getPersuasionTrigger()) {
+        if (points >= npc.getPersuasionTrigger()) {
             App.textBox.setTextBox(npc.getEndTriggerMessage()); //Display the end message from the NPC
             npc.givePoints(); //Add points
             System.out.println("FÆRDIG");

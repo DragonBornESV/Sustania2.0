@@ -87,12 +87,11 @@ public class Parameter {
     public static void createParameters() {
         Parameter p1 = new Parameter("City Equality");
         Parameter p2 = new Parameter("City Green Energy");
-        Parameter p3 = new Parameter("City Clean Water");
-        Parameter p4 = new Parameter("Sustainable Housing");
-        Parameter p5 = new Parameter("City Clean Air");
-        Parameter p6 = new Parameter("City Cleanliness");
-        Parameter p7 = new Parameter("City Security");
-        Parameter p8 = new Parameter("Recycling");
+        Parameter p3 = new Parameter("Sustainable Housing");
+        Parameter p4 = new Parameter("City Clean Air");
+        Parameter p5 = new Parameter("City Cleanliness");
+        Parameter p6 = new Parameter("City Security");
+        Parameter p7 = new Parameter("Recycling");
     }
 
     /**
