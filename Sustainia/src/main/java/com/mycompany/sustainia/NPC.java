@@ -147,66 +147,6 @@ public class NPC {
         return dialog[i];
     }
     
-    /**
-     * @return allText 
-     */
-    public String getAllText() {
-        return allText;
-    }
-    
-    /**Initiates the dialog with the NPC.
-     * 
-     * The dialog is retrieved from the Say-array and runs through them, one by
-     * one. Every iteration it returns the points given and adds them to the
-     * persuasionValue attribute. It then checks if the limit (trigger) is
-     * reached. If not and there is not anymore dialog, you get a fail message
-     * and the dialog ends.
-     */
-    public void runDialog(String npcName) {
-        dialogRunning = true;
-        
-        //Iterates through the Say objects and runs the print method. The points 
-        //are added as it goes along. 
-        for (i = 0; i < dialog.length; i++) {
-            dialog[i].print(npcName, allText);
-            while (getCurrentSay().getPoints() == 0){
-
-            }
-
-            persuasionValue += getCurrentSay().getPoints();
-
-
-            //Checks if the player wants to leave the conversation
-            if (dialog[i].isWantToLeave() == true) {
-                return;
-            }
-            
-            //Checks if the limit value is reached. Breaks if true.
-            if (persuasionValue >= persuasionTrigger) {
-                break;
-            }
-        }
-        
-        //Checks if the player succeeded. If not a fail message is printed.
-        if (persuasionValue < persuasionTrigger) {
-            System.out.println("");
-            System.out.println("You failed to convince " + npcName + "...");
-            System.out.println("Talk to the person again. "
-                    + "Try to be more convincing this time...");
-            System.out.println("");
-            return;
-        }
-
-        givePoints();
-
-        System.out.println("");
-        System.out.println("---------------------------------");
-        System.out.println("");
-        System.out.println(endTriggerMessage);
-        System.out.println("");
-        
-        dialogRunning = false;
-    }
 
     public void givePoints() {
         //The succes message is printed out!
