@@ -28,7 +28,7 @@ public class Material implements Cloneable {
      */
     @Override
     public String toString() {
-        return name + ": " + count;
+        return this.name+"\t"+"| "+"Value:"+this.value+"\t"+"| " +"Weight:"+this.weight +"\t"+"| "+ "Count:"+this.count;
     }
     
     /**
@@ -46,5 +46,4 @@ public class Material implements Cloneable {
         
         return null;
     }
-    
 }

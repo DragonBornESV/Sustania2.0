@@ -4,29 +4,35 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Game {
-    boolean roomSwitch = true;
+    boolean roomSwitch = true;  //Checks if the player switches room.
 
     int previousRoom;
     
     Room streets, townHall, nonsustainableHouse, policeStation, bank, 
-            clothingFactory, school, park;
+            clothingFactory, school, park;  //The different rooms created.
+    
+    //The Recycling station 
     RecyclingStationRoom recyclingStation;
     
-    Room currentRoom;
+    Room currentRoom;   //Where the player is placed.
     private Inventory inv;
-
-    public static String name;
     
-    //This is true, when the item graphics needs to be updated
+
+    public String playerName;
+
+
+    
+    //This is true, when the item graphics needs to be updated.
     private boolean needsUpdate = false;
     
-    public Game() 
-    {
+    public Game(){
         Parameter.createParameters();
         inv = new Inventory();
     }
     
-    
+    /**
+     * 
+     */
     public void createStreets(){
         streets = new Room("Streets", new int[][]{
             // Front of Town Hall
@@ -103,6 +109,37 @@ public class Game {
             World.organicWaste.cloneAndPosition(840, 534),
             World.organicWaste.cloneAndPosition(713, 385)
         })));
+
+        //Setting up the NPC for the outside room
+        //responses are shortend to r, responsesPoints are shortend to rp
+        //and dialog are shortend to d.
+        //BUSDRIVER
+        String[] rBusDriver1 = new String[]{
+                "Car", "Bike", "Bus", "Walk" };
+
+        int[] rpBusDriver1 = new int[]{0,25,25,25};
+        Say dBusDriver1 = new Say("Hello " + this.playerName+ "!"
+                +"\nMy name is Bob and i transport people around the city in my bus.\n How do you move around your city?"
+                + "", rBusDriver1, rpBusDriver1);
+
+        String[] rBusDriver2 = new String[]{
+                "Nothing. it doesn't hurt anyone with\n"
+                + "a little air pollution", "I don´t know", "We could all carpool!",
+            "Use the public transportation, ride our\n"
+                + "bikes or walk around in the city."};
+
+        int[] rpBusDriver2 = new int[]{0,0,0,30};
+        Say dBusDriver2 = new Say("We have a problem with to much air pollution in the city.\n What would do you think we should do about it?", rBusDriver2, rpBusDriver2);
+
+        //We take all the dialog and use when calling the constructor of the NPC class.
+
+        NPC busDriverNpc = new NPC(300, 600, //placement of the NPC
+                "The Bus driver",new Say[]{dBusDriver1,dBusDriver2},"Alright "
+                + this.playerName + "!\nLet´s do that!", //NPC name, dialog array and endMessage
+                "City Clean Air",30); //The score the NPC adds to the parameter
+
+
+        streets.setNPC(busDriverNpc);
     }
     
     public void createTownHall(){
@@ -122,6 +159,35 @@ public class Game {
             World.glassBottle.cloneAndPosition(176, 112),
             World.computer.cloneAndPosition(62, 108)
         })));
+
+        //MAYOR
+        String[] rMayor = new String[]{
+                "Yes, i do", "No, i don´t"};
+
+        int[] rpMayor = new int[]{25,25};
+        Say dMayor1 = new Say("Hello " + this.playerName+ "!"+"\nI´m Mayor Mcclane and welcome to my city!\nSustainia doesn´t exceed our goal of creating a sustainiable city, so i need your help!"
+                + "\n\nDo you know what sustainability means?", rMayor, rpMayor);
+
+        String[] rMayor2 = new String[]{
+                "Yes, i will", "No, i dont care"};
+
+        int[] rpMayor2 = new int[]{30,0};
+        Say dMayor2 = new Say("You have to walk around Sustainia and visit the different sights.\nTalk to the people that you meet and learn more about the city and sustainiability."
+                + "\n\nDo you want to help me make Sustainia sustainiable?\nand learn more about sustainiability?", rMayor2, rpMayor2);
+
+        String[] rMayor3 = new String[]{
+                "Ok..."};
+
+        int[] rpMayor3 = new int[]{0};
+        Say dMayor3 = new Say("Then you are of no use for our city. Goodbye!", rMayor3, rpMayor3);
+
+        NPC mayorNpc = new NPC(100, 100, //placement of the NPC
+                "The Mayor", new Say[]{dMayor1,dMayor2,dMayor3},"Alright "
+
+                + this.playerName + "!\nLet´s get started!", //NPC navn, dialog array og endMessage
+                "City Security", 30); //Den score NPC giver efter succesfull samtale
+
+        townHall.setNPC(mayorNpc);
     }
         
     public void createNonsustainableHouse(){
@@ -146,6 +212,29 @@ public class Game {
             World.tire.cloneAndPosition(198, 74),
             World.tire.cloneAndPosition(12, 176)
         })));
+
+        //HOUSE BUILDER
+        String[] rhouseBuilder1 = new String[]{
+                "Pressure impregnated wood", "FSC wood", "Fire impregnated wood"};
+        int[] rphouseBuilder1 = new int[]{15,20,15};
+        Say dhouseBuilder1 = new Say("Hello " + this.playerName+ "!"
+                +"\nMy name is Hanna and i'm working on this house."
+                +"My company and i are trying to build a sustainiable house but we need your help."
+                +"\nWhat kind of wood would you use?", rhouseBuilder1, rphouseBuilder1);
+
+        String[] rhouseBuilder2 = new String[]{
+                "Double-glazing windows", "Energi windows", "Regular windows"};
+        int[] rphouseBuilder2 = new int[]{30,30,0};
+        Say dhouseBuilder2 = new Say("We are gonna go with FSC wood, but what the windows!"
+                + "\nWhat type of windows do we need?", rhouseBuilder2, rphouseBuilder2);
+
+
+        NPC houseBuilderNpc = new NPC(50, 25, //placement of the NPC
+                "the house builder",new Say[]{dhouseBuilder1,dhouseBuilder2},"Alright "
+                + this.playerName + "!\nWe will do that!", //NPC name, dialog array and endMessage
+                "Sustainable Housing",50); //The score the NPC adds to the parameter
+
+        nonsustainableHouse.setNPC(houseBuilderNpc);
     }
     
     public void createPark(){
@@ -166,6 +255,29 @@ public class Game {
             World.aluminumCan.cloneAndPosition(152, 64),
             World.axe.cloneAndPosition(133, 123)
         })));
+
+         //TRASH CHILD
+        String[] rTrashChild1 = new String[]{
+                "Stop doing that!", "What are you doing?!","Sup dude"};
+        int[] rpTrashChild1 = new int[]{20,25,25};
+        Say dTrashChild1 = new Say("Hello " + this.playerName+ "!"
+                +"\nSup dude I'm Chad!"
+                +"\n'Throws trash at trashcan but misses'", rTrashChild1, rpTrashChild1);
+
+        String[] rTrashChild2 = new String[]{
+                "No, i don't want to because it's a stupid game", "Sure, why not!"};
+        int[] rpTrashChild2 = new int[]{30,0};
+        Say dTrashChild2 = new Say("I'm just having some fun, don't be a buzzkill."
+                + "\nDo you wanna join me?", rTrashChild2, rpTrashChild2);
+
+
+        NPC trashChildNpc = new NPC(25, 50, //placement of the NPC
+                "The Child Chad",new Say[]{dTrashChild1,dTrashChild2},"Alright "
+                + this.playerName + "!\nI'll clean it up.", //NPC name, dialog array and endMessage
+                "City Cleanliness",30 ); //The score the NPC adds to the parameter
+
+
+        park.setNPC(trashChildNpc);
     }
     
     public void createBank(){
@@ -184,6 +296,28 @@ public class Game {
             World.cardboardBox.cloneAndPosition(233, 36),
             World.computer.cloneAndPosition(226, 146)
         })));
+
+        // BANK MANAGER
+        String[] rBankManager1 = new String[]{
+                "Yes, i will help you", "No, i don't"};
+        int[] rpBankManager1 = new int[]{30,0};
+        Say dBankManager1 = new Say("Hello " + this.playerName+ "!"
+                +"\nMy name is Bryan and i'm the bank manager of Sustainia Central Bank.\nWe had a terrible break-in a week ago. They trashed the entire bank. We are working on getting everything replaced and rebuilding."
+                + "\nWill you help me get rid of all the borken items?", rBankManager1, rpBankManager1);
+
+        String[] rBankManager2 = new String[]{
+                "I will do that", "I think that i will move on", "Oh, i'm good. I don't need to search", "I have already searched the bank"};
+        int[] rpBankManager2 = new int[]{25,15,0,50};
+        Say dBankManager2 = new Say("Okay, you can search the bank and look for items.", rBankManager2, rpBankManager2);
+
+
+        NPC bankManagerNpc = new NPC(50, 50, //placement of the NPC
+                "the bank manager",new Say[]{dBankManager1,dBankManager2},"Alright "
+                + this.playerName + "!\nGo search and look around!", //NPC name, dialog array and endMessage
+                "City Cleanliness",30); //The score the NPC adds to the parameter
+
+
+        bank.setNPC(bankManagerNpc);
     }
     
     public void createClothingFactory(){
@@ -206,6 +340,37 @@ public class Game {
             World.clothes.cloneAndPosition(180, 151),
             World.clothes.cloneAndPosition(180, 167),
         })));
+
+        //FACTORY WORKER
+        String[] rFactoryWorker1 = new String[]{
+                "Don't have the lights on", "How about changing to LED bulbs", "Turn off all the machines and do everything by hand"};
+        int[] rpFactoryWorker1 = new int[]{5,15,0};
+        Say dFactoryWorker1 = new Say("Hello " + this.playerName+ "!"
+                +"\nMy name is Fiona and i'm the owner of this clohting factory."
+                +"\nI really want my factory to use less power."
+                +"\nWhat would you suggest that we do?", rFactoryWorker1, rpFactoryWorker1);
+
+        String[] rFactoryWorker2 = new String[]{
+                "You could use second-hand clothing and\n"
+                + "make into new clothing", "I don't know what to do!", "You could make eco-labeled clothing"};
+        int[] rpFactoryWorker2 = new int[]{30,0,30};
+        Say dFactoryWorker2 = new Say("I really wanna create a great factory but the water bill is to much."
+                +"\nDo you have any idea as to how we can reduce it?", rFactoryWorker2, rpFactoryWorker2);
+
+        String[] rFactoryWorker3 = new String[]{
+                "No, i don't", "Eco-labeled clothing doesn't contain chemicals,\n"
+                + "dye or heavy metals which can harm the \nenvironment and also people",
+                "Because it sounds better","Because it's in greater demand"};
+        int[] rpFactoryWorker3 = new int[]{0,30,10,10};
+        Say dFactoryWorker3 = new Say("We are going to make eco-labeled clothing is actually a good idea."
+                +"\nDo you know why?", rFactoryWorker3, rpFactoryWorker3);
+
+        NPC factoryWorkerNpc = new NPC(25, 50, //placement of the NPC
+                "the factory worker",new Say[]{dFactoryWorker1,dFactoryWorker2,dFactoryWorker3},"Alright "
+                + this.playerName + "!\nI will use your advice, thank you!", //NPC name, dialog array and endMessage
+                "City Green Energy",50); //The score the NPC adds to the parameter
+
+        clothingFactory.setNPC(factoryWorkerNpc);
     }
 
     public void createPoliceStation(){
@@ -234,6 +399,26 @@ public class Game {
             World.computer.cloneAndPosition(180, 130),
             World.computer.cloneAndPosition(180, 167)
         })));
+
+         //OFFICER
+        String[] rOfficer1 = new String[]{
+                "Yes, of course ", "No, i don't think so", "I can try"};
+        int[] rpOfficer1 = new int[]{25,0,25};
+        Say dOfficer1 = new Say("Hello " + this.playerName+ "!"
+                +"\nMy name is Olivia and i'm an officer. My job is to make sure that everyone in Sustainia are safe.\nIn Sustainia, we have a problem with crime and criminal activity.\nDo you think that you can help me?", rOfficer1, rpOfficer1);
+
+        String[] rOfficer2 = new String[]{
+                "No, i don't want to help you ", "I can try", "Of course, i'll help you"};
+        int[] rpOfficer2 = new int[]{0,30,30};
+        Say dOfficer2 = new Say("Alright, listen!\nThere are a lot of criminals arround so look out!\nIf you see something please report it to me.", rOfficer2, rpOfficer2);
+
+
+        NPC officerNpc = new NPC(100, 50, //placement of the NPC
+                "the officer",new Say[]{dOfficer1,dOfficer2},"Alright "
+                + this.playerName + "!\nI trust that you will help me", //NPC name, dialog array and endMessage
+                "City Security",50); //The score the NPC adds to the parameter
+
+        policeStation.setNPC(officerNpc);
     }
     
     public void createRecyclingStation(){
@@ -245,11 +430,28 @@ public class Game {
                 new HitBox(37,60,19,25)
             },
             //Door
-                new Door(new HitBox(112,0,32,44), streets), 
+                new Door(new HitBox(112,0,32,44), streets),
             //Items
                 new ArrayList<>(),
             //Container
                 new HitBox(133,150,96,32));
+
+                //SANITATION WORKER - info
+        String[] rSanitationWorker1 = new String[]{"Ok"};
+        int[] rpSanitationWorker1 = new int[]{55};
+        Say dSanitationWorker1 = new Say("Hello " + this.playerName+ "!"
+                +"\nMy name is Steve and welcome to the recycling station of Sustainia!"
+                +"\nYou can walk around Sustainia and collect items in the different buildings"
+                +"\nand theen bring them back to the recycling station."
+                +"\nYou can then salvage the items and get points which will help make Sustainia sustainable", rSanitationWorker1, rpSanitationWorker1);
+
+        NPC sanitationWorkerNpc = new NPC(50, 100, //placement of the NPC
+                "the sanitation worker", new Say[]{dSanitationWorker1},"Alright "
+                + this.playerName + "!\nLet´s get started!\nYou can press 'b' and go to the container to recycle you items!", //NPC name, dialog array and endMessage
+                "City Cleanliness", 30); //The score the NPC adds to the parameter
+
+
+        recyclingStation.setNPC(sanitationWorkerNpc);
     }
     
     public void createSchool(){
@@ -270,6 +472,29 @@ public class Game {
             World.ironCan.cloneAndPosition(168, 113),
             World.glassBottle.cloneAndPosition(95, 172)
         })));
+        
+                //TEACHER
+        String[] rTeacher1 = new String[]{
+                "Bad pay", "Lack of respect", "Men are better end women therefore\nthey don't need to work in a woman field", "Men don't want to work with children"};
+        int[] rpTeacher1 = new int[]{20,20,-10,-10};
+        Say dTeacher1 = new Say("Hello " + this.playerName+ "!"
+                +"\nMy name is Tiffany and i teach at the school of Sustainia.\nThis last week the entire school worked with the FN goals for the world and a student\n"
+                + "pointed out that there are fewer male teachers then female teachers."
+                + "\nWhy do you think that is?", rTeacher1, rpTeacher1);
+        
+        String[] rTeacher2 = new String[]{
+                "Stop, looking down on men who want to \nbecame teachers", "Why do anything about it.\nI think it is a good distribution", "Better pay", "Talk more about it"};
+        int[] rpTeacher2 = new int[]{50,-10,30,25};
+        Say dTeacher2 = new Say("What do you think we could do to make it equal between men and women teachers?", rTeacher2, rpTeacher2);
+        
+
+        NPC teacherNpc = new NPC(150, 100, //placement of the NPC
+                "the teacher",new Say[]{dTeacher1,dTeacher2},"Alright " 
+                + this.playerName + "!\nLet´s try that!", //NPC name, dialog array and endMessage
+                "City Equality",50); //The score the NPC adds to the parameter
+
+        
+        school.setNPC(teacherNpc);
     }
     
     /** Rooms are created and named.
@@ -334,8 +559,9 @@ public class Game {
             //Checks if the player hit the item
             if (currentRoom.getItemsInRoom().get(i).getHitBox().checkIfTriggered()) {
                 
-                System.out.println("Hit item");
+                App.textBox.setTextBox("Picked up " + room.getItemsInRoom().get(i));
                 pickUpItem(currentRoom.getItemsInRoom().get(i));
+
             }
         }
     }
@@ -445,7 +671,8 @@ public class Game {
             currentRoom.getItemsInRoom().add(item);
             inv.getItemsInInventory().remove(item);
             inv.updateValue();
-            
+
+            App.textBox.setTextBox(item+" was dropped");
             needsUpdate = true;
         } else {
             System.out.println("No item selected");

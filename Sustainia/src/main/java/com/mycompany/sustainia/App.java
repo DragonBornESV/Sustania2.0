@@ -1,13 +1,16 @@
 package com.mycompany.sustainia;
 
+import com.mycompany.sustainia.GUI.*;
 // Standert javaFX imports
 import javafx.application.Application;
 import javafx.animation.AnimationTimer;
-import javafx.geometry.*;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
@@ -16,41 +19,19 @@ import javafx.scene.input.KeyEvent;
 // Specific to image loading imports
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import static javafx.application.Application.launch;
+
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 // for key presses
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import javafx.animation.AnimationTimer;
-import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.event.EventHandler;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 
-import java.lang.Object;
+import javafx.geometry.Rectangle2D;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
-import javafx.scene.Node;
-import javafx.scene.Parent;
-
-import javafx.scene.text.Text;
-import javafx.scene.text.Font;
-
-import javafx.scene.Parent;
-import javafx.scene.shape.Rectangle;
 
 // import java.awt.event.KeyEvent;
 
@@ -58,7 +39,11 @@ import javafx.scene.shape.Rectangle;
  * JavaFX App
  */
 public class App extends Application {
-    Game game = new Game();
+    static Game game = new Game();
+
+
+    WinningScreen winningScreen;
+    StackPane gamePanel;
 
     boolean goNorth = false;
     boolean goSouth = false;
@@ -79,7 +64,8 @@ public class App extends Application {
     
     FileInputStream inputItems;
     Image itemsImage;
-    
+    Image characterImage;
+
     /*
      * the following variables defines the rectangle, witch the rooms are maped to.
      * Depending on the room, the starting position of the rectangels X and Y cordinats need to be difrent, since all of the rooms are lacated on the same image.
@@ -105,8 +91,14 @@ public class App extends Application {
     private ImageView roomsTop;
     private ImageView character;
     
+    //DialogBox
+    static TextBox textBox;
+    InventoryPanel invPanel;
+
+    StartMenu startMenu;
+    
     public App(){
-        game.createRooms();        
+        game.createRooms();
     }
     
     @Override
@@ -115,10 +107,6 @@ public class App extends Application {
         // black background image
         FileInputStream inputBackground = new   FileInputStream("img/background.png");
         Image backgroundImage = new Image(inputBackground, 600, 600, true, false);
-
-        // Creates a new image, from the selected parth on computer
-        FileInputStream inputCharacter = new FileInputStream("img/ch.png");
-        Image characterImage = new Image(inputCharacter,128*World.scale,128*World.scale,true,false);
 
         // Gets the image of the items
         inputItems = new FileInputStream("img/items.png");
@@ -142,6 +130,9 @@ public class App extends Application {
         //Setting the image view
         this.background = new ImageView(backgroundImage);
         this.rooms = new ImageView(roomsImage);
+        
+        FileInputStream inputCharacter = new FileInputStream("img/ch.png");
+        Image characterImage = new Image(inputCharacter, 128*World.scale, 128*World.scale, true, false);
         this.character = new ImageView(characterImage);
         character.setViewport(new Rectangle2D(0, 0, World.characterWidth, World.characterHeight));
         this.roomsTop = new ImageView(roomsTopImage);
@@ -187,114 +178,109 @@ public class App extends Application {
         
         itemsGroup.setManaged(false);
         root.setManaged(false);
-        
-        Text text = new Text("  baby Yoda \n  will save \n  us all");
-        text.setFont(new Font(50));
-        Text text1 = new Text("  Baby yoda \n  will save \n  us all");
-        text1.setFont(new Font(50));
-        
-        GridPane gridpane = new GridPane();
-        gridpane.getColumnConstraints().add(new ColumnConstraints(801));
-        gridpane.getColumnConstraints().add(new ColumnConstraints(300));
-        gridpane.add(root, 0, 0);
 
-        //creating a gridpane for RightPanel
+        //Creating a stackPane to insert a TerminalBox/TextBox onto the gameWindow
+        gamePanel = new StackPane();
+        //Adding the Game to the StackPane.
+        gamePanel.getChildren().add(root);
+        //Creating a TextBox/TerminalBox
+        textBox = new TextBox();
+        //Adding the TextBox/TerminalBox to the StackPane.
+        gamePanel.getChildren().add(textBox.getGridPane());
+
+        winningScreen = new WinningScreen();
+        gamePanel.getChildren().add(winningScreen.getView());
+
+        //Creating a gridPane to make a splitview for the Window with 2 cells.
+        GridPane splitView = new GridPane();
+        //Arranging the size of the 2 Columns.
+        splitView.getColumnConstraints().add(new ColumnConstraints(801));
+        splitView.getColumnConstraints().add(new ColumnConstraints(300));
+        //Adding the Game into the left column at cell (0, 0).
+        splitView.add(gamePanel, 0, 0);
+
+        //creating a gridPane for the right column which is the UI Panel, that allows the user to see their progress, display between Inventory and Materials.
         GridPane rightColumn = new GridPane();
-        rightColumn.getRowConstraints().add(new RowConstraints(500));
-        rightColumn.getRowConstraints().add(new RowConstraints(100));
+        //Arranging the size of the column/row cells.
+        rightColumn.getRowConstraints().add(new RowConstraints(230));
+        rightColumn.getRowConstraints().add(new RowConstraints(320));
+        rightColumn.getRowConstraints().add(new RowConstraints(50));
         rightColumn.getColumnConstraints().add(new ColumnConstraints(300));
-        gridpane.add(rightColumn,1,0);
-        gridpane.setGridLinesVisible(false);
-        rightColumn.setGridLinesVisible(false);
+
+        //Adding the Panel into the right column at cell (1,0)
+        splitView.add(rightColumn,1,0);
 
 
-        //ParameterBar
-        Text navn = new Text("Parameter");
-        navn.setFont(new Font(15));
-        Text procent = new Text("%");
-        StackPane test = new StackPane();
-        GridPane testGridpane = new GridPane();
-        ProgressBar bar = new ProgressBar();
-        ProgressBar bar1 = new ProgressBar();
-        bar.setMinSize(250, 30);
-        test.getChildren().add(bar);
-        test.getChildren().add(testGridpane);
-        testGridpane.getColumnConstraints().add(new ColumnConstraints(150));
-        testGridpane.getColumnConstraints().add(new ColumnConstraints(110));
-        testGridpane.getRowConstraints().add(new RowConstraints(bar.getMinHeight()));
-        testGridpane.setGridLinesVisible(true);
-        testGridpane.add(navn, 0,0);
-        testGridpane.add(procent,1,0);
-        testGridpane.setHalignment(navn, HPos.CENTER);
-        testGridpane.setHalignment(procent, HPos.RIGHT);
+        StackPane cover = new StackPane();
+        Rectangle coverBox = new Rectangle(300, 600);
+        coverBox.setFill(Color.WHITE);
+        cover.getChildren().add(coverBox);
 
+        cover.getChildren().add(rightColumn);
+
+        //Adding the Panel into the right column at cell (1,0)
+        splitView.add(cover,1,0);
+        //Creating all the parameters(Domain)
         Parameter.createParameters();
+        //Creating all GUI Parameters(GUI/Presentation)
+        ParameterPanel.createParameterPanel();
+        //Inserting all the GUI Parameters into the Panel
+        ParameterPanel.insertParametersIntoPanel();
+        //Inserting the GridPane (who holds all the GUI Parameters) into the rightColumnPanel
+        rightColumn.add(ParameterPanel.parameterGridpane, 0,0);
 
-        //
-        ParameterPanel p1 = new ParameterPanel("City Equality");
-        ParameterPanel p2 = new ParameterPanel("City Green Energy");
-        ParameterPanel p3 = new ParameterPanel("City Clean Water");
-        ParameterPanel p4 = new ParameterPanel("Sustainable Housing");
-        ParameterPanel p5 = new ParameterPanel("City Clean Air");
-        ParameterPanel p6 = new ParameterPanel("City Cleanliness");
-        ParameterPanel p7 = new ParameterPanel("City Security");
+        //Inventory Panel is added to rightColumn
+        invPanel = new InventoryPanel(game.getInventory().getItemsInInventory());
+        rightColumn.add(invPanel.getGridPane(),0,1);
+        //Materials Panel is created
+        MaterialsPanel matPanel = new MaterialsPanel();
 
+        //Creates ButtonPanel which contains all the buttons
+        ButtonPanel buttonPanel = new ButtonPanel();
+        //Adding all the Buttons to the UI Panel into cell (0, 2).
+        rightColumn.add(buttonPanel.getGridPaneButtons(),0,2);
 
-        //creating a gridpane to hold and display all parameters
-        Text titelParamater = new Text("Parameter");
-        titelParamater.setFont(new Font(20));
-        GridPane parameterGridpane = new GridPane();
-        parameterGridpane.getColumnConstraints().add(new ColumnConstraints(300));
-        parameterGridpane.setVgap(2);
-        parameterGridpane.add(titelParamater, 0 ,0);
-        parameterGridpane.setHalignment(titelParamater, HPos.CENTER);
-        parameterGridpane.add(ParameterPanel.mainBar.getStackPane(),0,1);
-
-        //Adding all of the Parameters to the gridpane to display them.
-        for (int i = 0; i < ParameterPanel.list.size(); i++) {
-
-            parameterGridpane.add(ParameterPanel.list.get(i).getStackPane(),0,i+2);
-        }
-        
-        rightColumn.add(parameterGridpane, 0,0);
-
-
-        //Creating a gridpane for buttons to be placed in
-        GridPane containButtons = new GridPane();
-        containButtons.getRowConstraints().add(new RowConstraints(100));
-
-        rightColumn.add(containButtons,0,1);
-
-
-
-        //Buttons to swap between panels
-        Button scoreButton = new Button("Score");
-        Button inventoryButton = new Button("Inventory");
-        containButtons.add(inventoryButton, 0,0);
-        containButtons.add(scoreButton,1,0);
-        containButtons.setHgap(10);
-        scoreButton.setOnAction(event -> {
-            rightColumn.getChildren().remove(parameterGridpane);
-            rightColumn.add(text1,0,0);
+        //Assigning the button "Material" to remove the InvPanel and add MatPanel into the cell the whose InvPanel was removed from.
+        buttonPanel.getMaterialsButton().setOnAction(event -> {
+            rightColumn.getChildren().remove(invPanel.getGridPane());
+            rightColumn.add(matPanel.getGridPane(),0,1);
         });
-        inventoryButton.setOnAction(event -> {
-            rightColumn.getChildren().remove(text1);
-            rightColumn.add(parameterGridpane,0,0);
+        //Assigning the button "Inventory" to remove the MatPanel and add InvPanel into the cell the whose MatPanel was removed from.
+        buttonPanel.getInventoryButton().setOnAction(event -> {
+            rightColumn.getChildren().remove(matPanel.getGridPane());
+            rightColumn.add(invPanel.getGridPane(),0,1);
         });
 
-
+        //Created StartMenu to display Start screen when game starts
+        startMenu = new StartMenu();
 
         //Creating a scene object 
-        Scene scene = new Scene(gridpane, World.gameScreenWidth+301, World.gameScreenHeight);
-        Scene start = new Scene(startPane, World.gameScreenWidth+301, World.gameScreenHeight);
-        //Start screen button
-        Button startButton = new Button("Start");
-        startButton.setMinSize(200, 100);
-        startButton.setOnAction(event -> {
+        Scene scene = new Scene(splitView, World.gameScreenWidth+301, World.gameScreenHeight);
+        Scene start = new Scene(startMenu.getStartMenu(), World.gameScreenWidth+301, World.gameScreenHeight);
+
+        startMenu.getStartButton().setOnAction(event -> {
+            //possible to use player name for the rest of the game
             stage.setScene(scene);
+            System.out.println(startMenu.getPlayerName().getText());
+            startMenu.setName(startMenu.getPlayerName().getText());
+            game.playerName = startMenu.getName();
+
+            game.createRooms();
+            game.setNeedsUpdate(true);
+        });
+        System.out.println("Startskærmen:" + startMenu.getName());
+
+        Button dialogButton = new Button("Talk");
+        dialogButton.setOnAction(actionEvent -> {
+            Conversation conversation = new Conversation();
+            Conversation.i = 0;
+            System.out.println("Ved tryk:" + game.playerName);
+            game.playerName = startMenu.getName();
         });
 
-        startPane.getChildren().add(startButton);
+        buttonPanel.getGridPaneButtons().add(dialogButton,2,0);
+
+
 // KEYS pressed
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -310,7 +296,6 @@ public class App extends Application {
                     case B: game.getInventory().salvageMaterials(); break;
                     //Recycle button
                     case R: game.getInventory().recycleMaterials(); break;
-                    
                 }
             }
         });
@@ -329,27 +314,32 @@ public class App extends Application {
         });
         
         //Setting title to the Stage 
-        stage.setTitle("Moving Image Test");
+        stage.setTitle("Sustainia");
         
         //Adding scene to the stage        
-        stage.setScene(scene);
+        stage.setScene(start);
+        stage.setResizable(false);
         //Displaying the contents of the stage
         stage.show();
         characterAnimation();
     }
 
+
     public void update(){
         DecimalFormat numberFormat = new DecimalFormat("#.00");
         double value = 0;
         for (ParameterPanel p: ParameterPanel.list) {
-
             p.getProgressBar().setProgress(Parameter.parameterList.get(p.getParameterName()).getScore()/100);
             p.getProgressText().setText((Parameter.parameterList.get(p.getParameterName()).getScore())+"%");
             value += Parameter.parameterList.get(p.getParameterName()).getScore();
         }
-        ParameterPanel.mainBar.getProgressBar().setProgress((value/7)/100);
-        ParameterPanel.mainBar.getProgressText().setText(numberFormat.format(value/7)+"%");
-
+        if (value/ParameterPanel.list.size() >= 80){
+            winningScreen.getView().setVisible(true);
+            gamePanel.getChildren().get(0).setVisible(false);
+            gamePanel.getChildren().get(1).setVisible(false);
+        }
+        ParameterPanel.mainBar.getProgressBar().setProgress((value/ParameterPanel.list.size())/100);
+        ParameterPanel.mainBar.getProgressText().setText(numberFormat.format(value/ParameterPanel.list.size())+"%");
 
 
     }
@@ -375,13 +365,12 @@ public class App extends Application {
                     game.currentRoom = game.roomChangeCheck(World.gameX, World.gameY);
                     //System.out.println(game.currentRoom.name);
                     update();
-
                 }
             };
 
         timer.start();
     }
-    
+
     private void moveCharacter (boolean moving, boolean goNorth, boolean goSouth, boolean goEast, boolean goWest, int dx, int dy, int at, int facing){
         
         dx = game.collisionDetectionX(dx);
@@ -397,6 +386,11 @@ public class App extends Application {
         if (game.needsUpdate() || game.roomSwitch) {
             loadItems();
             game.setNeedsUpdate(false);
+        }
+
+        //Closes the terminal when you switch room
+        if(game.roomSwitch){
+            Conversation.leaveConversation();
         }
 
         // character_animation
@@ -544,7 +538,9 @@ public class App extends Application {
             ImageView tempItem = new ImageView(itemsImage);
             //Shows the correct sprite by using the itemsImage number.
             tempItem.setViewport(new Rectangle2D(roomItems.get(i).imageNumber*16*World.scale, 0, 16*World.scale, 16*World.scale));
-            
+
+            roomItems.get(i).image = tempItem;
+
             //Sets the image of the items to the correct location in the scene.
             tempItem.setX(roomItems.get(i).getItemX());
             tempItem.setY(roomItems.get(i).getItemY());
@@ -557,6 +553,17 @@ public class App extends Application {
             roomItems.get(i).printPosition();
             
             System.out.println("All items loaded");
+        }
+        
+        //Load NPC
+        if (game.currentRoom.hasNPC()){
+            ImageView npcImageView = new ImageView(characterImage);
+            npcImageView.setViewport(new Rectangle2D(0, 0, World.characterWidth, World.characterHeight));
+            
+            npcImageView.setX(game.currentRoom.getNPC().getNpcX()*World.scale);
+            npcImageView.setY(game.currentRoom.getNPC().getNpcY()*World.scale);
+            
+            itemsGroup.getChildren().add(npcImageView);
         }
         
         //Adds all the new items to the group
@@ -573,7 +580,7 @@ public class App extends Application {
     private void dropItem() {
         try {
             //INDSÆT VILLYS KODE FOR SELECTED ITEM
-            game.dropItem(game.getInventory().getItemsInInventory().get(0));
+            game.dropItem(invPanel.getListView().getSelectionModel().getSelectedItem());
         } 
         catch (java.lang.IndexOutOfBoundsException ex) {
             System.out.println("No item to be dropped");

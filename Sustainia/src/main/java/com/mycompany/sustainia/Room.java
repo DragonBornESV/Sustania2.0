@@ -146,5 +146,8 @@ public class Room
     public ArrayList<Item> getItemsInRoom() {
         return itemsInRoom;
     }
-    
+
+    public void setNPC(NPC npc) {
+        this.npc = npc;
+    }
 }
