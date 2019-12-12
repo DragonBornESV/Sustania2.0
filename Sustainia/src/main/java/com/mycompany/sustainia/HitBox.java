@@ -32,8 +32,9 @@ public class HitBox {
         int w   = TLX + width*World.scale;
         int h   = TLY + height*World.scale;
         
-        if ((characterHitbox[2] > TLX && characterHitbox[2] < w) ||
-            (characterHitbox[0] > TLX && characterHitbox[0] < w)){
+        if (((characterHitbox[2] > TLX && characterHitbox[2] < w) ||
+             (characterHitbox[0] > TLX && characterHitbox[0] < w)) ||
+            ((TLX > characterHitbox[0] && w < characterHitbox[2]))){
             
             if (characterHitbox[3] > TLY && characterHitbox[3] < TLY +6*World.scale){
                 collisionTop = true;
