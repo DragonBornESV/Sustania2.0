@@ -133,7 +133,19 @@ public class Game {
                 new HitBox(69,88,19,29)
             },
             new Door(new HitBox(256,104,10,44), streets)
-        , new ArrayList<>());
+        , new ArrayList<>(Arrays.asList(new Item[] {
+            World.axe.cloneAndPosition(142, 92),
+            World.glassBottle.cloneAndPosition(200, 84),
+            World.glassBottle.cloneAndPosition(159, 155),
+            World.glassBottle.cloneAndPosition(199, 188),
+            World.plasticBottle.cloneAndPosition(197, 65),
+            World.glassBottle.cloneAndPosition(170, 188),
+            World.cardboardBox.cloneAndPosition(196, 40),
+            World.cardboardBox.cloneAndPosition(174, 37),
+            World.cardboardBox.cloneAndPosition(4, 39),
+            World.tire.cloneAndPosition(198, 74),
+            World.tire.cloneAndPosition(12, 176)
+        })));
     }
     
     public void createPark(){
@@ -145,7 +157,15 @@ public class Game {
                 new HitBox(57,44,19,25)
             },
             new Door(new HitBox(256,104,10,44), streets)
-        , new ArrayList<>());
+        , new ArrayList<>(Arrays.asList(new Item[] {
+            World.organicWaste.cloneAndPosition(191, 165),
+            World.organicWaste.cloneAndPosition(173, 99),
+            World.organicWaste.cloneAndPosition(45, 84),
+            World.organicWaste.cloneAndPosition(85, 128),
+            World.organicWaste.cloneAndPosition(64, 168),
+            World.aluminumCan.cloneAndPosition(152, 64),
+            World.axe.cloneAndPosition(133, 123)
+        })));
     }
     
     public void createBank(){
@@ -159,7 +179,11 @@ public class Game {
                 new HitBox(145,85,19,25)
             },
             new Door(new HitBox(-10,104,10,44), streets)
-        , new ArrayList<>());
+        , new ArrayList<>(Arrays.asList(new Item[] {
+            World.plasticBottle.cloneAndPosition(146, 165),
+            World.cardboardBox.cloneAndPosition(233, 36),
+            World.computer.cloneAndPosition(226, 146)
+        })));
     }
     
     public void createClothingFactory(){
@@ -201,7 +225,15 @@ public class Game {
                 new HitBox(201,168,79,25)
             },
             new Door(new HitBox(112,0,32,44), streets)
-        , new ArrayList<>());
+        , new ArrayList<>(Arrays.asList(new Item[] {
+            World.cardboardBox.cloneAndPosition(35, 59),
+            World.computer.cloneAndPosition(12, 130),
+            World.computer.cloneAndPosition(12, 167),
+            World.computer.cloneAndPosition(98, 130),
+            World.computer.cloneAndPosition(98, 167),
+            World.computer.cloneAndPosition(180, 130),
+            World.computer.cloneAndPosition(180, 167)
+        })));
     }
     
     public void createRecyclingStation(){
