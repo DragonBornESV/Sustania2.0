@@ -117,61 +117,6 @@ public class Parameter {
         }
     }
 
-    /**
-     * Returns a string that can be printed out by another method to show
-     * progress in the console. Progress is shown by the bar per 10 percent and
-     * as the exact percentage later.
-     */
-    public String progressBar() {
-        String progressBar = "[";
-        for (int i = 0; i < 10; i++) {
-            if (score/10 > i) {
-                progressBar += "=";
-            } else {
-                progressBar += " ";
-            }
-        }
-        return progressBar + "]";
-    }
 
-    /**
-     * This method returns the average for the Primary parameter.
-     *
-     * @return float value for the main/Primary parameter.
-     */
-    public float getMainAverage() {
-        float value = 0;
 
-        for (Map.Entry<String, Parameter> entry : parameterList.entrySet()) {
-            value += entry.getValue().getScore();
-        }
-
-        return value / parameterList.size();
-    }
-
-    /**
-     * Method returns the current average for a secondary parameter.
-     *
-     * @return float value for secondary parameters.
-     */
-    public float getAverage() {
-        return (this.getScore() / 100) * 100;
-    }
-
-    /**
-     * Prints out the score to the console and uses progressBar() to illustrate.
-     * printScore() also creates a mainScore object to show the main score of
-     * the game.
-     */
-    public static void printScore() {
-        System.out.println("|-------------------------------------------------|");
-
-        for (Map.Entry<String, Parameter> entry : parameterList.entrySet()) {
-            System.out.println(entry.getKey() + ":   \t\t" + entry.getValue().progressBar() + " " + Math.round(entry.getValue().getAverage()) + "%");
-        }
-
-        System.out.println("|-------------------------------------------------|");
-        mainScore.score = mainScore.getMainAverage();
-        System.out.println(mainScore.getName() + ":\t\t" + mainScore.progressBar() + " " + Math.round(mainScore.getMainAverage()) + "%");
-    }
 }

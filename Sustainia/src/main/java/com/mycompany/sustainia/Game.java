@@ -99,7 +99,7 @@ public class Game {
 
         NPC busDriverNpc = new NPC(300, 600, //placement of the NPC
                 "The Bus driver",new Say[]{dBusDriver1,dBusDriver2},"Alright " 
-                + Game.playerName + "!\nLet´s do that!", //NPC name, dialog array and endMessage
+                + this.playerName + "!\nLet´s do that!", //NPC name, dialog array and endMessage
                 "City Clean Air",30); //The score the NPC adds to the parameter
 
         
@@ -194,7 +194,7 @@ public class Game {
 
         NPC houseBuilderNpc = new NPC(50, 25, //placement of the NPC
                 "the factory worker",new Say[]{dhouseBuilder1,dhouseBuilder2},"Alright " 
-                + Game.playerName + "!\nWe will do that!", //NPC name, dialog array and endMessage
+                + this.playerName + "!\nWe will do that!", //NPC name, dialog array and endMessage
                 "Sustainiable Housing",50); //The score the NPC adds to the parameter
                 
         nonsustainableHouse.setNPC(houseBuilderNpc);
@@ -225,7 +225,7 @@ public class Game {
 
         NPC trashChildNpc = new NPC(25, 50, //placement of the NPC
                 "The Child Chad",new Say[]{dTrashChild1,dTrashChild2},"Alright " 
-                + Game.playerName + "!\nI'll clean it up.", //NPC name, dialog array and endMessage
+                + this.playerName + "!\nI'll clean it up.", //NPC name, dialog array and endMessage
                 "City Cleanliness",30 ); //The score the NPC adds to the parameter
 
         
@@ -256,7 +256,7 @@ public class Game {
 
         NPC bankManagerNpc = new NPC(50, 50, //placement of the NPC
                 "the bank manager",new Say[]{dBankManager1,dBankManager2},"Alright " 
-                + Game.playerName + "!\nGo search and look around!", //NPC name, dialog array and endMessage
+                + this.playerName + "!\nGo search and look around!", //NPC name, dialog array and endMessage
                 "City Cleanliness",30); //The score the NPC adds to the parameter
 
         
@@ -295,7 +295,7 @@ public class Game {
 
         NPC factoryWorkerNpc = new NPC(25, 50, //placement of the NPC
                 "the factory worker",new Say[]{dFactoryWorker1,dFactoryWorker2,dFactoryWorker3},"Alright "
-                + Game.playerName + "!\nI will use your advice, thank you!", //NPC name, dialog array and endMessage
+                + this.playerName + "!\nI will use your advice, thank you!", //NPC name, dialog array and endMessage
                 "City Clean Air",30); //The score the NPC adds to the parameter
         
         clothingFactory.setNPC(factoryWorkerNpc);
@@ -325,7 +325,7 @@ public class Game {
 
         NPC officerNpc = new NPC(100, 50, //placement of the NPC
                 "the officer",new Say[]{dOfficer1,dOfficer2},"Alright " 
-                + Game.name + "!\nI trust that you will help me", //NPC name, dialog array and endMessage
+                + this.playerName + "!\nI trust that you will help me", //NPC name, dialog array and endMessage
                 "City Security",25); //The score the NPC adds to the parameter
         
         policeStation.setNPC(officerNpc);
@@ -351,7 +351,7 @@ public class Game {
 
         NPC sanitationWorkerNpc = new NPC(50, 100, //placement of the NPC
                 "the sanitation worker", new Say[]{dSanitationWorker1},"Alright " 
-                + Game.playerName + "!\nLet´s get started!", //NPC name, dialog array and endMessage
+                + this.playerName + "!\nLet´s get started!", //NPC name, dialog array and endMessage
                 "City Cleanliness", 30); //The score the NPC adds to the parameter
 
         
@@ -382,7 +382,7 @@ public class Game {
 
         NPC teacherNpc = new NPC(150, 100, //placement of the NPC
                 "the teacher",new Say[]{dTeacher1,dTeacher2},"Alright " 
-                + Game.playerName + "!\nLet´s try that!", //NPC name, dialog array and endMessage
+                + this.playerName + "!\nLet´s try that!", //NPC name, dialog array and endMessage
                 "City Equality",50); //The score the NPC adds to the parameter
 
         
