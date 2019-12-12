@@ -30,7 +30,7 @@ public class ImageTextCell extends ListCell<Item> {
             hBox.setAlignment(Pos.CENTER_LEFT); //Aligns the node to the center left.
             hBox.getChildren().add(item.getImage()); //Adds the item image into the Hbox
 
-            Label label = new Label(item.toString()); //Creates a Label object 
+            Label label = new Label(item.toString()); //Creates a Label object
             label.setAlignment(Pos.CENTER_RIGHT);
             hBox.getChildren().add(label);
 
