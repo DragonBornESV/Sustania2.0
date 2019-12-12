@@ -112,6 +112,11 @@ public class Parameter {
                 p.setScore(0);
             }
             parameterList.put(name, p);
+            
+            if (mainScore.score == 70){
+                App.textBox.setTextBox("Congratulations you won the game!");
+            }
+
         }
     }
 

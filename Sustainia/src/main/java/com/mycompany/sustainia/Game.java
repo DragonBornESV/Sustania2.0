@@ -118,12 +118,6 @@ public class Game {
         int[] rpCriminal3 = new int[]{-10,40,30,20};
         Say dCriminal3 = new Say("I know that there are a arrest warrant out for me. I don't want to go to prison!\nTell me why i shouldn't do criminal acts?",rCriminal3, rpCriminal3);
         
-        NPC criminalNpc = new NPC(200, 400, //placering af NPC
-                "the criminal",new Say[]{dCriminal1,dCriminal2,dCriminal3},"Alright " 
-                + Game.name + "!\nI will turn myself in!", //NPC navn, dialog array og endMessage
-                "City Security",25); //Den score NPC giver efter succesfull samtale
-        
-        streets.setNPC(criminalNpc);
         
     }
     
@@ -324,7 +318,7 @@ public class Game {
         NPC officerNpc = new NPC(100, 50, //placering af NPC
                 "the officer",new Say[]{dOfficer1,dOfficer2},"Alright " 
                 + Game.name + "!\nI trust that you will help me", //NPC navn, dialog array og endMessage
-                "City Security",25); //Den score NPC giver efter succesfull samtale
+                "City Security",50); //Den score NPC giver efter succesfull samtale
         
         policeStation.setNPC(officerNpc);
     }
