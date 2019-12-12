@@ -346,7 +346,7 @@ public class Game {
         
                 //SANITATION WORKER - info
         String[] rSanitationWorker1 = new String[]{"Ok"};
-        int[] rpSanitationWorker1 = new int[]{50};
+        int[] rpSanitationWorker1 = new int[]{55};
         Say dSanitationWorker1 = new Say("Hello " + Game.playerName+ "!"
                 +"\nMy name is Steve and welcome to the recycling station of Sustainia!"
                 +"\nYou can walk around Sustainia and collect items in the different buildings"
