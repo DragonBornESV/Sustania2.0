@@ -15,7 +15,7 @@ public class Game {
     private Inventory inv;
 
 
-    public static String playerName = "";
+    public String playerName;
 
     
     //This is true, when the item graphics needs to be updated
@@ -84,7 +84,7 @@ public class Game {
                 "Car", "Bike", "Bus", "walk" };
         
         int[] rpBusDriver1 = new int[]{0,25,25,25};
-        Say dBusDriver1 = new Say("Hello " + Game.playerName+ "!"
+        Say dBusDriver1 = new Say("Hello " + this.playerName+ "!"
                 +"\nMy name is Bob and i transport people around the city in my bus.\n How do you move around your city?"
                 + "", rBusDriver1, rpBusDriver1);
         
@@ -114,11 +114,11 @@ public class Game {
         String[] rCriminal2 = new String[]{
                 "Yes, i have", "No, i haven't"};
         int[] rpCriminal2 = new int[]{-10,-5};
-        Say dCriminal2 = new Say("Listen " + Game.playerName + "!"
+        Say dCriminal2 = new Say("Listen " + this.playerName + "!"
                 +"\nHave you been at the police station and talked with Olivia?", rCriminal2, rpCriminal2);
                 
         String[] rCriminal3 = new String[]{
-                "Actually, i don't care what you do", "Because you don't get anything out of it. You will end up in prison anyway, why not now?", "Because you are better then that!", "I don't care. Teach me to be a criminal!"};
+                "Actually, i don't care what you do", "Because you don't get anything out of it.\n You will end up in prison anyway, why not now?", "Because you are better then that!", "I don't care. Teach me to be a criminal!"};
         int[] rpCriminal3 = new int[]{-10,40,30,20};
         Say dCriminal3 = new Say("I know that there are a arrest warrant out for me. I don't want to go to prison!\nTell me why i shouldn't do criminal acts?",rCriminal3, rpCriminal3);
         
@@ -138,7 +138,7 @@ public class Game {
                 "Yes, i do", "No, i don´t"};
         
         int[] rpMayor = new int[]{25,25};
-        Say dMayor1 = new Say("Hello " + Game.playerName+ "!"+"\nI´m Mayor Mcclane and welcome to my city!\nSustainia doesn´t exceed our goal of creating a sustainiable city, so i need your help!"
+        Say dMayor1 = new Say("Hello " + this.playerName+ "!"+"\nI´m Mayor Mcclane and welcome to my city!\nSustainia doesn´t exceed our goal of creating a sustainiable city, so i need your help!"
                 + "\n\nDo you know what sustainability means?", rMayor, rpMayor);
         
         String[] rMayor2 = new String[]{
@@ -178,7 +178,7 @@ public class Game {
         String[] rhouseBuilder1 = new String[]{
                 "Pressure-impregnated wood", "FSC wood", "Fire impregnated wood"};
         int[] rphouseBuilder1 = new int[]{15,20,15};
-        Say dhouseBuilder1 = new Say("Hello " + Game.playerName+ "!"
+        Say dhouseBuilder1 = new Say("Hello " + this.playerName+ "!"
                 +"\nMy name is Hanna and i'm working on this house."
                 +"My company and i are trying to build a sustainiable house but we need your help."
                 +"\nWhat kind of wood would you use?", rhouseBuilder1, rphouseBuilder1);
@@ -210,7 +210,7 @@ public class Game {
         String[] rTrashChild1 = new String[]{
                 "Stop doing that!", "What are you doing?!","Sup dude"};
         int[] rpTrashChild1 = new int[]{20,25,25};
-        Say dTrashChild1 = new Say("Hello " + Game.playerName+ "!"
+        Say dTrashChild1 = new Say("Hello " + this.playerName+ "!"
                 +"\nSup dude I'm Chad!"
                 +"\n'Throws trash at trashcan but misses'", rTrashChild1, rpTrashChild1);
         
@@ -242,7 +242,7 @@ public class Game {
         String[] rBankManager1 = new String[]{
                 "Yes, i will help you", "No, i don't"};
         int[] rpBankManager1 = new int[]{30,0};
-        Say dBankManager1 = new Say("Hello " + Game.playerName+ "!"
+        Say dBankManager1 = new Say("Hello " + this.playerName+ "!"
                 +"\nMy name is Bryan and i'm the bank manager of Sustainia Central Bank.\nWe had a terrible break-in a week ago. They trashed the entire bank. We are working on getting everything replaced and rebuilding."
                 + "\nWill you help me get rid of all the borken items?", rBankManager1, rpBankManager1);
         
@@ -273,7 +273,7 @@ public class Game {
         String[] rFactoryWorker1 = new String[]{
                 "Don't have the lights on", "How about changing to LED bulbs", "Turn off all the machines and do everything by hand"};
         int[] rpFactoryWorker1 = new int[]{5,15,0};
-        Say dFactoryWorker1 = new Say("Hello " + Game.playerName+ "!"
+        Say dFactoryWorker1 = new Say("Hello " + this.playerName+ "!"
                 +"\nMy name is Fiona and i'm the owner of this clohting factory."
                 +"\nI really want my factory to use less power."
                 +"\nWhat would you suggest that we do?", rFactoryWorker1, rpFactoryWorker1);
@@ -312,7 +312,7 @@ public class Game {
         String[] rOfficer1 = new String[]{
                 "Yes, of course ", "No, i don't think so", "I can try"};
         int[] rpOfficer1 = new int[]{25,0,25};
-        Say dOfficer1 = new Say("Hello " + Game.playerName+ "!"
+        Say dOfficer1 = new Say("Hello " + this.playerName+ "!"
                 +"\nMy name is Olivia and i'm an officer. My job is to make sure that everyone in Sustainia are safe.\nIn Sustainia, we have a problem with crime and criminalactivity.\nDo you think that you can help me?", rOfficer1, rpOfficer1);
         
         String[] rOfficer2 = new String[]{
@@ -340,7 +340,7 @@ public class Game {
                 //SANITATION WORKER - info
         String[] rSanitationWorker1 = new String[]{"Ok"};
         int[] rpSanitationWorker1 = new int[]{55};
-        Say dSanitationWorker1 = new Say("Hello " + Game.playerName+ "!"
+        Say dSanitationWorker1 = new Say("Hello " + this.playerName+ "!"
                 +"\nMy name is Steve and welcome to the recycling station of Sustainia!"
                 +"\nYou can walk around Sustainia and collect items in the different buildings"
                 +"\nand theen bring them back to the recycling station."
@@ -368,7 +368,7 @@ public class Game {
         String[] rTeacher1 = new String[]{
                 "Bad pay", "Lack of respect", "Men are better end women therefore they don't need to work in a woman field", "Men don't want to work with children"};
         int[] rpTeacher1 = new int[]{20,20,-10,-10};
-        Say dTeacher1 = new Say("Hello " + Game.playerName+ "!"
+        Say dTeacher1 = new Say("Hello " + this.playerName+ "!"
                 +"\nMy name is Tiffany and i teach at the school of Sustainia.\nThis last week the entire school worked with the FN goals for the world and a student pointed out that there are fewer male teachers then female teachers."
                 + "\nWhy do you think that is?", rTeacher1, rpTeacher1);
         

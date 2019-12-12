@@ -16,6 +16,9 @@ import javafx.stage.WindowEvent;
 
 public class TextBox extends Node {
 
+    /**
+     * All the datafields used for the Terminal.
+     */
     private TextArea textBox;
 
     private GridPane gridPane;
@@ -26,37 +29,47 @@ public class TextBox extends Node {
 
     private GridPane terminal;
 
+    /**
+     * This constructor creates the UI and arranges all the Nodes.
+     */
     public TextBox(){
         gridPane = new GridPane();
 
         titledPane = new TitledPane();
-        titledPane.setExpanded(false);
-        titledPane.setAlignment(Pos.CENTER);
+        titledPane.setExpanded(false); //Has the terminal closed at the start.
+
         terminal = new GridPane();
-        terminal.getColumnConstraints().add(new ColumnConstraints(500));
-        terminal.getColumnConstraints().add(new ColumnConstraints(300));
-        gridPane.getRowConstraints().add(new RowConstraints(600));
+        terminal.getColumnConstraints().add(new ColumnConstraints(500)); //adds a column with the given size for the terminal(Gridpane)
+        terminal.getColumnConstraints().add(new ColumnConstraints(300)); //adds a column with the given size for the terminal(Gridpane)
+        gridPane.getRowConstraints().add(new RowConstraints(600)); //adds a row with the given size for the gridpane
+        gridPane.getColumnConstraints().add(new ColumnConstraints(800)); //adds a row with the given size for the gridpane
+
         tilePane = new TilePane();
-        tilePane.setHgap(3);
-        tilePane.setVgap(3);
-        tilePane.setAlignment(Pos.CENTER);
+        tilePane.setHgap(3); //Sets a Horizontal gap between the columns and rows for the tilepane
+        tilePane.setVgap(3); //Sets a Vertial gap between the columns and rows for the tilepane
+        tilePane.setAlignment(Pos.CENTER); //Aligns all nodes in the tilepane into the center
+
+        titledPane.setContent(terminal); //Adds the terminal(a gridpane) into the titledpane.
 
         textBox = new TextArea();
-        titledPane.setContent(terminal);
-        textBox.setMaxHeight(100);
-        textBox.setEditable(false);
-        terminal.add(textBox,0,0);
-        terminal.add(tilePane,1,0);
-        gridPane.getColumnConstraints().add(new ColumnConstraints(800));
+        textBox.setMaxHeight(100); //sets the size for the textBox.
+        textBox.setEditable(false); //makes the textBox uneditable.
+
+        terminal.add(textBox,0,0); //adds the textbox into terminal(gridpane) at the given cell
+        terminal.add(tilePane,1,0); //adds the tilepane into terminal(gridpane) at the given cell
 
 
-        gridPane.add(titledPane, 0, 0);
-        gridPane.setValignment(titledPane, VPos.BOTTOM);
+        gridPane.add(titledPane, 0, 0); //adds the titledpane into the gridpane who arranges the titledpane in the game window
+        gridPane.setValignment(titledPane, VPos.BOTTOM); //Aligns the titled pane at the bottom of the gridpane.
 
 
 
     }
 
+    /**
+     * Is used to get place the Terminal into the game
+     * @return Gridpane
+     */
     public GridPane getGridPane() {
         return gridPane;
     }
@@ -72,7 +85,7 @@ public class TextBox extends Node {
     public TilePane getTilePane() {
         return tilePane;
     }
-    
+
     public TextArea getTextBox() {
         return textBox;
     }

@@ -88,9 +88,11 @@ public class App extends Application {
     
     //DialogBox
     static TextBox textBox;
+
+    StartMenu startMenu;
     
     public App(){
-        game.createRooms();        
+        game.createRooms();
     }
     
     @Override
@@ -243,7 +245,7 @@ public class App extends Application {
         });
 
         //Created StartMenu to display Start screen when game starts
-        StartMenu startMenu = new StartMenu();
+        startMenu = new StartMenu();
 
         //Creating a scene object 
         Scene scene = new Scene(splitView, World.gameScreenWidth+301, World.gameScreenHeight);
@@ -254,14 +256,19 @@ public class App extends Application {
             stage.setScene(scene);
             System.out.println(startMenu.getPlayerName().getText());
             startMenu.setName(startMenu.getPlayerName().getText());
+            game.playerName = startMenu.getName();
 
+            game.createRooms();
+            game.setNeedsUpdate(true);
         });
-        Game.playerName = startMenu.getName();
+        System.out.println("Startskærmen:" + startMenu.getName());
 
         Button dialogButton = new Button("Kør Dialog");
         dialogButton.setOnAction(actionEvent -> {
             Conversation conversation = new Conversation();
             Conversation.i = 0;
+            System.out.println("Ved tryk:" + game.playerName);
+            game.playerName = startMenu.getName();
         });
 
         buttonPanel.getGridPaneButtons().add(dialogButton,2,0);
@@ -327,10 +334,6 @@ public class App extends Application {
         ParameterPanel.mainBar.getProgressBar().setProgress((value/7)/100);
         ParameterPanel.mainBar.getProgressText().setText(numberFormat.format(value/7)+"%");
 
-        //Checks if dialog is running
-        if (game.currentRoom.getNPC().isDialogRunning()) {
-            textBox.setTextBox(game.currentRoom.getNPC().getAllText());
-        }
 
     }
     
@@ -362,7 +365,7 @@ public class App extends Application {
 
         timer.start();
     }
-    
+
     private void moveCharacter (boolean moving, boolean goNorth, boolean goSouth, boolean goEast, boolean goWest, int dx, int dy, int at, int facing){
         
         dx = game.collisionDetectionX(dx);
