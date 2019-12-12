@@ -130,6 +130,9 @@ public class App extends Application {
         //Setting the image view
         this.background = new ImageView(backgroundImage);
         this.rooms = new ImageView(roomsImage);
+        
+        FileInputStream inputCharacter = new FileInputStream("img/ch.png");
+        Image characterImage = new Image(inputCharacter, 128*World.scale, 128*World.scale, true, false);
         this.character = new ImageView(characterImage);
         character.setViewport(new Rectangle2D(0, 0, World.characterWidth, World.characterHeight));
         this.roomsTop = new ImageView(roomsTopImage);

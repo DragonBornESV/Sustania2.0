@@ -16,7 +16,7 @@ public class WinningScreen extends Node {
     private ImageView view;
 
     public WinningScreen() throws FileNotFoundException {
-        FileInputStream fileInputStream = new FileInputStream("Sustainia/img/winscreen.png");
+        FileInputStream fileInputStream = new FileInputStream("img/winscreen.png");
         Image winScreen = new Image(fileInputStream, 900, 600, true, false);
         view = new ImageView(winScreen);
         view.setVisible(false);

@@ -36,7 +36,7 @@ public class StartMenu extends Node {
 
     public StartMenu() throws FileNotFoundException {
 
-        FileInputStream startImage = new FileInputStream("Sustainia/img/sustainia.png");
+        FileInputStream startImage = new FileInputStream("img/sustainia.png");
 
         Image startScreen = new Image(startImage, 900, 600, true, false);
         ImageView view = new ImageView(startScreen);
