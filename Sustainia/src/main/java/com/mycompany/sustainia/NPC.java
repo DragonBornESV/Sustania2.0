@@ -1,5 +1,10 @@
 package com.mycompany.sustainia;
 
+/**This class keeps track of the dialog, how persuated the NPC is, where the
+ * persuasion limit (trigger) lies and the final message that is shown when
+ * reaching the persuasion limit.
+ */
+
 public class NPC {
     public Say[] getDialog() {
         return dialog;
@@ -7,15 +12,18 @@ public class NPC {
 
     private final Say[] dialog;
     private int persuasionValue = 0;
-    private final int persuasionTrigger = 50;
+    private final int persuasionTrigger = 50;   //The pointsvalue which the player has to react in order to persuad the NPC.
 
+    /**
+     * @return the EndtriggerMessage
+     */
     public String getEndTriggerMessage() {
         return endTriggerMessage;
     }
 
-    private final String endTriggerMessage;
-    private boolean pointsGiven = false;
-    private boolean dialogRunning = false;
+    private final String endTriggerMessage; //The message showen when the NPC is persuaded.
+    private boolean pointsGiven = false;    //Checks the points given when responding to the dialog.
+    private boolean dialogRunning = false;  //Checks if the dialog is running.
     
     private String parameterName;   //The name of the parameter this NPC effects.
     private int points;             //The points the parameter change with.
@@ -26,13 +34,19 @@ public class NPC {
     private int npcY;
     private HitBox hb;
     
-    private String allText = "";
+    private String allText = "";    //AllText contains all 
     
     int i;
     
+    /** The constructor for instantiating an instans of the NPC class.
+     * 
+     * @param npcX x-coordinate for the NPC
+     * @param npcY y-coordinate for the NPC
+     * @param npcName The name of the NPC.
+     * @param dialog the instances of the Say class that dictates the content of the conversation.
+     * @param endTriggerMessage the end message if the person is persuated.
+     */
     public NPC (String npcName, Say[] dialog, String endTriggerMessage){
-        //this.npcX = npcX;
-        //this.npcY = npcY;
         this.npcName = npcName;
         this.dialog = dialog;
         this.endTriggerMessage = endTriggerMessage;
@@ -45,12 +59,21 @@ public class NPC {
         this.endTriggerMessage = endTriggerMessage;
         this.dialog = dialog;
     }
-    
+    /**
+     * @return the NPC name
+     */
     String getNpcName() {
         return this.npcName;
     }
 
-     
+    /** The constructor for instantiating an instans of the NPC class.
+     * 
+     * @param npcName The name of the NPC.
+     * @param dialog the instances of the Say class that dictates the content of the conversation.
+     * @param endTriggerMessage the end message if the person is persuated.
+     * @param parameterName the parameter you want to adjust.
+     * @param points the points you want to adjust the parameter with.
+     */ 
     public NPC (String npcName, Say[] dialog, String endTriggerMessage, String parameterName, int points) {
         this.npcName = npcName;
         this.dialog = dialog;
@@ -59,7 +82,6 @@ public class NPC {
         this.points = points; 
     } 
        
-
     /**
      * @return the npcX
      */
@@ -86,27 +108,49 @@ public class NPC {
      */
     public void setNpcY(int npcY) {
         this.npcY = npcY;
-    }   
+    }  
     
+    /** Places the NPC by using the coordinats from npcX and npcY.
+     * 
+     * @param npcX x-coordinate for the NPC.
+     * @param npcY y-coordinate for the NPC.
+     * @param hb 
+     */
     public void setPosition(int npcX, int npcY) {
         this.npcX = npcX;
         this.npcY = npcY;
         hb = new HitBox(npcX, npcY, 32, 32);
     }
     
+    /**
+     * @return the hitbox
+     */
     public HitBox getHitBox() {
         return hb;
     }
     
+    /**
+     * @return the dialog
+     */
     public Say getCurrentSay() {
         return dialog[i];
     }
     
+    /**
+     * @return allText 
+     */
     public String getAllText() {
         return allText;
     }
     
-    
+    /**Initiates the dialog with the NPC.
+     * 
+     * The dialog is retrieved from the Say-array and runs through them, one by
+     * one. Every iteration it returns the points given and adds them to the
+     * persuasionValue attribute. It then checks if the limit (trigger) is
+     * reached. If not and there is not anymore dialog, you get a fail message
+     * and the dialog ends.
+     */
     public void runDialog(String npcName) {
         dialogRunning = true;
         
@@ -159,6 +203,9 @@ public class NPC {
         dialogRunning = false;
     }
     
+    /**
+     * @return the dialogRunning
+     */
     public boolean isDialogRunning (){
         return dialogRunning;
     }

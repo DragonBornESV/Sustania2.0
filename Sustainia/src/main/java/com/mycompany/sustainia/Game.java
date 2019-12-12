@@ -14,7 +14,7 @@ public class Game {
     Room currentRoom;
     private Inventory inv;
 
-    public static String name = null;
+    public static String name;
     
     //This is true, when the item graphics needs to be updated
     private boolean needsUpdate = false;

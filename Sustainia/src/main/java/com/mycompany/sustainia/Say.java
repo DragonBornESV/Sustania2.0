@@ -8,18 +8,27 @@ package com.mycompany.sustainia;
  * the printing of dialog and the choosing of responses.
  */
 public class Say {
+    /**
+     * @return the NpcText
+     */
     public String getNpcText() {
         return npcText;
     }
 
     private String npcText;
 
+    /**
+     * @return the responses
+     */
     public String[] getResponses() {
         return responses;
     }
 
     private String[] responses;
 
+    /**
+     * @return the persuationPoints
+     */
     public int[] getPersuasionPoints() {
         return persuasionPoints;
     }
@@ -27,13 +36,16 @@ public class Say {
     private int[] persuasionPoints;
     private int chosenResponse = 0;
 
+    /**
+     * @return the points
+     */
     public int getPoints() {
         return points;
     }
 
     private int points = 0;
     
-    private boolean wantToLeave = false;
+    private boolean wantToLeave = false;    //Checks if wantToLeave. 
     
     
     /**The constructor for instantiating an instans of the Say class.
@@ -68,6 +80,9 @@ public class Say {
 
     }
     
+    /**
+     * @param value Gives the chosenResponse a value.
+     */
     public void setChosenResponse(int value) {
         this.chosenResponse = value;
     }
@@ -88,7 +103,6 @@ public class Say {
     }
 
     public void chooseResponse(int num){
-
         chosenResponse = num;
 
         //Check if the player wants to leave the conversation.
