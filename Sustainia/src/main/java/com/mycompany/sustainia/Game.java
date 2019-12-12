@@ -4,31 +4,35 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Game {
-    boolean roomSwitch = true;
+    boolean roomSwitch = true;  //Checks if the player switches room.
 
     int previousRoom;
     
     Room streets, townHall, nonsustainableHouse, policeStation, bank, 
-            clothingFactory, school, park;
+            clothingFactory, school, park;  //The different rooms created.
+    
+    //The Recycling station 
     RecyclingStationRoom recyclingStation;
     
-    Room currentRoom;
+    Room currentRoom;   //Where the player is placed.
     private Inventory inv;
-
+    
 
     public String playerName;
 
+
     
-    //This is true, when the item graphics needs to be updated
+    //This is true, when the item graphics needs to be updated.
     private boolean needsUpdate = false;
     
-    public Game() 
-    {
+    public Game(){
         Parameter.createParameters();
         inv = new Inventory();
     }
     
-    
+    /**
+     * 
+     */
     public void createStreets(){
         streets = new Room("Streets", new int[][]{
             // Front of Town Hall
