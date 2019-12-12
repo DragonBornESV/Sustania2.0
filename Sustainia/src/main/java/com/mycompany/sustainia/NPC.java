@@ -44,13 +44,24 @@ public class NPC {
      * @param npcName The name of the NPC.
      * @param npcY y-coordinate for the NPC
      * @param npcX x-coordinate for the NPC
-     * /
+     */
+    
     /** The constructor for instantiating an instans of the NPC class.
         this.npcName = npcName;
         this.dialog = dialog;
         this.endTriggerMessage = endTriggerMessage;
         this.parameterName = parameterName;
         this.points = points; 
+    */
+    public NPC (int npcX, int npcY, String npcName, Say[] dialog, String endTriggerMessage, String parameterName, int points){
+        this.npcX = npcX;
+        this.npcY = npcY;
+        hb = new HitBox(npcX, npcY, 32, 32);
+        this.npcName = npcName;
+        this.dialog = dialog;
+        this.endTriggerMessage = endTriggerMessage;
+        this.parameterName = parameterName;
+        this.points = points;
     }
     
     /**
