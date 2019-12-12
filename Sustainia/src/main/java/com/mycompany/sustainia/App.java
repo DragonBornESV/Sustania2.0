@@ -38,7 +38,7 @@ import java.util.ArrayList;
  * JavaFX App
  */
 public class App extends Application {
-    Game game = new Game();
+    static Game game = new Game();
 
     boolean goNorth = false;
     boolean goSouth = false;
@@ -258,7 +258,8 @@ public class App extends Application {
 
         Button dialogButton = new Button("Kør Dialog");
         dialogButton.setOnAction(actionEvent -> {
-            game.currentRoom.getNPC().runDialog(game.currentRoom.getNPC().getNpcName());
+            Conversation conversation = new Conversation();
+            Conversation.i = 0;
         });
 
         buttonPanel.getGridPaneButtons().add(dialogButton,2,0);

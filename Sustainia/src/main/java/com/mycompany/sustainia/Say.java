@@ -8,8 +8,22 @@ package com.mycompany.sustainia;
  * the printing of dialog and the choosing of responses.
  */
 public class Say {
+    public String getNpcText() {
+        return npcText;
+    }
+
     private String npcText;
+
+    public String[] getResponses() {
+        return responses;
+    }
+
     private String[] responses;
+
+    public int[] getPersuasionPoints() {
+        return persuasionPoints;
+    }
+
     private int[] persuasionPoints;
     private int chosenResponse = 0;
 

@@ -22,6 +22,18 @@ public class TextBox extends Node {
 
     private TitledPane titledPane;
 
+    public GridPane getTerminal() {
+        return terminal;
+    }
+
+    public TilePane getTilePane() {
+        return tilePane;
+    }
+
+    private TilePane tilePane;
+
+    private GridPane terminal;
+
     public TextBox(){
         gridPane = new GridPane();
 
@@ -29,15 +41,18 @@ public class TextBox extends Node {
         titledPane.setText("Terminal");
         titledPane.setExpanded(false);
         titledPane.setAlignment(Pos.CENTER);
-
-
+        terminal = new GridPane();
+        terminal.getColumnConstraints().add(new ColumnConstraints(600));
+        terminal.getColumnConstraints().add(new ColumnConstraints(200));
         gridPane.getRowConstraints().add(new RowConstraints(600));
+        tilePane = new TilePane();
 
         textBox = new TextArea();
-        titledPane.setContent(textBox);
+        titledPane.setContent(terminal);
         textBox.setMaxHeight(100);
         textBox.setEditable(false);
-
+        terminal.add(textBox,0,0);
+        terminal.add(tilePane,1,0);
         gridPane.getColumnConstraints().add(new ColumnConstraints(800));
 
 
@@ -54,8 +69,8 @@ public class TextBox extends Node {
 
 
     public void setTextBox(String string){
-        String currentText = textBox.getText();
-        textBox.setText(string+"\n"+currentText);
+
+        textBox.setText(string);
 
     }
 

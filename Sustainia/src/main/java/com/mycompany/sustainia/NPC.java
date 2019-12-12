@@ -1,9 +1,18 @@
 package com.mycompany.sustainia;
 
 public class NPC {
+    public Say[] getDialog() {
+        return dialog;
+    }
+
     private final Say[] dialog;
     private int persuasionValue = 0;
     private final int persuasionTrigger = 50;
+
+    public String getEndTriggerMessage() {
+        return endTriggerMessage;
+    }
+
     private final String endTriggerMessage;
     private boolean pointsGiven = false;
     private boolean dialogRunning = false;
