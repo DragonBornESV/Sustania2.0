@@ -251,10 +251,12 @@ public class App extends Application {
 
         startMenu.getStartButton().setOnAction(event -> {
             //possible to use player name for the rest of the game
-            Game.name = startMenu.getPlayerName().getText();
             stage.setScene(scene);
-            System.out.println(game.name);
+            System.out.println(startMenu.getPlayerName().getText());
+            startMenu.setName(startMenu.getPlayerName().getText());
+
         });
+        Game.playerName = startMenu.getName();
 
         Button dialogButton = new Button("Kør Dialog");
         dialogButton.setOnAction(actionEvent -> {

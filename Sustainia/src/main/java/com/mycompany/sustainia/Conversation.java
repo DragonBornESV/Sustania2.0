@@ -7,58 +7,45 @@ import javafx.scene.control.Button;
 import static com.mycompany.sustainia.App.game;
 
 public class Conversation extends Node {
-    public void setI(int i) {
-        this.i = i;
-    }
-
-    static int i = 0;
-    Button b;
-    public Conversation(){
 
 
-            App.textBox.getTilePane().getChildren().clear();
+    static int i = 0; //Determines which dialog is being used.
+    static int points = 0; //The persuation points which is used to compare if the player has convinced the NPC.
 
-            App.textBox.setTextBox(game.currentRoom.getNPC().getDialog()[i].getNpcText());
-                for (int j = 0; j < game.currentRoom.getNPC().getDialog()[i].getPersuasionPoints().length; j++) {
-                    App.textBox.getTilePane().getChildren().add(new DialogButton(game.currentRoom.getNPC().getDialog()[i].getResponses()[j],game.currentRoom.getNPC().getDialog()[i].getPersuasionPoints()[j]).getButton());
+    /**
+     * This constructor is used to start a Conversation with a NPC.
+     */
+    public Conversation() {
 
-                    /*
-                    if(game.currentRoom.getNPC().getDialog()[i].getPersuasionPoints()[j] >= 0){
-                        this.b.setOnAction(event -> {
-                            i = 1;
-                            System.out.println(b.getText());
+        NPC npc = game.currentRoom.getNPC(); //gets the NPC in current room
+        Say[] dialog = npc.getDialog(); //gets the dialogs of the NPC
 
-                            Conversation conversation = new Conversation();
-                        });
+        App.textBox.getTilePane().getChildren().clear(); //Removes all the previous response buttons (if there is any) of the previous dialog.
 
-                    }
-                    else {
-                        this.b.setOnAction(event -> {
-                            i = 2;
-                            System.out.println(b.getText());
-                            Conversation conversation = new Conversation();
-                        });
+        //Checks if the NPC is convinced?
+        if (points > npc.getPersuasionTrigger()) {
+            App.textBox.setTextBox(npc.getEndTriggerMessage());
+            npc.givePoints();
+            System.out.println("FÆRDIG");
+            points = 0;
+            i = 0;
+            return;
+        }
 
-                    }
+        // Is there no dialog left?
+        if (dialog.length < i+1) {
+            // Display the loose message
+            App.textBox.setTextBox("You failed to convince " + npc.getNpcName() + "...\n" +
+                "Talk to the person again. " + "Try to be more convincing this time...");
+            return;
+        }
 
-                     */
+        App.textBox.setTextBox(dialog[i].getNpcText());
+        for (int j = 0; j < dialog[i].getResponses().length; j++) {
+            App.textBox.getTilePane().getChildren().add(new DialogButton(dialog[i].getResponses()[j], dialog[i].getPersuasionPoints()[j]).getButton());
 
-
-                }
-
-
-           /*
-            for (int j = 0; i < game.currentRoom.getNPC().getDialog()[i].getResponses().length; i++) {
-
-                    App.textBox.getTilePane().getChildren().add(new Button(game.currentRoom.getNPC().getDialog()[i].getResponses()[j]));
-
-
-
-            }
-
-            */
         }
 
 
-
+    }
 }

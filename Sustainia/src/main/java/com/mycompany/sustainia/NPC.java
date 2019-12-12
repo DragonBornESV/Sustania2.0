@@ -7,6 +7,11 @@ public class NPC {
 
     private final Say[] dialog;
     private int persuasionValue = 0;
+
+    public int getPersuasionTrigger() {
+        return persuasionTrigger;
+    }
+
     private final int persuasionTrigger = 50;
 
     public String getEndTriggerMessage() {
@@ -141,15 +146,9 @@ public class NPC {
             System.out.println("");
             return;
         }
-        
-        //The succes message is printed out!
-        //But only if they haven't given points yet and a parameter name is specified
-        if (!pointsGiven && parameterName != null) {
-            Parameter.mapAddScore(parameterName, points);
-            pointsGiven = true;     //After this the player can't get anymore points from this npc.
-            System.out.println("You've gained " + points + "% in '" + parameterName + "'!");
-        }
-        
+
+        givePoints();
+
         System.out.println("");
         System.out.println("---------------------------------");
         System.out.println("");
@@ -158,7 +157,17 @@ public class NPC {
         
         dialogRunning = false;
     }
-    
+
+    public void givePoints() {
+        //The succes message is printed out!
+        //But only if they haven't given points yet and a parameter name is specified
+        if (!pointsGiven && parameterName != null) {
+            Parameter.mapAddScore(parameterName, points);
+            pointsGiven = true;     //After this the player can't get anymore points from this npc.
+            System.out.println("You've gained " + points + "% in '" + parameterName + "'!");
+        }
+    }
+
     public boolean isDialogRunning (){
         return dialogRunning;
     }
