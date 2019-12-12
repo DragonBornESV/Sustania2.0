@@ -97,10 +97,10 @@ public class Game {
         
         //We take all the dialog and use when calling the constructor of the NPC class. 
 
-        NPC busDriverNpc = new NPC(300, 600, //placering af NPC
+        NPC busDriverNpc = new NPC(300, 600, //placement of the NPC
                 "The Bus driver",new Say[]{dBusDriver1,dBusDriver2},"Alright " 
-                + Game.playerName + "!\nLet´s do that!", //NPC navn, dialog array og endMessage
-                "City Clean Air",30); //Den score NPC giver efter succesfull samtale
+                + Game.playerName + "!\nLet´s do that!", //NPC name, dialog array and endMessage
+                "City Clean Air",30); //The score the NPC adds to the parameter
 
         
         streets.setNPC(busDriverNpc);
@@ -154,10 +154,10 @@ public class Game {
         int[] rpMayor3 = new int[]{0};
         Say dMayor3 = new Say("Then you are of no use for our city. Goodbye!", rMayor3, rpMayor3);
 
-        NPC mayorNpc = new NPC(100, 100, //placering af NPC
+        NPC mayorNpc = new NPC(100, 100, //placement of the NPC
                 "The Mayor", new Say[]{dMayor1,dMayor2,dMayor3},"Alright " 
-                + Game.playerName + "!\nLet´s get started!", //NPC navn, dialog array og endMessage
-                "City Security", 30); //Den score NPC giver efter succesfull samtale
+                + Game.playerName + "!\nLet´s get started!", //NPC name, dialog array and endMessage
+                "City Security", 30); //The score the NPC adds to the parameter
         
 
 
@@ -190,10 +190,10 @@ public class Game {
                 + "\nWhat type of windows do we need?", rhouseBuilder2, rphouseBuilder2);
 
 
-        NPC houseBuilderNpc = new NPC(50, 25, //placering af NPC
+        NPC houseBuilderNpc = new NPC(50, 25, //placement of the NPC
                 "the factory worker",new Say[]{dhouseBuilder1,dhouseBuilder2},"Alright " 
-                + Game.playerName + "!\nWe will do that!", //NPC navn, dialog array og endMessage
-                "Sustainiable Housing",50); //Den score NPC giver efter succesfull samtale
+                + Game.playerName + "!\nWe will do that!", //NPC name, dialog array and endMessage
+                "Sustainiable Housing",50); //The score the NPC adds to the parameter
                 
         nonsustainableHouse.setNPC(houseBuilderNpc);
     }
@@ -221,10 +221,10 @@ public class Game {
                 + "\nDo you wanna join me?", rTrashChild2, rpTrashChild2);
         
 
-        NPC trashChildNpc = new NPC(25, 50, //placering af NPC
+        NPC trashChildNpc = new NPC(25, 50, //placement of the NPC
                 "The Child Chad",new Say[]{dTrashChild1,dTrashChild2},"Alright " 
-                + Game.playerName + "!\nI'll clean it up.", //NPC navn, dialog array og endMessage
-                "City Cleanliness",30 ); //Den score NPC giver efter succesfull samtale
+                + Game.playerName + "!\nI'll clean it up.", //NPC name, dialog array and endMessage
+                "City Cleanliness",30 ); //The score the NPC adds to the parameter
 
         
         park.setNPC(trashChildNpc);
@@ -252,10 +252,10 @@ public class Game {
         Say dBankManager2 = new Say("Okay, you can search the bank and look for items.", rBankManager2, rpBankManager2);
         
 
-        NPC bankManagerNpc = new NPC(50, 50, //placering af NPC
+        NPC bankManagerNpc = new NPC(50, 50, //placement of the NPC
                 "the bank manager",new Say[]{dBankManager1,dBankManager2},"Alright " 
-                + Game.playerName + "!\nGo search and look around!", //NPC navn, dialog array og endMessage
-                "City Cleanliness",30); //Den score NPC giver efter succesfull samtale
+                + Game.playerName + "!\nGo search and look around!", //NPC name, dialog array and endMessage
+                "City Cleanliness",30); //The score the NPC adds to the parameter
 
         
         bank.setNPC(bankManagerNpc);
@@ -291,10 +291,10 @@ public class Game {
         Say dFactoryWorker3 = new Say("We are going to make eco-labeled clothing is actually a good idea."
                 +"\nDo you know why?", rFactoryWorker3, rpFactoryWorker3);
 
-        NPC factoryWorkerNpc = new NPC(25, 50, //placering af NPC
+        NPC factoryWorkerNpc = new NPC(25, 50, //placement of the NPC
                 "the factory worker",new Say[]{dFactoryWorker1,dFactoryWorker2,dFactoryWorker3},"Alright "
-                + Game.playerName + "!\nI will use your advice, thank you!", //NPC navn, dialog array og endMessage
-                "City Clean Air",30); //Den score NPC giver efter succesfull samtale
+                + Game.playerName + "!\nI will use your advice, thank you!", //NPC name, dialog array and endMessage
+                "City Clean Air",30); //The score the NPC adds to the parameter
         
         clothingFactory.setNPC(factoryWorkerNpc);
 
@@ -321,10 +321,10 @@ public class Game {
         Say dOfficer2 = new Say("Alright, listen!\nThere are a arrest warrant out for this criminal named Cato.\nI'm really busy with looking out for Sustainia, would you help me out with looking for Cato?\nFind him and talk to him!", rOfficer2, rpOfficer2);
         
 
-        NPC officerNpc = new NPC(100, 50, //placering af NPC
+        NPC officerNpc = new NPC(100, 50, //placement of the NPC
                 "the officer",new Say[]{dOfficer1,dOfficer2},"Alright " 
-                + Game.name + "!\nI trust that you will help me", //NPC navn, dialog array og endMessage
-                "City Security",25); //Den score NPC giver efter succesfull samtale
+                + Game.name + "!\nI trust that you will help me", //NPC name, dialog array and endMessage
+                "City Security",25); //The score the NPC adds to the parameter
         
         policeStation.setNPC(officerNpc);
     }
@@ -347,10 +347,10 @@ public class Game {
                 +"\nYou can then salvage the items and get points which will help make Sustainia sustainable", rSanitationWorker1, rpSanitationWorker1);
         
 
-        NPC sanitationWorkerNpc = new NPC(50, 100, //placering af NPC
+        NPC sanitationWorkerNpc = new NPC(50, 100, //placement of the NPC
                 "the sanitation worker", new Say[]{dSanitationWorker1},"Alright " 
-                + Game.playerName + "!\nLet´s get started!", //NPC navn, dialog array og endMessage
-                "City Cleanliness", 30); //Den score NPC giver efter succesfull samtale
+                + Game.playerName + "!\nLet´s get started!", //NPC name, dialog array and endMessage
+                "City Cleanliness", 30); //The score the NPC adds to the parameter
 
         
         recyclingStation.setNPC(sanitationWorkerNpc);
@@ -378,10 +378,10 @@ public class Game {
         Say dTeacher2 = new Say("What do you think we could do to make it equal between men and women teachers?", rTeacher2, rpTeacher2);
         
 
-        NPC teacherNpc = new NPC(150, 100, //placering af NPC
+        NPC teacherNpc = new NPC(150, 100, //placement of the NPC
                 "the teacher",new Say[]{dTeacher1,dTeacher2},"Alright " 
-                + Game.playerName + "!\nLet´s try that!", //NPC navn, dialog array og endMessage
-                "City Equality",50); //Den score NPC giver efter succesfull samtale
+                + Game.playerName + "!\nLet´s try that!", //NPC name, dialog array and endMessage
+                "City Equality",50); //The score the NPC adds to the parameter
 
         
         school.setNPC(teacherNpc);
