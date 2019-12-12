@@ -21,36 +21,23 @@ public class NPC {
     
     int i;
     
-    public NPC (String npcName, Say[] dialog, String endTriggerMessage){
-        //this.npcX = npcX;
-        //this.npcY = npcY;
-        this.npcName = npcName;
-        this.dialog = dialog;
-        this.endTriggerMessage = endTriggerMessage;
-    }
-    
-    public NPC (String npcName, int npcX, int npcY, String endTriggerMessage, Say[] dialog){
-        this.npcName = npcName;
+    public NPC (int npcX, int npcY, String npcName, Say[] dialog, String endTriggerMessage, String parameterName, int points){
         this.npcX = npcX;
         this.npcY = npcY;
-        this.endTriggerMessage = endTriggerMessage;
-        this.dialog = dialog;
-    }
-    
-    String getNpcName() {
-        return this.npcName;
-    }
-
-     
-    public NPC (String npcName, Say[] dialog, String endTriggerMessage, String parameterName, int points) {
+        hb = new HitBox(npcX, npcY, 32, 32);
         this.npcName = npcName;
         this.dialog = dialog;
         this.endTriggerMessage = endTriggerMessage;
         this.parameterName = parameterName;
         this.points = points; 
-    } 
+    }
+    
+    
+    String getNpcName() {
+        return this.npcName;
+    }
+     
        
-
     /**
      * @return the npcX
      */
