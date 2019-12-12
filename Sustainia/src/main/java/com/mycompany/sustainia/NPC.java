@@ -6,6 +6,9 @@ package com.mycompany.sustainia;
  */
 
 public class NPC {
+    /**
+     * @return the dialog
+     */
     public Say[] getDialog() {
         return dialog;
     }
@@ -34,7 +37,7 @@ public class NPC {
     private int npcY;
     private HitBox hb;
     
-    private String allText = "";    //AllText contains all 
+    private String allText = "";    //AllText contains all dialog.
     
     int i;
     
