@@ -31,48 +31,58 @@ public class Game {
             // Front of Town Hall
             {560,451},
             // Front of Non-Sustainable house
-            {208,374},
+            {240,374},
             // Front of Park
-            {208,506},
+            {240,506},
             // Front of Bank
-            {912,374},
+            {896,374},
             // Front of Clothing Factory
-            {912,506},
+            {880,506},
             // Front of police station
-            {336,622},
+            {336,600},
             // Front of Recyclestation
             {560,600},
             // Front of School
-            {784,622}
+            {784,600}
         },
         new HitBox[]{
             // LHitBoxevel Barrier
             new HitBox(0,298,1120,20), new HitBox(0,770,1120,10),
             // TownHall
             new HitBox(448,318,224,110), new HitBox(448,428,96,34), new HitBox(576,428,96,34),
+            // NSH
+            new HitBox(192,374,32,2), new HitBox(192,394,32,2), new HitBox(32,330,160,110),
+            // Park
+            new HitBox(0,528,213,57), new HitBox(0,440,213,66), new HitBox(0,506,192,22),
+            // Bank
+            new HitBox(912,374,16,2), new HitBox(912,394,16,2), new HitBox(928,330,160,110),
+            // Clothing Factory
+            new HitBox(896,526,32,2), new HitBox(896,506,32,2), new HitBox(928,462,160,110),
+            // Police Station
+            new HitBox(320,616,2,22), new HitBox(350,616,2,22), new HitBox(256,638,160,110), new HitBox(417,726,1,22),
             // Recyclestation
             new HitBox(480,614,64,24), new HitBox(576,614,64,24), new HitBox(480,638,160,110),
             // School
-            new HitBox(672,616,2,154), new HitBox(704,638,160,55), new HitBox(704,693,96,55), new HitBox(768,616,2,22), new HitBox(798,616,2,22), new HitBox(879,705,2,42)
+            new HitBox(768,616,2,22), new HitBox(798,616,2,22), new HitBox(704,638,160,55), new HitBox(704,693,96,55)
         },
  
             new HitBox[]{
                 // Town Hall door
                 new HitBox(550,410,20,30),
                 // Non-Sustainable house door
-                new HitBox(170,374,22,22),
+                new HitBox(192,376,32,18),
                 // Park door
-                new HitBox(170,506,22,22),
+                new HitBox(192,506,16,22),
                 // Bank door
-                new HitBox(928,374,22,22),
+                new HitBox(912,376,16,18),
                 // Clothing Factory door
-                new HitBox(928,506,22,22),
+                new HitBox(896,506,22,22),
                 // Police Station door
-                new HitBox(320,638,32,22),
+                new HitBox(322,616,28,22),
                 // Recycle Station door
                 new HitBox(544,616,32,22),
                 // School door
-                new HitBox(770,638,28,22)
+                new HitBox(770,616,28,22)
             }
         , new ArrayList<>());
     }
@@ -95,7 +105,8 @@ public class Game {
         nonsustainableHouse = new Room("NSH", 240, 115,
             new HitBox[]{
                 // Walls
-                new HitBox(0,0,224,44), new HitBox(224,0,32,104), new HitBox(224,148,32,61), new HitBox(-10,44,10,165), new HitBox(0,209,224,10)},
+                new HitBox(0,0,222,45), new HitBox(0,45,2,164), new HitBox(222,146,34,63), new HitBox(222,0,34,105), new HitBox(2,0,220,45)
+            },
             new Door(new HitBox(256,104,10,44), streets)
         , new ArrayList<>());
     }
@@ -104,7 +115,8 @@ public class Game {
         park = new Room("Park", 240, 115,
             new HitBox[]{
                 // Walls
-                new HitBox(0,0,224,44), new HitBox(224,0,32,104), new HitBox(224,148,32,61), new HitBox(-10,44,10,165), new HitBox(0,209,224,10)},
+                new HitBox(0,0,21,209), new HitBox(20,0,215,57)
+            },
             new Door(new HitBox(256,104,10,44), streets)
         , new ArrayList<>());
     }
@@ -113,7 +125,10 @@ public class Game {
         bank = new Room("Bank", 16, 115,
             new HitBox[]{
                 // Walls
-                new HitBox(32,0,224,44), new HitBox(0,0,32,104), new HitBox(0,148,32,61), new HitBox(256,44,10,165), new HitBox(32,209,224,10)},
+                new HitBox(0,0,32,104), new HitBox(32,0,224,44), new HitBox(250,44,6,165), new HitBox(0,147,32,62), new HitBox(32,205,218,4),
+                // Desk
+                new HitBox(128,44,16,141)
+            },
             new Door(new HitBox(-10,104,10,44), streets)
         , new ArrayList<>());
     }
@@ -122,7 +137,12 @@ public class Game {
         clothingFactory = new Room("Colothing Factory", 16, 115,
             new HitBox[]{
                 // Walls
-                new HitBox(32,0,224,44), new HitBox(0,0,32,104), new HitBox(0,148,32,61), new HitBox(256,44,10,165), new HitBox(32,209,224,10)},
+                new HitBox(0,0,32,104), new HitBox(32,0,224,44), new HitBox(0,147,32,62), new HitBox(250,43,6,166), new HitBox(32,205,218,4),
+                // Shelf
+                new HitBox(32,44,96,10),
+                // Tabels
+                new HitBox(80,72,48,32), new HitBox(80,146,48,32), new HitBox(202,44,48,161)
+            },
             new Door(new HitBox(-10,104,10,44), streets)
         , new ArrayList<>());
     }
@@ -131,7 +151,14 @@ public class Game {
         policeStation = new Room("Police Station", 128, 55,
             new HitBox[]{
                 // Walls
-                new HitBox(0,22,96,44), new HitBox(96,0,16,44), new HitBox(144,0,16,44), new HitBox(160,22,96,44), new HitBox(-10,66,10,143), new HitBox(256,66,10,143), new HitBox(0,209,256,10)},
+                new HitBox(0,0,98,67), new HitBox(98,0,14,45), new HitBox(144,0,14,45), new HitBox(158,0,98,67), new HitBox(0,67,2,142), new HitBox(254,67,2,142), new HitBox(2,207,252,2),
+                // Locker
+                new HitBox(188,67,66,10),
+                // Desk
+                new HitBox(26,100,228,17),
+                // Tabels
+                new HitBox(26,134,60,17), new HitBox(110,134,60,17), new HitBox(194,134,60,17), new HitBox(26,168,60,17), new HitBox(110,168,60,17), new HitBox(194,168,60,17)
+                        },
             new Door(new HitBox(112,0,32,44), streets)
         , new ArrayList<>());
     }
@@ -149,7 +176,12 @@ public class Game {
         school = new Room("School", 128, 55,
             new HitBox[]{
                 // Walls
-                new HitBox(0,22,96,44), new HitBox(96,0,16,44), new HitBox(144,0,16,44), new HitBox(160,22,96,44), new HitBox(-10,66,10,143), new HitBox(256,66,10,143), new HitBox(0,209,256,10)},
+                new HitBox(0,0,98,69), new HitBox(98,0,14,45), new HitBox(144,0,14,45), new HitBox(158,0,98,69), new HitBox(0,69,2,140), new HitBox(254,69,2,67), new HitBox(158,136,98,73), new HitBox(2,207,156,2),
+                // Desk and tabels
+                new HitBox(11,83,50,17), new HitBox(2,112,68,17), new HitBox(2,142,68,17), new HitBox(2,172,68,17),
+                // Book shelf
+                new HitBox(174,69,64,10), new HitBox(238,69,16,67)
+            },
             new Door(new HitBox(112,0,32,44), streets)
         , new ArrayList<>());
     }
