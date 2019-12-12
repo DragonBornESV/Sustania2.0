@@ -40,6 +40,10 @@ import java.util.ArrayList;
 public class App extends Application {
     static Game game = new Game();
 
+
+    WinningScreen winningScreen;
+    StackPane gamePanel;
+
     boolean goNorth = false;
     boolean goSouth = false;
     boolean goEast  = false;
@@ -60,7 +64,7 @@ public class App extends Application {
     FileInputStream inputItems;
     Image itemsImage;
     Image characterImage;
-    
+
     /*
      * the following variables defines the rectangle, witch the rooms are maped to.
      * Depending on the room, the starting position of the rectangels X and Y cordinats need to be difrent, since all of the rooms are lacated on the same image.
@@ -174,13 +178,19 @@ public class App extends Application {
         root.setManaged(false);
 
         //Creating a stackPane to insert a TerminalBox/TextBox onto the gameWindow
-        StackPane gamePanel = new StackPane();
+        gamePanel = new StackPane();
         //Adding the Game to the StackPane.
         gamePanel.getChildren().add(root);
         //Creating a TextBox/TerminalBox
         textBox = new TextBox();
         //Adding the TextBox/TerminalBox to the StackPane.
         gamePanel.getChildren().add(textBox.getGridPane());
+
+        winningScreen = new WinningScreen();
+        gamePanel.getChildren().add(winningScreen.getView());
+
+
+
 
 
         //Creating a gridPane to make a splitview for the Window with 2 cells.
@@ -322,14 +332,19 @@ public class App extends Application {
         characterAnimation();
     }
 
+
     public void update(){
         DecimalFormat numberFormat = new DecimalFormat("#.00");
         double value = 0;
         for (ParameterPanel p: ParameterPanel.list) {
-
             p.getProgressBar().setProgress(Parameter.parameterList.get(p.getParameterName()).getScore()/100);
             p.getProgressText().setText((Parameter.parameterList.get(p.getParameterName()).getScore())+"%");
             value += Parameter.parameterList.get(p.getParameterName()).getScore();
+        }
+        if (value/7 >= 80){
+            winningScreen.getView().setVisible(true);
+            gamePanel.getChildren().get(0).setVisible(false);
+            gamePanel.getChildren().get(1).setVisible(false);
         }
         ParameterPanel.mainBar.getProgressBar().setProgress((value/7)/100);
         ParameterPanel.mainBar.getProgressText().setText(numberFormat.format(value/7)+"%");

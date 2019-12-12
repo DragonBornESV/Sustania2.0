@@ -164,7 +164,7 @@ public class Game {
         NPC mayorNpc = new NPC(100, 100, //placering af NPC
                 "The Mayor", new Say[]{dMayor1,dMayor2,dMayor3},"Alright " 
                 + this.playerName + "!\nLet´s get started!", //NPC navn, dialog array og endMessage
-                "City Security", 30); //Den score NPC giver efter succesfull samtale
+                "City Security", 100); //Den score NPC giver efter succesfull samtale
         
 
 

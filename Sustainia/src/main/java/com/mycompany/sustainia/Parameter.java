@@ -112,6 +112,9 @@ public class Parameter {
                 p.setScore(0);
             }
             parameterList.put(name, p);
+
+
+
         }
     }
 
@@ -127,7 +130,7 @@ public class Parameter {
                 progressBar += "=";
             } else {
                 progressBar += " ";
-            }   
+            }
         }
         return progressBar + "]";
     }
