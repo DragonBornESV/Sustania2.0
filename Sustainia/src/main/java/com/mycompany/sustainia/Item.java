@@ -145,4 +145,9 @@ public class Item implements Cloneable {
         return super.clone();
     }
     
+    @Override
+    public String toString() {
+        return name;
+    }
+    
 }

@@ -85,7 +85,22 @@ public class Game {
                 // School door
                 new HitBox(770,616,28,22)
             }
-        , new ArrayList<>());
+        , new ArrayList<>(Arrays.asList(new Item[] {
+            World.glassBottle.cloneAndPosition(819, 341),
+            World.glassBottle.cloneAndPosition(271, 445),
+            World.aluminumCan.cloneAndPosition(647, 524),
+            World.aluminumCan.cloneAndPosition(869, 400),
+            World.tire.cloneAndPosition(368, 377),
+            World.tire.cloneAndPosition(795, 437),
+            World.ironCan.cloneAndPosition(281, 545),
+            World.organicWaste.cloneAndPosition(274, 339),
+            World.organicWaste.cloneAndPosition(394, 495),
+            World.organicWaste.cloneAndPosition(481, 575),
+            World.organicWaste.cloneAndPosition(551, 498),
+            World.organicWaste.cloneAndPosition(746, 500),
+            World.organicWaste.cloneAndPosition(840, 534),
+            World.organicWaste.cloneAndPosition(713, 385)
+        })));
     }
     
     public void createTownHall(){
@@ -100,9 +115,8 @@ public class Game {
                 },
             new Door(new HitBox(96,209,64,10), streets),
         new ArrayList<>(Arrays.asList(new Item[] {
-            World.glassBottle.cloneAndPosition(200, 100),
-            World.axe.cloneAndPosition(200, 200),
-            World.computer.cloneAndPosition(50, 100)
+            World.glassBottle.cloneAndPosition(176, 112),
+            World.computer.cloneAndPosition(62, 108)
         })));
     }
         
@@ -149,7 +163,13 @@ public class Game {
                 new HitBox(80,72,48,32), new HitBox(80,146,48,32), new HitBox(202,44,48,161)
             },
             new Door(new HitBox(-10,104,10,44), streets)
-        , new ArrayList<>());
+        , new ArrayList<>(Arrays.asList(new Item[] {
+            World.cardboardBox.cloneAndPosition(134, 44),
+            World.cardboardBox.cloneAndPosition(150, 44),
+            World.cardboardBox.cloneAndPosition(166, 44),
+            World.clothes.cloneAndPosition(180, 151),
+            World.clothes.cloneAndPosition(180, 167),
+        })));
     }
 
     public void createPoliceStation(){
@@ -192,7 +212,11 @@ public class Game {
                 new HitBox(174,69,64,10), new HitBox(238,69,16,67)
             },
             new Door(new HitBox(112,0,32,44), streets)
-        , new ArrayList<>());
+        , new ArrayList<>(Arrays.asList(new Item[] {
+            World.aluminumCan.cloneAndPosition(211, 90),
+            World.ironCan.cloneAndPosition(168, 113),
+            World.glassBottle.cloneAndPosition(95, 172)
+        })));
     }
     
     /** Rooms are created and named.

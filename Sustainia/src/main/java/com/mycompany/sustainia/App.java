@@ -307,7 +307,7 @@ public class App extends Application {
                     //Drop item button
                     case Q: dropItem(); break;
                     //Salvage button (INDSÆT SELECTED ITEM FRA LISTVIEW)
-                    case B: game.getInventory().salvageMaterials(game.getInventory().getItemsInInventory().get(0)); break;
+                    case B: game.getInventory().salvageMaterials(); break;
                     //Recycle button
                     case R: game.getInventory().recycleMaterials(); break;
                     
