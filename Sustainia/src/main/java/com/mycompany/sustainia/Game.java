@@ -217,7 +217,7 @@ public class Game {
             //Items
                 new ArrayList<>(),
             //Container
-                new HitBox(86,150,86,55));
+                new HitBox(133,150,96,32));
     }
     
     public void createSchool(){
