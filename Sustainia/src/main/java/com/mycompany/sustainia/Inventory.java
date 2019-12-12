@@ -59,27 +59,29 @@ public class Inventory {
     /*
      * The selected item is removed from the inventory and the materials the item consists of is added to the inventory.
      */
-    public void salvageMaterials(Item itemToSalvage){
+    public void salvageMaterials(){
         //Iterates through the materials in the item and adds them to the 
         // materials in the inventory.
         
-        //Is there an item to salvage from?
-        if (itemToSalvage == null) {
+        int numberOfItems = itemsInInventory.size();
+        
+        // Goes through every item in the inventory
+        for (int i = 0; i < numberOfItems; i++) {
             // Goes through every material in the item.
-            for (int i = 0; i < itemToSalvage.materials.length; i++) {
-                //Then goes through every material in the inventory.
-                for (int j = 0; j < materialArray.length; j++) {
+            for (int j = 0; j < itemsInInventory.get(0).materials.length; j++) {
+                //Then goes through every material in the inventory and adds them.
+                for (int k = 0; k < materialArray.length; k++) {
                     // Checks if the item material and inventory material are
                     // the same and adds the item material-count to the inventory.
-                    if (itemToSalvage.materials[i].name == materialArray[j].name) {
-                        materialArray[j].count += itemToSalvage.materials[i].count;
+                    if (itemsInInventory.get(0).materials[j].name == materialArray[k].name) {
+                        materialArray[k].count += itemsInInventory.get(0).materials[j].count;
                     }
                 }
             }
 
             //Removes the salvaged item from the inventory
-            getItemsInInventory().remove(itemToSalvage);
-        }
+            getItemsInInventory().remove(itemsInInventory.get(0));
+        }        
     }
     
     /**
