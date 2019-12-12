@@ -287,13 +287,6 @@ public class App extends Application {
                     //Detects the drop-key 'Q'
                     //Just for now, the item to be dropped is always the first item
                     case Q: dropItem(); break;
-                    //Leave conversation
-                    case L: leaveConvo(); break;
-                    //Conversation responses
-                    case DIGIT1: game.currentRoom.getNPC().getCurrentSay().chooseResponse(1); break;
-                    case DIGIT2: game.currentRoom.getNPC().getCurrentSay().chooseResponse(2); break;
-                    case DIGIT3: game.currentRoom.getNPC().getCurrentSay().chooseResponse(3); break;
-                    case DIGIT4: game.currentRoom.getNPC().getCurrentSay().chooseResponse(4); break;
 
                 }
             }
@@ -573,10 +566,6 @@ public class App extends Application {
      */
     private void dropItem() {
         game.dropItem(game.getInventory().getItemsInInventory().get(0));
-    }
-    
-    private void leaveConvo(){
-        //wantToLeave == true;
     }
     
     public static void runApp(String[] args) {
