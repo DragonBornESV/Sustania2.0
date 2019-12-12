@@ -16,10 +16,8 @@ public class Parameter {
     private float average;
     public static Parameter mainScore = new Parameter();
 
-
-
+    
     /**
-     *
      * @param name The name of the parameter to value the game. score The score
      * that the user is valued from, and base value is set to 20. average The
      * score converted to percentage as an average to display the score.
@@ -41,7 +39,6 @@ public class Parameter {
     /**
      * This constructor is for the Primary parameter, which reflects the overall
      * score for all the secondary parameters.
-     *
      */
     public Parameter() {
         this.name = "City Sustainability";
@@ -52,6 +49,9 @@ public class Parameter {
          */
     }
 
+    /**
+     * @return the name 
+     */
     public String getName() {
         return this.name;
     }
@@ -63,6 +63,9 @@ public class Parameter {
         return this.score;
     }
     
+    /**
+     * @param num sets the score to a numbers
+     */
     private void setScore(float num) {
         this.score = num;
     }
@@ -109,24 +112,6 @@ public class Parameter {
                 p.setScore(0);
             }
             parameterList.put(name, p);
-
-            /*for (ParameterPanel q: ParameterPanel.list) {
-                if (q.getParameterName() == name) {
-                    q.getProgressBar().setProgress(p.getScore());
-                    q.getProgressText().setText(Float.toString(p.getScore()));
-                }
-
-            }
-
-
-
-            if (p.getScore() == 100) {
-                System.out.println("Congratulations you won the game!");
-                Parameter.printScore();
-
-            }
-
-             */
         }
     }
 
