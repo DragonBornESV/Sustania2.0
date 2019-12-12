@@ -73,6 +73,7 @@ public class Conversation extends Node {
      */
     public static void leaveConversation(){
         App.textBox.getTitledPane().setExpanded(false);
+
         i = 0;
         points = 0;
         App.textBox.getTextBox().clear();
