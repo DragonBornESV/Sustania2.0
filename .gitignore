@@ -84,3 +84,6 @@ Sustainia/target/classes/com/mycompany/sustainia/World.class
 Sustainia/target/classes/module-info.class
 Sustainia/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
 Sustainia/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+Sustainia/target/classes/com/mycompany/sustainia/Game.class
+Sustainia/target/classes/com/mycompany/sustainia/HitBox.class
+Sustainia/target/classes/com/mycompany/sustainia/Inventory.class
