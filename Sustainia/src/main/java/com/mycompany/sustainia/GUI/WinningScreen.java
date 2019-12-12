@@ -1,6 +1,5 @@
 package com.mycompany.sustainia.GUI;
 
-import com.mycompany.sustainia.Sustainia;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,7 +19,6 @@ public class WinningScreen extends Node {
         Image winScreen = new Image(fileInputStream, 900, 600, true, false);
         view = new ImageView(winScreen);
         view.setVisible(false);
-
-
+        
     }
 }

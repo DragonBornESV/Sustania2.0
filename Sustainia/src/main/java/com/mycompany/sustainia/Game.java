@@ -30,9 +30,6 @@ public class Game {
         inv = new Inventory();
     }
     
-    /**
-     * 
-     */
     public void createStreets(){
         streets = new Room("Streets", new int[][]{
             // Front of Town Hall
@@ -427,7 +424,9 @@ public class Game {
                 //Walls
                 new HitBox(0,0,112,44), new HitBox(144,0,112,44), new HitBox(-6,44,10,161), new HitBox(252,44,10,161), new HitBox(0,205,256,10),
                 // NPc
-                new HitBox(37,60,19,25)
+                new HitBox(37,60,19,25),
+                // Non functional container
+                new HitBox(156,79,96,32)
             },
             //Door
                 new Door(new HitBox(112,0,32,44), streets),
@@ -514,11 +513,11 @@ public class Game {
         currentRoom = townHall;
     }
 
-
+    // Return the x-value the player has to move so it doesn't collide.
     public int collisionDetectionX(int dx){
         for (int i = 0; i < currentRoom.hitboxesInRoom.length; i++) {
             if (currentRoom.hitboxesInRoom[i].collisionLeft){
-            dx = -1;
+                dx = -1;
             }
             if (currentRoom.hitboxesInRoom[i].collisionRight){
                 dx = 1;
@@ -527,11 +526,11 @@ public class Game {
         return dx;
     }
 
-    
+    // Return the y-value the player has to move so it doesn't collide.
     public int collisionDetectionY(int dy){
         for (int i = 0; i < currentRoom.hitboxesInRoom.length; i++) {
             if (currentRoom.hitboxesInRoom[i].collisionTop){
-            dy = -1;
+                dy = -1;
             }
             if (currentRoom.hitboxesInRoom[i].collisionBottom){
                 dy = 1;
@@ -540,8 +539,9 @@ public class Game {
         return dy;
     }
     
-    
+    //Checks for collision with hitboxes in rooms and items.
     public void collisionWithObjects(int x, int y, Room room){
+        //Checks for collision with hitboxes like walls etc.
         for (int i = 0; i < room.hitboxesInRoom.length; i++){
             room.hitboxesInRoom[i].collisionWithObject(x, y);
         }
@@ -550,6 +550,7 @@ public class Game {
         if (recyclingStation.getContainerHitBox().checkIfTriggered()) {
             //Executes the recycleMaterials method.
             inv.recycleMaterials();
+            setNeedsUpdate(true);
         }
 
         // Checks if the items collide with the player. 
@@ -566,12 +567,15 @@ public class Game {
         }
     }
     
-    
+    //
     public Room roomChangeCheck(int x, int y){
-        //System.out.println(currentRoom.name);
+        
+        //This is only for the streets room
         if (currentRoom.equals(streets)){
+            // Checks for a collision with a door in streets
             for (int i =0; i <streets.multipleDoors.length; i++){
             streets.multipleDoors[i].collisionWithObject(x, y);
+            //After this it looks for which door is triggered sets the room to the right one.
                 if (streets.multipleDoors[0].checkIfTriggered()){
                     currentRoom = townHall;
                     roomSwitch = true;
@@ -599,22 +603,24 @@ public class Game {
                 }
             }
         } else {
+            //For all the other rooms
             currentRoom.door.doorFrame.collisionWithObject(x, y);
-            //System.out.println(currentRoom.door.doorFrame.checkIfTriggered());
+            
+            //Checks if the door is triggered
             if (currentRoom.door.doorFrame.checkIfTriggered()){
                 currentRoom = currentRoom.door.leadsTo;
                 roomSwitch = true;
             }
         }
+        
+        //Return the new or the same room back.
         return currentRoom;
     }
     
-    
+    //Determines the x-coordinate for the player when he enters the new room
     public int getSpawnPointX(int x, Room room, int previousRoom){
-        //System.out.println(previousRoom);
         if (roomSwitch){
             if (room.equals(streets)){
-                //x = -300 + 560*4;
                 x = -World.characterX +streets.multipleSpawnPoints[previousRoom][0]*World.scale;
             } else {
                 x = -World.characterX +room.spawnPX*World.scale;
@@ -624,11 +630,10 @@ public class Game {
         return x;
     }
     
-    
+    //Determines the y-coordinate for the player when he enters the new room
     public int getSpawnPointY(int y, Room room, int previousRoom){
         if (roomSwitch){
             if (room.equals(streets)){
-                //y = -300 +450*4;
                 y = -World.characterY +streets.multipleSpawnPoints[previousRoom][1]*World.scale;
             } else {
                 y = -World.characterY +room.spawnPY*World.scale;
@@ -650,7 +655,6 @@ public class Game {
             inv.getItemsInInventory().add(item);
             currentRoom.getItemsInRoom().remove(item);
             inv.updateValue();
-            System.out.println(inv); //For debugging
             
             needsUpdate = true;
         } else {
@@ -666,7 +670,6 @@ public class Game {
      */
     public void dropItem(Item item) {
         if (item != null) {
-            //SKAL LAVES OM UNDER MERGE
             item.setPosition((World.gameX +World.characterX -8*World.scale)/World.scale, (World.gameY +World.characterY + 16*World.scale)/World.scale);
             currentRoom.getItemsInRoom().add(item);
             inv.getItemsInInventory().remove(item);

@@ -42,17 +42,17 @@ public class World {
 
     
     // Here the materials are constructed. Material(name, value, weight, quantity).
-    static Material aluminum = new Material("Aluminum", 0.81, 0.1, 0);
-    static Material cloth    = new Material("Cloth",    2.10, 0.1, 0);
-    static Material compost  = new Material("Compost",  0.37, 0.1, 0);
-    static Material concrete = new Material("Concrete", 2.42, 0.1, 0);
-    static Material copper   = new Material("Copper",   3.50, 0.1, 0);
-    static Material glass    = new Material("Glass",    0.60, 0.1, 0);
-    static Material iron     = new Material("Iron",     0.38, 0.1, 0);
-    static Material oakWood  = new Material("Oak Wood", 2.70, 0.1, 0);
-    static Material paper    = new Material("Paper",    1.75, 0.1, 0);
-    static Material plastic  = new Material("Plastic",  2.10, 0.1, 0);
-    static Material rubber   = new Material("Rubber",   1.00, 0.1, 0);
+    static Material aluminum = new Material("Aluminum  ", 0.81, 0.1, 0);
+    static Material cloth    = new Material("Cloth     ",    2.10, 0.1, 0);
+    static Material compost  = new Material("Compost   ",  0.37, 0.1, 0);
+    static Material concrete = new Material("Concrete  ", 2.42, 0.1, 0);
+    static Material copper   = new Material("Copper    ",   3.50, 0.1, 0);
+    static Material glass    = new Material("Glass     ",    0.60, 0.1, 0);
+    static Material iron     = new Material("Iron      ",     0.38, 0.1, 0);
+    static Material oakWood  = new Material("Oak Wood  ", 2.70, 0.1, 0);
+    static Material paper    = new Material("Paper     ",    1.75, 0.1, 0);
+    static Material plastic  = new Material("Plastic   ",  2.10, 0.1, 0);
+    static Material rubber   = new Material("Rubber    ",   1.00, 0.1, 0);
     
     // Here the items are constructed using the item datatype.
     // The materials are cloned, so that if you change one material in one item,

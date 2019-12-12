@@ -1,6 +1,5 @@
 package com.mycompany.sustainia.GUI;
 
-import com.mycompany.sustainia.Game;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -58,14 +57,13 @@ public class StartMenu extends Node {
         playerName = new TextField();
         playerName.setPromptText("Please enter your name:");
         playerName.setMinSize(15, 10);
-
+        
+        // Adds the button to the gridpane
         startScreenGridPane.add(playerName, 1,0);
         startScreenGridPane.setValignment(playerName, VPos.BOTTOM);
         startScreenGridPane.add(startButton,1,1 );
         startScreenGridPane.setHalignment(startButton, HPos.CENTER);
         startScreenGridPane.setVgap(20);
-
-
 
         startPane.getChildren().add(startScreenGridPane);
 

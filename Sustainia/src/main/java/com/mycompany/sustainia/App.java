@@ -65,6 +65,8 @@ public class App extends Application {
     FileInputStream inputItems;
     Image itemsImage;
     Image characterImage;
+    
+    MaterialsPanel matPanel;
 
     /*
      * the following variables defines the rectangle, witch the rooms are maped to.
@@ -233,7 +235,7 @@ public class App extends Application {
         invPanel = new InventoryPanel(game.getInventory().getItemsInInventory());
         rightColumn.add(invPanel.getGridPane(),0,1);
         //Materials Panel is created
-        MaterialsPanel matPanel = new MaterialsPanel();
+        matPanel = new MaterialsPanel(game.getInventory().materialArray);
 
         //Creates ButtonPanel which contains all the buttons
         ButtonPanel buttonPanel = new ButtonPanel();
@@ -261,20 +263,17 @@ public class App extends Application {
         startMenu.getStartButton().setOnAction(event -> {
             //possible to use player name for the rest of the game
             stage.setScene(scene);
-            System.out.println(startMenu.getPlayerName().getText());
             startMenu.setName(startMenu.getPlayerName().getText());
             game.playerName = startMenu.getName();
 
             game.createRooms();
             game.setNeedsUpdate(true);
         });
-        System.out.println("Startskærmen:" + startMenu.getName());
 
         Button dialogButton = new Button("Talk");
         dialogButton.setOnAction(actionEvent -> {
             Conversation conversation = new Conversation();
             Conversation.i = 0;
-            System.out.println("Ved tryk:" + game.playerName);
             game.playerName = startMenu.getName();
         });
 
@@ -293,7 +292,8 @@ public class App extends Application {
                     //Drop item button
                     case Q: dropItem(); break;
                     //Salvage button (INDSÆT SELECTED ITEM FRA LISTVIEW)
-                    case B: game.getInventory().salvageMaterials(); break;
+                    case B: game.getInventory().salvageMaterials(); 
+                            matPanel.updateMaterials(); break;
                     //Recycle button
                     case R: game.getInventory().recycleMaterials(); break;
                 }
@@ -363,7 +363,7 @@ public class App extends Application {
                     drawRoom(game.currentRoom);
 
                     game.currentRoom = game.roomChangeCheck(World.gameX, World.gameY);
-                    //System.out.println(game.currentRoom.name);
+
                     update();
                 }
             };
@@ -385,6 +385,7 @@ public class App extends Application {
         //Updates the items if it needs it
         if (game.needsUpdate() || game.roomSwitch) {
             loadItems();
+            matPanel.updateMaterials();
             game.setNeedsUpdate(false);
         }
 
@@ -551,8 +552,6 @@ public class App extends Application {
             
             //This can be used to show the hitboxes.
             roomItems.get(i).printPosition();
-            
-            System.out.println("All items loaded");
         }
         
         //Load NPC

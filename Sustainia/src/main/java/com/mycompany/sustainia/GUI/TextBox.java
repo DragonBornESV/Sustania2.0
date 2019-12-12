@@ -1,18 +1,11 @@
 package com.mycompany.sustainia.GUI;
 
-import javafx.animation.TranslateTransition;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.stage.WindowEvent;
 
 public class TextBox extends Node {
 

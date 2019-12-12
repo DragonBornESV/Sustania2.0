@@ -17,15 +17,16 @@ public class MaterialsPanel extends Node {
     private ListView<Material> listView;
     private GridPane gridPane;
     private Text header;
+    private Material[] materials;
 
-    public MaterialsPanel(){
+    public MaterialsPanel(Material[] materials){
         header = new Text("Materials");
         header.setFont(new Font(20));
         listView = new ListView<>();
         observableList = FXCollections.observableArrayList();
-        for (Material m : World.materialArray) {
-            observableList.add(m);
-        }
+        this.materials = materials;
+        
+        updateMaterials();
 
         gridPane = new GridPane();
         gridPane.getColumnConstraints().add(new ColumnConstraints(290));
@@ -35,12 +36,17 @@ public class MaterialsPanel extends Node {
         gridPane.add(listView,0,1);
         gridPane.setPadding(new Insets(5));
         listView.setItems(observableList);
-
-
-
     }
 
     public GridPane getGridPane() {
         return gridPane;
+    }
+    
+    public void updateMaterials() {
+        observableList.clear();
+        
+        for (Material m : materials) {
+            observableList.add(m);
+        }
     }
 }

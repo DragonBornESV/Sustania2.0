@@ -1,6 +1,5 @@
 package com.mycompany.sustainia.GUI;
 
-import com.mycompany.sustainia.Parameter;
 import javafx.geometry.HPos;
 import javafx.scene.Node;
 import javafx.scene.control.ProgressBar;
@@ -11,7 +10,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,7 +95,6 @@ public class ParameterPanel extends Node {
 
         //Adding all of the Parameters to the gridpane to display them.
         for (int i = 0; i < list.size(); i++) {
-
             parameterGridpane.add(list.get(i).getStackPane(),0,i+2);
         }
     }
