@@ -14,7 +14,7 @@ public class Game {
     Room currentRoom;
     private Inventory inv;
 
-    public static String name = null;
+    public static String name;
     
     //This is true, when the item graphics needs to be updated
     private boolean needsUpdate = false;
@@ -441,17 +441,24 @@ public class Game {
                 
                 App.textBox.setTextBox("Picked up " + room.getItemsInRoom().get(i));
                 pickUpItem(currentRoom.getItemsInRoom().get(i));
+
             }
         }
         
         //Checks if the player hits an NPC
+/*
             if (room.hasNPC()){
                 room.getNPC().getHitBox().collisionWithObject(x, y);
                 if (room.getNPC().getHitBox().checkIfTriggered()){
                     App.textBox.setTextBox("Hit " + room.getNPC().getNpcName());
                     //room.getNPC().runDialog(room.getNPC().getNpcName());
+
                 }
             }
+
+ */
+
+
     }
     
     
@@ -556,7 +563,7 @@ public class Game {
             item.setPosition((World.gameX +World.characterX -8*World.scale)/World.scale, (World.gameY +World.characterY + 16*World.scale)/World.scale);
             currentRoom.getItemsInRoom().add(item);
             inv.getItemsInInventory().remove(item);
-            
+            App.textBox.setTextBox(item+" was dropped");
             needsUpdate = true;
         } else {
             System.out.println("No item selected");

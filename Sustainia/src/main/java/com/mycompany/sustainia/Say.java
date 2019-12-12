@@ -8,12 +8,44 @@ package com.mycompany.sustainia;
  * the printing of dialog and the choosing of responses.
  */
 public class Say {
+    /**
+     * @return the NpcText
+     */
+    public String getNpcText() {
+        return npcText;
+    }
+
     private String npcText;
+
+    /**
+     * @return the responses
+     */
+    public String[] getResponses() {
+        return responses;
+    }
+
     private String[] responses;
+
+    /**
+     * @return the persuationPoints
+     */
+    public int[] getPersuasionPoints() {
+        return persuasionPoints;
+    }
+
     private int[] persuasionPoints;
     private int chosenResponse = 0;
+
+    /**
+     * @return the points
+     */
+    public int getPoints() {
+        return points;
+    }
+
+    private int points = 0;
     
-    private boolean wantToLeave = false;
+    private boolean wantToLeave = false;    //Checks if wantToLeave. 
     
     
     /**The constructor for instantiating an instans of the Say class.
@@ -34,49 +66,23 @@ public class Say {
      * 
      * @return the points gained from the chosen response.
      */
-    public int print(String npcName, String allText) {
-       
+    public void print(String npcName, String allText) {
+
+        allText += npcText+"\n";
+
         //Prints the available responses and the corresponding numbers.
         for (int i = 0; i < responses.length; i++) {
             allText += "[" + (i+1) + "]\t" + responses[i] + "\n";
         }
-        
+        System.out.println(allText);
         //Prints the prompt message
         System.out.println("");
-        
-        //The player loops until they return a valid answer.
-        while (true) {
-            
-            //This is the same statements as in the Game class, but with special
-            //commands just for the conversation scenarios. 
-           // Command command = parser.getCommand();
-           // processCommand(command);
-            
-            //Check if the player wants to leave the conversation.
-            if (isWantToLeave()) {
-                return 0;
-            }
-            
-            //If chosenResponse is still 0, then it means that the user did not 
-            //enter a valid command... That means we loop back around.
-            if (chosenResponse == 0) {
-                continue;   //We loop back around
-            }
-            
-            chosenResponse--;   //This is to make it match the index numbers
-            
-            //Makes sure the index isn't out of bounds
-            if (chosenResponse < persuasionPoints.length && chosenResponse >= 0) {
-                System.out.println("");
-                System.out.println("You: " + responses[chosenResponse]);
-                //Returns  because of a valid answer.
-                return persuasionPoints[chosenResponse];
-            } else {
-                System.out.println("Enter a valid number...");
-            }
-        }
+
     }
     
+    /**
+     * @param value Gives the chosenResponse a value.
+     */
     public void setChosenResponse(int value) {
         this.chosenResponse = value;
     }
@@ -94,5 +100,29 @@ public class Say {
      */
     public boolean isWantToLeave() {
         return wantToLeave;
+    }
+
+    public void chooseResponse(int num){
+        chosenResponse = num;
+
+        //Check if the player wants to leave the conversation.
+        if (isWantToLeave()) {
+            points = 0;
+        }
+        System.out.println("loop");
+
+        chosenResponse--;   //This is to make it match the index numbers
+
+        //Makes sure the index isn't out of bounds
+        if (chosenResponse < persuasionPoints.length && chosenResponse >= 0) {
+            System.out.println("");
+            System.out.println("You: " + responses[chosenResponse]);
+            //Returns  because of a valid answer.
+            points = persuasionPoints[chosenResponse];
+        } else {
+            System.out.println("Enter a valid number...");
+        }
+
+
     }
 }

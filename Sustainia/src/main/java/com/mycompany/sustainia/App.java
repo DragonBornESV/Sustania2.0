@@ -38,7 +38,7 @@ import java.util.ArrayList;
  * JavaFX App
  */
 public class App extends Application {
-    Game game = new Game();
+    static Game game = new Game();
 
     boolean goNorth = false;
     boolean goSouth = false;
@@ -197,6 +197,10 @@ public class App extends Application {
         rightColumn.getRowConstraints().add(new RowConstraints(50));
         rightColumn.getColumnConstraints().add(new ColumnConstraints(300));
 
+        //Adding the Panel into the right column at cell (1,0)
+        splitView.add(rightColumn,1,0);
+
+
 
         StackPane cover = new StackPane();
         Rectangle coverBox = new Rectangle(300, 600);
@@ -252,6 +256,15 @@ public class App extends Application {
             System.out.println(game.name);
         });
 
+        Button dialogButton = new Button("Kør Dialog");
+        dialogButton.setOnAction(actionEvent -> {
+            Conversation conversation = new Conversation();
+            Conversation.i = 0;
+        });
+
+        buttonPanel.getGridPaneButtons().add(dialogButton,2,0);
+
+
 // KEYS pressed
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -268,10 +281,11 @@ public class App extends Application {
                     //Leave conversation
                     case L: leaveConvo(); break;
                     //Conversation responses
-                    case DIGIT1: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(1); break;
-                    case DIGIT2: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(2); break;
-                    case DIGIT3: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(3); break;
-                    case DIGIT4: game.currentRoom.getNPC().getCurrentSay().setChosenResponse(4); break;
+                    case DIGIT1: game.currentRoom.getNPC().getCurrentSay().chooseResponse(1); break;
+                    case DIGIT2: game.currentRoom.getNPC().getCurrentSay().chooseResponse(2); break;
+                    case DIGIT3: game.currentRoom.getNPC().getCurrentSay().chooseResponse(3); break;
+                    case DIGIT4: game.currentRoom.getNPC().getCurrentSay().chooseResponse(4); break;
+
                 }
             }
         });
