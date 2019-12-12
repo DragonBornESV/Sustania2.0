@@ -1,13 +1,14 @@
 package com.mycompany.sustainia;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Inventory {
     // We create variables for our starting inventory stats.
     double money = 0;           // The amount of money the player is carrying.
     double carrying = 0;        // The current weight the player is carrying.
     int carryingCapacity = 100; // The total amount of weight the player is able to carry.
-    Material[] materialArray;
+    Material[] materialArray = new Material[10];
 
     private ArrayList<Item> itemsInInventory;
     
@@ -17,7 +18,11 @@ public class Inventory {
     public Inventory(){
         // Clones the materials from World
         // (it is clones because the count attribute is modified during gameplay in each object.)
-        materialArray = World.materialArray.clone();
+        
+        //Clones every material over from World
+        for (int i = 0; i < materialArray.length; i++) {
+            materialArray[i] = World.materialArray[i].clone();
+        }
         
         itemsInInventory = new ArrayList<>(); 
         updateWeight();
@@ -25,10 +30,10 @@ public class Inventory {
     }
     
    
-/* 
- * The method updateWeight() is used to update the money value and the carry value.
- * The method is called whenever an item is removed or placed in the inventory
- */  
+    /**
+     * The method updateWeight() is used to update the money value and the carry value.
+     * The method is called whenever an item is removed or placed in the inventory
+     */  
     public void updateWeight() {
         double tempWeight = 0;         // The first temporary variable is used to calculate the amount of weight the player is carrying.
       
@@ -41,30 +46,40 @@ public class Inventory {
     }
   
     /*
-     * This method is called when the user salvage <itemName> command is used.
      * The selected item is removed from the inventory and the materials the item consists of is added to the inventory.
      */
     public void salvageMaterials(Item itemToSalvage){
         //Iterates through the materials in the item and adds them to the 
-        //materials in the inventory
-        for (int i = 0; i < itemToSalvage.materials.length; i++) {
-            materialArray[i].count += itemToSalvage.materials[i].count;
+        // materials in the inventory.
+        
+        //Is there an item to salvage from?
+        if (itemToSalvage == null) {
+            // Goes through every material in the item.
+            for (int i = 0; i < itemToSalvage.materials.length; i++) {
+                //Then goes through every material in the inventory.
+                for (int j = 0; j < materialArray.length; j++) {
+                    // Checks if the item material and inventory material are
+                    // the same and adds the item material-count to the inventory.
+                    if (itemToSalvage.materials[i].name == materialArray[j].name) {
+                        materialArray[j].count += itemToSalvage.materials[i].count;
+                    }
+                }
+            }
+
+            //Removes the salvaged item from the inventory
+            getItemsInInventory().remove(itemToSalvage);
         }
-        
-        //Removes the salvaged item from the inventory
-        getItemsInInventory().remove(itemToSalvage);
-        
-        System.out.println(materialArray);
     }
     
-    
+    /**
+     * Converts the material into money
+     */
     public void recycleMaterials() {
+        
         for (int i = 0; i < materialArray.length; i++) {
             money += materialArray[i].count * materialArray[i].value;
             materialArray[i].count = 0;
         }
-        
-        System.out.println(money);
         updateWeight();
     }
 
@@ -86,11 +101,16 @@ public class Inventory {
             if (i != 0) {
                 toBeReturned += ", ";
             }
-            
             toBeReturned += itemsInInventory.get(i).getName();
         }
-        
         return toBeReturned + "]";
+    }
+    
+    /**
+     * Prints out the material name and the quantity of each material in the array.
+     */
+    public void printMaterials() {
+        System.out.println(Arrays.toString(materialArray));
     }
     
 }

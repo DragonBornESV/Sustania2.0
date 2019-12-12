@@ -89,7 +89,11 @@ public class Game {
                 new HitBox(2,44,16,45), new HitBox(18,44,64,12), new HitBox(238,44,16,45), new HitBox(174,44,64,12)
                 },
             new Door(new HitBox(96,209,64,10), streets),
-        new ArrayList<>(Arrays.asList(new Item[] {World.axe.cloneAndPosition(100, 100), World.glassBottle.cloneAndPosition(200, 100)})));
+        new ArrayList<>(Arrays.asList(new Item[] {
+            World.glassBottle.cloneAndPosition(200, 100),
+            World.axe.cloneAndPosition(200, 200),
+            World.computer.cloneAndPosition(50, 100)
+        })));
     }
         
     public void createNonsustainableHouse(){

@@ -21,9 +21,10 @@ public class Item implements Cloneable {
     Material[] materials = new Material[10];
     double weight;
     
-    public Item(String name, Material[] materials, int imageNumber) {
+    public Item(String name, Material[] materials, int[] materialCounts, int imageNumber) {
         this.name = name;
         this.materials = materials;
+        setCounts(materialCounts);
 
         int sumOfMaterials = 0;   // This is a temporary variable used to calculate the weight.
         
@@ -113,6 +114,16 @@ public class Item implements Cloneable {
         }
         
         return newItem;
+    }
+    
+    /**
+     * Sets the different amounts of materials by using an int array
+     * @param newCounts 
+     */
+    public void setCounts(int[] newCounts) {
+        for (int i = 0; i < materials.length; i++) {
+            materials[i].setCount(newCounts[i]);
+        }
     }
     
     /**
