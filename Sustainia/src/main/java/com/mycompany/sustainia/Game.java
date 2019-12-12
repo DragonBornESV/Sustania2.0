@@ -104,25 +104,7 @@ public class Game {
 
         
         streets.setNPC(busDriverNpc);
-        
-        //CRIMINAL   
-        String[] rCriminal1 = new String[]{
-                "Nothing", "I want to talk", "I want to ask for directions"};
-        int[] rpCriminal1 = new int[]{0,25,15};
-        Say dCriminal1 = new Say("What do you want?", rCriminal1, rpCriminal1);
-        
-        String[] rCriminal2 = new String[]{
-                "Yes, i have", "No, i haven't"};
-        int[] rpCriminal2 = new int[]{-10,-5};
-        Say dCriminal2 = new Say("Listen " + this.playerName + "!"
-                +"\nHave you been at the police station and talked with Olivia?", rCriminal2, rpCriminal2);
-                
-        String[] rCriminal3 = new String[]{
-                "Actually, i don't care what you do", "Because you don't get anything out of it.\n You will end up in prison anyway, why not now?", "Because you are better then that!", "I don't care. Teach me to be a criminal!"};
-        int[] rpCriminal3 = new int[]{-10,40,30,20};
-        Say dCriminal3 = new Say("I know that there are a arrest warrant out for me. I don't want to go to prison!\nTell me why i shouldn't do criminal acts?",rCriminal3, rpCriminal3);
-        
-        
+            
     }
     
     public void createTownHall(){
