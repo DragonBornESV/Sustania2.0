@@ -314,6 +314,7 @@ public class Game {
             
             inv.getItemsInInventory().add(item);
             currentRoom.getItemsInRoom().remove(item);
+            inv.updateValue();
             System.out.println(inv); //For debugging
             
             needsUpdate = true;
@@ -334,6 +335,7 @@ public class Game {
             item.setPosition((World.gameX +World.characterX -8*World.scale)/World.scale, (World.gameY +World.characterY + 16*World.scale)/World.scale);
             currentRoom.getItemsInRoom().add(item);
             inv.getItemsInInventory().remove(item);
+            inv.updateValue();
             
             needsUpdate = true;
         } else {

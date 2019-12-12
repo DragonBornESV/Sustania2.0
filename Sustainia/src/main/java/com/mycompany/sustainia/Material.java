@@ -7,9 +7,9 @@ package com.mycompany.sustainia;
  */
 public class Material implements Cloneable {
     String name;
-    double value;       //How much the material is worth per unit.
+    double value;           //How much the material is worth per unit.
     double weight = 0.1;    //How much it weighs per unit
-    int count;          //The quantity of the material
+    int count;              //The quantity of the material
     
     public Material(String matName, double matValue, double matWeight, int count){
         name = matName;

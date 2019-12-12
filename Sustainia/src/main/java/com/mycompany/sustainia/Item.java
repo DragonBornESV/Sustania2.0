@@ -19,7 +19,8 @@ public class Item implements Cloneable {
     int imageNumber = 0;
     
     Material[] materials = new Material[10];
-    double weight;
+    float weight;
+    float value;
     
     public Item(String name, Material[] materials, int[] materialCounts, int imageNumber) {
         this.name = name;
@@ -32,7 +33,12 @@ public class Item implements Cloneable {
         for (int j = 0; j < materials.length; j++){
              sumOfMaterials += materials[j].count;
         }
-        weight = sumOfMaterials * 0.1;
+        weight = (sumOfMaterials * 0.1f);
+        
+        //Updates the value of the entire item
+        for (int j = 0; j < materials.length; j++){
+             value += materials[j].count * materials[j].value;
+        }
         
         this.imageNumber = imageNumber;
     }
@@ -48,7 +54,7 @@ public class Item implements Cloneable {
         for (int j = 0; j < materials.length; j++){
              sumOfMaterials += materials[j].count;
         }
-        weight = sumOfMaterials * 0.1;
+        weight = sumOfMaterials * 0.1f;
         
         this.itemX = itemX;
         this.itemY = itemY;

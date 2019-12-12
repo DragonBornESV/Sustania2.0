@@ -375,7 +375,6 @@ public class App extends Application {
                     game.currentRoom = game.roomChangeCheck(World.gameX, World.gameY);
                     //System.out.println(game.currentRoom.name);
                     update();
-                    Parameter.mapAddScore("City Equality", 1);
 
                 }
             };
@@ -398,7 +397,6 @@ public class App extends Application {
         if (game.needsUpdate() || game.roomSwitch) {
             loadItems();
             game.setNeedsUpdate(false);
-            //game.roomSwitch = false;
         }
 
         // character_animation

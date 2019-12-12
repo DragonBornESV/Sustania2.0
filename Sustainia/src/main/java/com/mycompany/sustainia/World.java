@@ -62,7 +62,7 @@ public class World {
     static int[] aluminumCanMaterialcountArray = {1}; 
     public static Item aluminumCan   = new Item("Aluminum can", new Material[]{aluminum.clone()}, aluminumCanMaterialcountArray, 0);
     // Axe
-    static int[] axeMaterialcountArray = {56, 6};
+    static int[] axeMaterialcountArray = {6, 6};
     public static Item axe = new Item("Axe",new Material[]{iron.clone(), aluminum.clone()} , axeMaterialcountArray, 1);
     // Cardboard Box
     static int[] cardboardBoxMaterialCount = {1};
@@ -71,7 +71,7 @@ public class World {
     static int[] clothesMaterialCount = {5};
     public static Item clothes   = new Item("Clothes", new Material[]{cloth.clone()}, clothesMaterialCount, 3);
     // Computer
-    static int[] computerMaterialcountArray = {22, 34, 11, 45};
+    static int[] computerMaterialcountArray = {3, 5, 2, 2};
     public static Item computer   = new Item("Computer", new Material[]{copper.clone(),plastic.clone(),aluminum.clone(),iron.clone()}, computerMaterialcountArray, 4);
     // Glass Bottle
     static int[] glassBottleMaterialCount = {4};
@@ -86,7 +86,7 @@ public class World {
     static int[] plasticBottleMaterialCount = {1};
     public static Item plasticBottle   = new Item("Plastic bottle", new Material[]{plastic.clone()}, plasticBottleMaterialCount, 8);
     // Tire
-    static int[] tireMaterialcountArray = {160, 40};
+    static int[] tireMaterialcountArray = {16, 4};
     public static Item tire   = new Item("Tire", new Material[]{rubber.clone(), iron.clone()}, tireMaterialcountArray, 9);
 
     
