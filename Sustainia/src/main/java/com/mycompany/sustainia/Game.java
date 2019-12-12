@@ -48,7 +48,7 @@ public class Game {
         },
         new HitBox[]{
             // LHitBoxevel Barrier
-            new HitBox(0,298,1120,20), new HitBox(0,770,1120,10),
+            new HitBox(0,298,1120,20), new HitBox(0,770,1120,10), new HitBox(1120,298,10,472), new HitBox(-10,298,10,472),
             // TownHall
             new HitBox(448,318,224,110), new HitBox(448,428,96,34), new HitBox(576,428,96,34),
             // NSH
@@ -56,15 +56,15 @@ public class Game {
             // Park
             new HitBox(0,528,213,57), new HitBox(0,440,213,66), new HitBox(0,506,192,22),
             // Bank
-            new HitBox(912,374,16,2), new HitBox(912,394,16,2), new HitBox(928,330,160,110),
+            new HitBox(912,374,16,2), new HitBox(912,394,16,2), new HitBox(928,330,160,110), new HitBox(896,407,32,33), new HitBox(896,308,32,55),
             // Clothing Factory
-            new HitBox(896,526,32,2), new HitBox(896,506,32,2), new HitBox(928,462,160,110),
+            new HitBox(896,526,32,2), new HitBox(896,506,32,2), new HitBox(928,462,160,110), new HitBox(896,528,32,88), new HitBox(896,440,32,66), new HitBox(928,583,192,33),
             // Police Station
             new HitBox(320,616,2,22), new HitBox(350,616,2,22), new HitBox(256,638,160,110), new HitBox(417,726,1,22),
             // Recyclestation
             new HitBox(480,614,64,24), new HitBox(576,614,64,24), new HitBox(480,638,160,110),
             // School
-            new HitBox(768,616,2,22), new HitBox(798,616,2,22), new HitBox(704,638,160,55), new HitBox(704,693,96,55)
+            new HitBox(768,616,2,22), new HitBox(798,616,2,22), new HitBox(704,638,160,55), new HitBox(704,693,96,55), new HitBox(672,616,2,154), new HitBox(879,705,2,42)
         },
  
             new HitBox[]{
@@ -134,7 +134,7 @@ public class Game {
         park = new Room("Park", 240, 115,
             new HitBox[]{
                 // Walls
-                new HitBox(0,0,21,209), new HitBox(20,0,215,57)
+                new HitBox(0,0,21,209), new HitBox(20,0,215,57), new HitBox(230,148,26,61), new HitBox(230,0,26,101), new HitBox(0,209,256,10)
             },
             new Door(new HitBox(256,104,10,44), streets)
         , new ArrayList<>());
