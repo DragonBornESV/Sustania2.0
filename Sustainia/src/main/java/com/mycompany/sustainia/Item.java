@@ -19,11 +19,13 @@ public class Item implements Cloneable {
     int imageNumber = 0;
     
     Material[] materials = new Material[10];
-    double weight;
+    float weight;
+    float value;
     
-    public Item(String name, Material[] materials, int imageNumber) {
+    public Item(String name, Material[] materials, int[] materialCounts, int imageNumber) {
         this.name = name;
         this.materials = materials;
+        setCounts(materialCounts);
 
         int sumOfMaterials = 0;   // This is a temporary variable used to calculate the weight.
         
@@ -31,7 +33,12 @@ public class Item implements Cloneable {
         for (int j = 0; j < materials.length; j++){
              sumOfMaterials += materials[j].count;
         }
-        weight = sumOfMaterials * 0.1;
+        weight = (sumOfMaterials * 0.1f);
+        
+        //Updates the value of the entire item
+        for (int j = 0; j < materials.length; j++){
+             value += materials[j].count * materials[j].value;
+        }
         
         this.imageNumber = imageNumber;
     }
@@ -47,7 +54,7 @@ public class Item implements Cloneable {
         for (int j = 0; j < materials.length; j++){
              sumOfMaterials += materials[j].count;
         }
-        weight = sumOfMaterials * 0.1;
+        weight = sumOfMaterials * 0.1f;
         
         this.itemX = itemX;
         this.itemY = itemY;
@@ -116,6 +123,16 @@ public class Item implements Cloneable {
     }
     
     /**
+     * Sets the different amounts of materials by using an int array
+     * @param newCounts 
+     */
+    public void setCounts(int[] newCounts) {
+        for (int i = 0; i < materials.length; i++) {
+            materials[i].setCount(newCounts[i]);
+        }
+    }
+    
+    /**
      * Overrides the clone method from the interface Cloneable which makes
      * the object able to be cloned. This is used in the cloneAndPosition
      * method.
@@ -126,6 +143,11 @@ public class Item implements Cloneable {
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+    
+    @Override
+    public String toString() {
+        return name;
     }
     
 }

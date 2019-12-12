@@ -304,9 +304,13 @@ public class App extends Application {
                     case S: goSouth = true; break;
                     case D: goEast  = true; break;
                     case A: goWest  = true; break;
-                    //Detects the drop-key 'Q'
-                    //Just for now, the item to be dropped is always the first item
-                    case Q: dropItem();
+                    //Drop item button
+                    case Q: dropItem(); break;
+                    //Salvage button (INDSÆT SELECTED ITEM FRA LISTVIEW)
+                    case B: game.getInventory().salvageMaterials(); break;
+                    //Recycle button
+                    case R: game.getInventory().recycleMaterials(); break;
+                    
                 }
             }
         });
@@ -371,7 +375,6 @@ public class App extends Application {
                     game.currentRoom = game.roomChangeCheck(World.gameX, World.gameY);
                     //System.out.println(game.currentRoom.name);
                     update();
-                    Parameter.mapAddScore("City Equality", 1);
 
                 }
             };
@@ -391,7 +394,7 @@ public class App extends Application {
         game.collisionWithObjects(World.gameX, World.gameY, game.currentRoom);
 
         //Updates the items if it needs it
-        if (game.needsUpdate()) {
+        if (game.needsUpdate() || game.roomSwitch) {
             loadItems();
             game.setNeedsUpdate(false);
         }
@@ -545,14 +548,15 @@ public class App extends Application {
             //Sets the image of the items to the correct location in the scene.
             tempItem.setX(roomItems.get(i).getItemX());
             tempItem.setY(roomItems.get(i).getItemY());
-            //tempItem.setY(roomItems.get(i).getItemY());
             
             //Adds the imageView of the item to the list.
             //These will be added to the group later.'
             items.add(tempItem);
             
             //This can be used to show the hitboxes.
-            //roomItems.get(i).printPosition();
+            roomItems.get(i).printPosition();
+            
+            System.out.println("All items loaded");
         }
         
         //Adds all the new items to the group
@@ -567,7 +571,13 @@ public class App extends Application {
      * on screen.
      */
     private void dropItem() {
-        game.dropItem(game.getInventory().getItemsInInventory().get(0));
+        try {
+            //INDSÆT VILLYS KODE FOR SELECTED ITEM
+            game.dropItem(game.getInventory().getItemsInInventory().get(0));
+        } 
+        catch (java.lang.IndexOutOfBoundsException ex) {
+            System.out.println("No item to be dropped");
+        }
     }
     
     public static void runApp(String[] args) {

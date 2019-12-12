@@ -1,1 +1,6 @@
 module-info.class
+com\mycompany\sustainia\HitBox.class
+com\mycompany\sustainia\Door.class
+com\mycompany\sustainia\RecyclingStationRoom.class
+com\mycompany\sustainia\App$3.class
+com\mycompany\sustainia\ParameterPanel.class
