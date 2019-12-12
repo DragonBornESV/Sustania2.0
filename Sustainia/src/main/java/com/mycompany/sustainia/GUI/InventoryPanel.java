@@ -14,8 +14,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 
-
-
+/**
+ * This class is used to display the players Inventory in the UI Panel.
+ */
 public class InventoryPanel extends Node {
 
     private ObservableList<com.mycompany.sustainia.Item> observableList;
@@ -23,7 +24,10 @@ public class InventoryPanel extends Node {
     private GridPane gridPane;
     private Text header;
 
-
+    /**
+     *
+     * @param itemsInInventory takes
+     */
     public InventoryPanel(ObservableList<Item> itemsInInventory){
         header = new Text("Inventory");
         header.setFont(new Font(20));

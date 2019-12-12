@@ -31,10 +31,10 @@ public class ImageTextCell extends ListCell<Item> {
             hBox.getChildren().add(item.getImage()); //Adds the item image into the Hbox
 
             Label label = new Label(item.toString()); //Creates a Label object
-            label.setAlignment(Pos.CENTER_RIGHT);
-            hBox.getChildren().add(label);
+            label.setAlignment(Pos.CENTER_RIGHT); //Aligns the node
+            hBox.getChildren().add(label); //Adds the label into the Hbox
 
-            setGraphic(hBox);
+            setGraphic(hBox); //Finally adds the Hbox containing the image and label to setGraphic which ListView uses to display the Hbox.
         }
 
 
