@@ -89,6 +89,7 @@ public class Parameter {
         Parameter p5 = new Parameter("City Clean Air");
         Parameter p6 = new Parameter("City Cleanliness");
         Parameter p7 = new Parameter("City Security");
+        Parameter p8 = new Parameter("Recycling");
     }
 
     /**
@@ -109,6 +110,8 @@ public class Parameter {
                 p.setScore(0);
             }
             parameterList.put(name, p);
+            
+            printScore();
 
             /*for (ParameterPanel q: ParameterPanel.list) {
                 if (q.getParameterName() == name) {

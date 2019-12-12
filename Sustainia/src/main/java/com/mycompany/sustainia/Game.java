@@ -9,7 +9,8 @@ public class Game {
     int previousRoom;
     
     Room streets, townHall, nonsustainableHouse, policeStation, bank, 
-            clothingFactory, school, park, recyclingStation;
+            clothingFactory, school, park;
+    RecyclingStationRoom recyclingStation;
     
     Room currentRoom;
     private Inventory inv;
@@ -98,7 +99,11 @@ public class Game {
                 new HitBox(2,44,16,45), new HitBox(18,44,64,12), new HitBox(238,44,16,45), new HitBox(174,44,64,12)
                 },
             new Door(new HitBox(96,209,64,10), streets),
-        new ArrayList<>(Arrays.asList(new Item[] {World.axe.cloneAndPosition(100, 100), World.glassBottle.cloneAndPosition(200, 100)})));
+        new ArrayList<>(Arrays.asList(new Item[] {
+            World.glassBottle.cloneAndPosition(200, 100),
+            World.axe.cloneAndPosition(200, 200),
+            World.computer.cloneAndPosition(50, 100)
+        })));
     }
         
     public void createNonsustainableHouse(){
@@ -164,12 +169,16 @@ public class Game {
     }
     
     public void createRecyclingStation(){
-        recyclingStation = new Room("Recycling Station", 128, 44,
+        recyclingStation = new RecyclingStationRoom("Recycling Station", 128, 44,
             new HitBox[]{
-                //Walls
+            //Walls
                 new HitBox(0,0,112,44), new HitBox(144,0,112,44), new HitBox(-6,44,10,161), new HitBox(252,44,10,161), new HitBox(0,205,256,10)},
-            new Door(new HitBox(112,0,32,44), streets)
-        , new ArrayList<>());
+            //Door
+                new Door(new HitBox(112,0,32,44), streets), 
+            //Items
+                new ArrayList<>(),
+            //Container
+                new HitBox(86,150,86,55));
     }
     
     public void createSchool(){
@@ -233,6 +242,12 @@ public class Game {
     public void collisionWithObjects(int x, int y, Room room){
         for (int i = 0; i < room.hitboxesInRoom.length; i++){
             room.hitboxesInRoom[i].collisionWithObject(x, y);
+        }
+        
+        // Checks if the container is hit in the recycling station room.
+        if (recyclingStation.getContainerHitBox().checkIfTriggered()) {
+            //Executes the recycleMaterials method.
+            inv.recycleMaterials();
         }
 
         // Checks if the items collide with the player. 
@@ -331,6 +346,7 @@ public class Game {
             
             inv.getItemsInInventory().add(item);
             currentRoom.getItemsInRoom().remove(item);
+            inv.updateValue();
             System.out.println(inv); //For debugging
             
             needsUpdate = true;
@@ -351,6 +367,7 @@ public class Game {
             item.setPosition((World.gameX +World.characterX -8*World.scale)/World.scale, (World.gameY +World.characterY + 16*World.scale)/World.scale);
             currentRoom.getItemsInRoom().add(item);
             inv.getItemsInInventory().remove(item);
+            inv.updateValue();
             
             needsUpdate = true;
         } else {
@@ -358,6 +375,7 @@ public class Game {
         }
         
     }
+ 
     
     /**
      * A way that the app-class can detect if it needs to update its items.
