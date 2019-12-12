@@ -16,10 +16,8 @@ public class Parameter {
     private float average;
     public static Parameter mainScore = new Parameter();
 
-
-
+    
     /**
-     *
      * @param name The name of the parameter to value the game. score The score
      * that the user is valued from, and base value is set to 20. average The
      * score converted to percentage as an average to display the score.
@@ -41,7 +39,6 @@ public class Parameter {
     /**
      * This constructor is for the Primary parameter, which reflects the overall
      * score for all the secondary parameters.
-     *
      */
     public Parameter() {
         this.name = "City Sustainability";
@@ -52,6 +49,9 @@ public class Parameter {
          */
     }
 
+    /**
+     * @return the name 
+     */
     public String getName() {
         return this.name;
     }
@@ -63,6 +63,9 @@ public class Parameter {
         return this.score;
     }
     
+    /**
+     * @param num sets the score to a numbers
+     */
     private void setScore(float num) {
         this.score = num;
     }
@@ -110,84 +113,11 @@ public class Parameter {
                 p.setScore(0);
             }
             parameterList.put(name, p);
-            
-            printScore();
-
-            /*for (ParameterPanel q: ParameterPanel.list) {
-                if (q.getParameterName() == name) {
-                    q.getProgressBar().setProgress(p.getScore());
-                    q.getProgressText().setText(Float.toString(p.getScore()));
-                }
-
-            }
 
 
-
-            if (p.getScore() == 100) {
-                System.out.println("Congratulations you won the game!");
-                Parameter.printScore();
-
-            }
-
-             */
         }
     }
 
-    /**
-     * Returns a string that can be printed out by another method to show
-     * progress in the console. Progress is shown by the bar per 10 percent and
-     * as the exact percentage later.
-     */
-    public String progressBar() {
-        String progressBar = "[";
-        for (int i = 0; i < 10; i++) {
-            if (score/10 > i) {
-                progressBar += "=";
-            } else {
-                progressBar += " ";
-            }   
-        }
-        return progressBar + "]";
-    }
 
-    /**
-     * This method returns the average for the Primary parameter.
-     *
-     * @return float value for the main/Primary parameter.
-     */
-    public float getMainAverage() {
-        float value = 0;
 
-        for (Map.Entry<String, Parameter> entry : parameterList.entrySet()) {
-            value += entry.getValue().getScore();
-        }
-
-        return value / parameterList.size();
-    }
-
-    /**
-     * Method returns the current average for a secondary parameter.
-     *
-     * @return float value for secondary parameters.
-     */
-    public float getAverage() {
-        return (this.getScore() / 100) * 100;
-    }
-
-    /**
-     * Prints out the score to the console and uses progressBar() to illustrate.
-     * printScore() also creates a mainScore object to show the main score of
-     * the game.
-     */
-    public static void printScore() {
-        System.out.println("|-------------------------------------------------|");
-
-        for (Map.Entry<String, Parameter> entry : parameterList.entrySet()) {
-            System.out.println(entry.getKey() + ":   \t\t" + entry.getValue().progressBar() + " " + Math.round(entry.getValue().getAverage()) + "%");
-        }
-
-        System.out.println("|-------------------------------------------------|");
-        mainScore.score = mainScore.getMainAverage();
-        System.out.println(mainScore.getName() + ":\t\t" + mainScore.progressBar() + " " + Math.round(mainScore.getMainAverage()) + "%");
-    }
 }

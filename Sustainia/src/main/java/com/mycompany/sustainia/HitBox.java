@@ -85,5 +85,5 @@ public class HitBox {
     public String toString() {
         return "position: " + topLeftX + ", " + topLeftY + ", size: " + width + ", " + height;
     }
-    
+
 }

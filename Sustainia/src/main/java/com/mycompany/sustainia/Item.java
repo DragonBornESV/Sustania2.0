@@ -1,5 +1,7 @@
 package com.mycompany.sustainia;
 
+import javafx.scene.image.ImageView;
+
 /*
  * This class createss our objekt/datatype item.
  * Item consists of a name in form of a string,
@@ -17,6 +19,11 @@ public class Item implements Cloneable {
     private HitBox hb = new HitBox(itemX,itemY,16,16);
     
     int imageNumber = 0;
+
+    ImageView image;
+    public ImageView getImage(){
+        return this.image;
+    }
     
     Material[] materials = new Material[10];
     float weight;

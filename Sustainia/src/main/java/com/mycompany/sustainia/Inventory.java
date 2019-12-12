@@ -3,6 +3,10 @@ package com.mycompany.sustainia;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.mycompany.sustainia.Item;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class Inventory {
     // We create variables for our starting inventory stats.
     float value = 0;           // The amount of value the player is carrying.
@@ -10,7 +14,7 @@ public class Inventory {
     int carryingCapacity = 100; // The total amount of weight the player is able to carry.
     Material[] materialArray = new Material[10];
 
-    private ArrayList<Item> itemsInInventory;
+    private ObservableList<Item> itemsInInventory;
     
     HitBox standardHitBox = new HitBox(0,0,10,10);
     
@@ -23,8 +27,8 @@ public class Inventory {
         for (int i = 0; i < materialArray.length; i++) {
             materialArray[i] = World.materialArray[i].clone();
         }
-        
-        itemsInInventory = new ArrayList<>(); 
+
+        itemsInInventory = FXCollections.observableArrayList();
         updateWeight();
         updateValue();
         System.out.println(value);
@@ -109,7 +113,7 @@ public class Inventory {
     /**
      * @return the itemsInInventory
      */
-    public ArrayList<Item> getItemsInInventory() {
+    public ObservableList<Item> getItemsInInventory() {
         return itemsInInventory;
     }
     
@@ -127,13 +131,6 @@ public class Inventory {
             toBeReturned += itemsInInventory.get(i).getName();
         }
         return toBeReturned + "]";
-    }
-    
-    /**
-     * Prints out the material name and the quantity of each material in the array.
-     */
-    public void printMaterials() {
-        System.out.println(Arrays.toString(materialArray));
     }
     
 }
